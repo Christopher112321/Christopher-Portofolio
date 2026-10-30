@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Christopher Theo Purnomo — Software Engineer & Informatics Student</title>
+  <meta name="description" content="Portofolio resmi Christopher Theo Purnomo, mahasiswa Teknik Informatika Unika Soegijapranata dengan fokus pada Decision Support System (DSS), rekayasa web, arsitektur database, dan sistem cerdas.">
+  <meta name="author" content="Christopher Theo Purnomo">
+  <meta name="theme-color" content="#09090b">
+
+  <!-- OpenGraph Meta Tags -->
+  <meta property="og:title" content="Christopher Theo Purnomo — Portfolio & Engineering Projects">
+  <meta property="og:description" content="Portofolio personal dan studi kasus teknis proyek: InternMatch DSS dan MySembako.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/assets/christopher-base.jpg">
+
+  <!-- Google Fonts: Syne (Display), Plus Jakarta Sans (Humanist Body), JetBrains Mono (Technical/Data) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+
+  <!-- Custom Precision Cursor Follower (Desktop only) -->
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+  <!-- Background Interactive Grid Canvas -->
+  <canvas id="bgCanvas" class="bg-canvas" aria-hidden="true"></canvas>
+
+  <!-- =========================================================================
+       INTRO / LOADING SCREEN — MODERN MINIMALIST DARK
+       0-100% Counter, ambient dust particles, and sleek shutter reveal
+       ========================================================================= -->
+  <div id="introScreen" class="intro-screen" aria-label="Loading Portfolio">
+    <!-- Shutter panels for exit reveal -->
+    <div class="intro-shutter intro-shutter-top"></div>
+    <div class="intro-shutter intro-shutter-bottom"></div>
+
+    <!-- Ambient particle canvas -->
+    <canvas id="introParticleCanvas" class="intro-particle-canvas" aria-hidden="true"></canvas>
+
+    <!-- Center content card -->
+    <div class="intro-content loading-card" id="loadingCard">
+      <div class="intro-meta">
+        <span class="loading-label">INITIALIZING</span>
+        <span class="loading-location">SEMARANG, ID</span>
+      </div>
+
+      <div class="intro-headline">
+        <span class="intro-title">CHRISTOPHER THEO PURNOMO</span>
+      </div>
+
+      <!-- 0 - 100% Clean Counter -->
+      <div class="loading-counter-wrap">
+        <span class="loading-percent" id="loadingPercent">0%</span>
+      </div>
+
+      <!-- Slim progress line with glow -->
+      <div class="loading-bar-track">
+        <div class="loading-bar-fill" id="loadingBarFill" style="width: 0%;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       FLOATING PILL NAVBAR (Mengambang di tengah atas, Scrollspy terintegrasi)
+       ========================================================================= -->
+  <header class="navbar-wrapper">
+    <nav class="pill-navbar" id="pillNavbar" aria-label="Navigasi Utama">
+      <div class="nav-indicator" id="navIndicator" aria-hidden="true"></div>
+      
+      <a href="#home" class="nav-link active" data-section="home">
+        <span class="nav-text">Home</span>
+      </a>
+      <a href="#about" class="nav-link" data-section="about">
+        <span class="nav-text">About</span>
+      </a>
+      <a href="#portfolio" class="nav-link" data-section="portfolio">
+        <span class="nav-text">Portfolio</span>
+      </a>
+      <a href="#contact" class="nav-link" data-section="contact">
+        <span class="nav-text">Contact</span>
+      </a>
+    </nav>
+  </header>
+
+  <!-- =========================================================================
+       VERTICAL SIDE NAVIGATION RAIL (Referensi TikTok: Tombol Panah ^ & v)
+       ========================================================================= -->
+  <nav class="side-nav-rail" id="sideNavRail" aria-label="Navigasi Vertikal Antar Halaman">
+    <button type="button" class="side-nav-arrow" id="sideNavPrev" title="Halaman Sebelumnya" aria-label="Halaman Sebelumnya">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"></polyline>
+      </svg>
+    </button>
+    
+    <div class="side-nav-indicators" id="sideNavIndicators">
+      <button type="button" class="side-dot active" data-section="home" aria-label="Pindah ke Home"></button>
+      <button type="button" class="side-dot" data-section="about" aria-label="Pindah ke About"></button>
+      <button type="button" class="side-dot" data-section="portfolio" aria-label="Pindah ke Portfolio"></button>
+      <button type="button" class="side-dot" data-section="contact" aria-label="Pindah ke Contact"></button>
+    </div>
+    
+    <div class="side-nav-counter" id="sideNavCounter">
+      <span class="counter-current" id="counterCurrent">01</span>
+      <span class="counter-slash">/</span>
+      <span class="counter-total">04</span>
+    </div>
+
+    <button type="button" class="side-nav-arrow" id="sideNavNext" title="Halaman Berikutnya" aria-label="Halaman Berikutnya">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </button>
+  </nav>
+
+  <main>
+    <!-- =======================================================================
+         HERO SECTION (Kiri: Teks & Aksi, Kanan: SPOTIFY NOW PLAYING CARD)
+         ======================================================================= -->
+    <section id="home" class="section hero-section snap-section">
+      <div class="container hero-grid">
+        <!-- Kolom Kiri: Pengenalan Personal & Filosofi Teknik -->
+        <div class="hero-left">
+          <div class="hero-badge" data-anim="fade-left" data-anim-delay="1">
+            <span class="badge-dot live-dot"></span>
+            <span class="badge-text">Unika Soegijapranata — Semarang, Indonesia</span>
+          </div>
+
+          <h1 class="hero-name" data-anim="slide-up-big" data-anim-delay="2">
+            Christopher <br>
+            <span class="hero-name-accent">Theo Purnomo</span>
+          </h1>
+
+          <p class="hero-role" data-anim="fade-up" data-anim-delay="3">
+            Informatics Student &amp; Software Builder
+          </p>
+
+          <p class="hero-summary" data-anim="fade-up" data-anim-delay="4">
+            Berfokus pada pengembangan sistem web end-to-end, pemodelan Decision Support System (DSS), optimasi basis data, serta integrasi terapan AI/ML dan IoT. Berprinsip pada arsitektur perangkat lunak yang pragmatis, terukur, dan benar-benar menyelesaikan persoalan nyata.
+          </p>
+
+          <div class="hero-actions" data-anim="fade-up" data-anim-delay="5">
+            <!-- Tombol 1: View Projects (Scroll ke portofolio) -->
+            <a href="#portfolio" class="btn btn-primary" id="btnViewProjects">
+              <span>Lihat Proyek</span>
+              <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </a>
+
+            <!-- Tombol 2: View Resume (Buka modal resume ringkas) -->
+            <button type="button" class="btn btn-secondary" id="btnOpenResume">
+              <span>Ringkasan Resume</span>
+              <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Quick Metrics Strip -->
+          <div class="hero-stats" data-anim="fade-up" data-anim-delay="6">
+            <div class="stat-item">
+              <span class="stat-label">DOMISILI &amp; KAMPUS</span>
+              <span class="stat-value">Semarang / Unika Soegijapranata</span>
+            </div>
+            <div class="stat-separator"></div>
+            <div class="stat-item">
+              <span class="stat-label">BIDANG FOKUS</span>
+              <span class="stat-value">DSS, Web Systems, Databases, AI/ML</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kolom Kanan: SPOTIFY NOW PLAYING CARD (Sesuai Referensi) -->
+        <div class="hero-right" data-anim="fade-right" data-anim-delay="3" data-anim-speed="slow">
+          <div class="spotify-card" id="spotifyCard">
+            <!-- Spotify Header Tag -->
+            <div class="spotify-header">
+              <div class="spotify-badge">
+                <svg class="spotify-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.495 17.306c-.215.353-.674.464-1.026.248-2.812-1.718-6.353-2.107-10.523-1.155-.403.092-.807-.16-.899-.562-.092-.403.16-.807.562-.899 4.568-1.044 8.487-.604 11.638 1.342.353.216.464.674.248 1.026zm1.467-3.262c-.27.44-.848.578-1.288.308-3.22-1.979-8.128-2.553-11.937-1.396-.497.151-1.025-.133-1.176-.63-.151-.498.133-1.026.63-1.177 4.356-1.322 9.776-.682 13.463 1.583.44.27.578.848.308 1.288zm.126-3.41c-3.86-2.292-10.228-2.504-13.899-1.39-.593.18-1.22-.16-1.4-.754-.18-.593.16-1.22.754-1.4 4.225-1.283 11.246-1.037 15.688 1.6c.532.316.705 1.01.39 1.543-.316.533-1.01.706-1.543.39z"/>
+                </svg>
+                <span>NOW PLAYING ON SPOTIFY</span>
+              </div>
+              <div class="audio-equalizer" id="equalizerBars">
+                <span class="eq-bar"></span>
+                <span class="eq-bar"></span>
+                <span class="eq-bar"></span>
+                <span class="eq-bar"></span>
+              </div>
+            </div>
+
+            <!-- Album Art & Vinyl Component -->
+            <div class="spotify-visual-container">
+              <div class="vinyl-disc" id="vinylDisc">
+                <div class="vinyl-label"></div>
+              </div>
+              <div class="album-art-wrapper">
+                <img src="/assets/christopher-base.jpg" alt="Ambient Coding Session - Christopher Theo" class="album-art-img">
+                <div class="album-overlay-tint"></div>
+              </div>
+            </div>
+
+            <!-- Track Info -->
+            <div class="track-info">
+              <h3 class="track-title" id="trackTitle">Resonance // Deep Focus</h3>
+              <p class="track-artist" id="trackArtist">Ambient Lo-Fi &amp; Engineering Soundtrack</p>
+            </div>
+
+            <!-- Live Progress Bar -->
+            <div class="player-timeline">
+              <span class="time-stamp" id="timeCurrent">01:42</span>
+              <div class="progress-bar-bg" id="progressBarBg">
+                <div class="progress-bar-fill" id="progressBarFill" style="width: 52%;"></div>
+              </div>
+              <span class="time-stamp" id="timeTotal">03:18</span>
+            </div>
+
+            <!-- Player Controls -->
+            <div class="player-controls">
+              <button type="button" class="btn-ctrl" id="btnPrevTrack" aria-label="Previous Track">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="19 20 9 12 19 4 19 20"></polygon>
+                  <line x1="5" y1="19" x2="5" y2="5" stroke="currentColor" stroke-width="2"></line>
+                </svg>
+              </button>
+
+              <button type="button" class="btn-ctrl btn-play" id="btnPlayPause" aria-label="Play or Pause">
+                <svg class="icon-play" id="iconPlay" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+                <svg class="icon-pause" id="iconPause" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <rect x="6" y="4" width="4" height="16"></rect>
+                  <rect x="14" y="4" width="4" height="16"></rect>
+                </svg>
+              </button>
+
+              <button type="button" class="btn-ctrl" id="btnNextTrack" aria-label="Next Track">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="5 4 15 12 5 20 5 4"></polygon>
+                  <line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2"></line>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Direct Spotify Link -->
+            <div class="spotify-card-footer">
+              <a href="https://open.spotify.com" target="_blank" rel="noopener noreferrer" class="btn-open-spotify">
+                <span>Buka di Spotify</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         ABOUT SECTION (INTERACTIVE SPOTLIGHT REVEAL — MINIMALIST CLEAN)
+         ======================================================================= -->
+    <section id="about" class="section about-section snap-section">
+      <div class="container">
+        <div class="section-header" data-anim="fade-up">
+          <span class="section-label">01 // ABOUT ME</span>
+          <h2 class="section-title">Rekayasa Berbasis Logika, Keputusan Berbasis Data.</h2>
+        </div>
+
+        <div class="about-interactive-grid">
+          <!-- Kolom Kiri: Foto Cutout dengan Spotlight Reveal Halus (Persis Referensi Eka Wahyu) -->
+          <div class="about-photo-column" data-anim="fade-scale" data-anim-delay="2" data-anim-speed="slow">
+            <div class="about-spotlight-container" id="aboutSpotlightContainer">
+              <!-- Radial Glow Backdrop Behind Cutout -->
+              <div class="portrait-aura-backdrop" aria-hidden="true"></div>
+
+              <!-- Base Cutout Photo: Christopher Asli (Monochrome Base) -->
+              <img src="/assets/christopher-base-cutout.png" alt="Foto Christopher Theo Purnomo" class="about-img about-base-img" loading="lazy">
+              
+              <!-- Reveal Layer: Christopher Full-Vibrancy Spring Spotlight Reveal -->
+              <div class="about-photo-reveal-wrapper" id="aboutPhotoReveal">
+                <img src="/assets/christopher-base-cutout.png" alt="Christopher Theo Purnomo — Color Portrait" class="about-img about-reveal-img" id="aboutRevealImg" loading="lazy">
+              </div>
+
+              <!-- Minimalist Difference Dot Cursor (Persis Referensi Eka Wahyu: w-2 h-2 rounded-full mix-blend-difference) -->
+              <div class="spotlight-cursor-dot" id="spotlightCursorDot" aria-hidden="true"></div>
+
+              <!-- Bottom Fade Gradient (Persis Referensi: linear-gradient to bottom) -->
+              <div class="about-bottom-fade" aria-hidden="true"></div>
+            </div>
+
+            <div class="about-photo-meta">
+              <span class="meta-location">Semarang, Indonesia</span>
+              <span class="meta-tag">Teknik Informatika // Unika Soegijapranata</span>
+            </div>
+          </div>
+
+          <!-- Kolom Kanan: Narasi Personal & Matriks Skill -->
+          <div class="about-content-column" data-anim="fade-right" data-anim-delay="3">
+            <div class="about-narrative">
+              <p class="about-paragraph">
+                Saya adalah mahasiswa Teknik Informatika di <strong>Universitas Katolik Soegijapranata (Unika Soegijapranata)</strong> Semarang. Ketertarikan utama saya terletak pada titik temu antara logika komputasi, algoritma pengambilan keputusan (Decision Support System), dan rekayasa perangkat lunak yang tangguh.
+              </p>
+              <p class="about-paragraph">
+                Bagi saya, perangkat lunak yang bernilai bukan tentang tumpukan buzzword atau antarmuka yang dibuat-buat, melainkan sistem yang dapat diandalkan: basis data yang ternormalisasi dengan baik, alur pemrosesan data yang transparan, dan antarmuka yang efisien bagi penggunanya.
+              </p>
+            </div>
+
+            <div class="focus-areas-grid" data-anim="fade-up" data-anim-delay="4">
+              <div class="focus-card">
+                <span class="focus-index">01</span>
+                <h3 class="focus-title">Decision Support Systems</h3>
+                <p class="focus-desc">Merancang engine analitis multi-kriteria untuk mengkuantifikasi parameter subjektif menjadi rekomendasi keputusan yang objektif dan transparan.</p>
+              </div>
+              <div class="focus-card">
+                <span class="focus-index">02</span>
+                <h3 class="focus-title">Full-Stack &amp; Web Systems</h3>
+                <p class="focus-desc">Membangun arsitektur web fungsional mulai dari relasi skema basis data, REST API terstruktur, hingga antarmuka front-end yang responsif.</p>
+              </div>
+              <div class="focus-card">
+                <span class="focus-index">03</span>
+                <h3 class="focus-title">Applied AI/ML &amp; IoT</h3>
+                <p class="focus-desc">Mengintegrasikan model pembelajaran mesin terapan dan ekosistem telemetri sensorik untuk otomatisasi dan pengawasan sistem cerdas.</p>
+              </div>
+            </div>
+
+            <!-- Skills & Technical Stack Matrix (Minimalist Tags, No Progress Bars) -->
+            <div class="skills-sidebar" data-anim="fade-up" data-anim-delay="5">
+              <div class="skills-header">
+                <span class="skills-title">KAPABILITAS TEKNIS</span>
+                <span class="skills-sub">Stack &amp; Instrumen yang Digunakan</span>
+              </div>
+
+              <div class="skills-matrix-inline">
+                <div class="skill-category">
+                  <div class="category-title">Core Languages</div>
+                  <div class="tag-cloud">
+                    <span class="tech-tag">JavaScript (ES6+)</span>
+                    <span class="tech-tag">PHP</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">SQL</span>
+                    <span class="tech-tag">HTML5 / CSS3</span>
+                  </div>
+                </div>
+
+                <div class="skill-category">
+                  <div class="category-title">Web &amp; Frameworks</div>
+                  <div class="tag-cloud">
+                    <span class="tech-tag">Node.js</span>
+                    <span class="tech-tag">Vite &amp; Modern Bundlers</span>
+                    <span class="tech-tag">Laravel / Native PHP</span>
+                    <span class="tech-tag">RESTful API Design</span>
+                  </div>
+                </div>
+
+                <div class="skill-category">
+                  <div class="category-title">Database &amp; Data Layer</div>
+                  <div class="tag-cloud">
+                    <span class="tech-tag">MySQL / MariaDB</span>
+                    <span class="tech-tag">Relational Schema Design</span>
+                    <span class="tech-tag">Query Optimization</span>
+                    <span class="tech-tag">ACID Transactions</span>
+                  </div>
+                </div>
+
+                <div class="skill-category">
+                  <div class="category-title">DSS, Data &amp; Systems</div>
+                  <div class="tag-cloud">
+                    <span class="tech-tag">Multi-Criteria Decision Making (MCDM)</span>
+                    <span class="tech-tag">AHP / TOPSIS / CBR Analysis</span>
+                    <span class="tech-tag">Data Preprocessing</span>
+                    <span class="tech-tag">Git &amp; Version Control</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         PORTFOLIO SECTION (Studi Kasus Teknis: InternMatch DSS & MySembako)
+         ======================================================================= -->
+    <section id="portfolio" class="section portfolio-section snap-section">
+      <div class="container">
+        <div class="section-header" data-anim="fade-up">
+          <span class="section-label">02 // SELECTED ENGINEERING PROJECTS</span>
+          <h2 class="section-title">Studi Kasus Proyek &amp; Implementasi Sistem</h2>
+          <p class="section-sub">
+            Setiap proyek dikerjakan berdasarkan kebutuhan nyata dengan pertimbangan arsitektur teknis, efisiensi komputasi, dan solusi yang dapat dipertanggungjawabkan.
+          </p>
+        </div>
+
+        <div class="projects-list">
+
+          <!-- PROYEK 1: INTERNMATCH DSS -->
+          <article class="case-study-card" id="project-internmatch" data-anim="fade-up" data-anim-delay="2">
+            <header class="case-header">
+              <div class="case-meta">
+                <span class="case-id">PROJECT_01</span>
+                <span class="case-status">ACADEMIC &amp; APPLIED RESEARCH</span>
+              </div>
+              <h3 class="case-title">InternMatch DSS</h3>
+              <p class="case-tagline">
+                Sistem Pendukung Keputusan Multi-Kriteria untuk Rekomendasi Penempatan Magang Mahasiswa
+              </p>
+            </header>
+
+            <div class="case-body-grid">
+              <div class="case-column">
+                <div class="detail-block">
+                  <h4 class="block-label">KONTEKS PERMASALAHAN</h4>
+                  <p class="block-content">
+                    Proses pencocokan antara kompetensi mahasiswa dengan kriteria spesifikasi mitra industri magang sering kali terbentur bias subjektif dan ketidaksesuaian kualifikasi. Dibutuhkan engine analitis yang dapat mengukur kompetensi teknis, preferensi bidang, rekam akademik, dan kuota penerimaan secara proporsional dan transparan.
+                  </p>
+                </div>
+
+                <div class="detail-block">
+                  <h4 class="block-label">PERAN &amp; KONTRIBUSI SAYA</h4>
+                  <p class="block-content">
+                    <!-- TODO: isi detail — Jelaskan peran spesifik Anda (misal: perancang algoritma DSS, backend engineer) -->
+                    Bertanggung jawab atas formulasi logika sistem pendukung keputusan (DSS), perancangan matriks pembobotan kriteria, normalisasi nilai kandidat, serta implementasi logika penilaian dan perankingan pada modul backend.
+                  </p>
+                </div>
+
+                <div class="detail-block">
+                  <h4 class="block-label">METODOLOGI DSS YANG DIAPLIKASIKAN</h4>
+                  <p class="block-content">
+                    <!-- TODO: isi detail — Pilih/tegaskan metode yang Anda terapkan (AHP / TOPSIS / CBR / SAW / dsb) -->
+                    Menggunakan pendekatan Multi-Criteria Decision Making (MCDM) seperti <strong>AHP (Analytic Hierarchy Process)</strong> untuk penentuan bobot kepentingan relatif antar-kriteria, dikombinasikan dengan <strong>TOPSIS / Profile Matching</strong> untuk perangkingan alternatif berdasarkan jarak geometris terhadap solusi ideal.
+                  </p>
+                </div>
+              </div>
+
+              <div class="case-column">
+                <div class="detail-block">
+                  <h4 class="block-label">STACK TEKNOLOGI</h4>
+                  <div class="tag-cloud">
+                    <!-- TODO: isi detail stack yang Anda pakai -->
+                    <span class="tech-tag">Python / PHP</span>
+                    <span class="tech-tag">MySQL Relational DB</span>
+                    <span class="tech-tag">MCDM Matrix Computation</span>
+                    <span class="tech-tag">REST API</span>
+                    <span class="tech-tag">Responsive Front-End</span>
+                  </div>
+                </div>
+
+                <div class="detail-block">
+                  <h4 class="block-label">TANTANGAN REKAYASA &amp; SOLUSI</h4>
+                  <p class="block-content">
+                    <!-- TODO: isi detail — Jelaskan kendala teknis dan pemecahannya -->
+                    Tantangan utama terletak pada konsistensi matriks perbandingan berpasangan (Pairwise Comparison Consistency Ratio &lt; 0.1) serta normalisasi data kualitatif mahasiswa (portfolio, soft skills) menjadi variabel numerik terstandarisasi tanpa kehilangan konteks aslinya.
+                  </p>
+                </div>
+
+                <div class="detail-block">
+                  <h4 class="block-label">HASIL &amp; INSIGHT UTAMA</h4>
+                  <p class="block-content">
+                    <!-- TODO: isi detail — Akurasi atau hasil implementasi -->
+                    Sistem berhasil menghasilkan rekomendasi penempatan magang yang dapat diaudit perhitungannya (white-box decision), mereduksi ambiguitas seleksi, serta memberikan laporan skor kompatibilitas yang jelas baik bagi koordinator magang maupun mahasiswa bersangkutan.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <footer class="case-footer">
+              <div class="case-links">
+                <!-- TODO: isi link repository jika ada -->
+                <span class="link-label">Tautan Proyek:</span>
+                <span class="badge-code">Dokumentasi Riset / Prototipe Mandiri</span>
+              </div>
+              <div class="case-footer-note">
+                <span>Algoritma: Pembobotan Multi-Kriteria &amp; Matriks Perankingan</span>
+              </div>
+            </footer>
+          </article>
+
+          <!-- PROYEK 2: MYSEMBAKO -->
+          <article class="case-study-card" id="project-mysembako" data-anim="fade-up" data-anim-delay="3">
+            <header class="case-header">
+              <div class="case-meta">
+                <span class="case-id">PROJECT_02</span>
+                <span class="case-status">WEB APPLICATION &amp; INVENTORY SYSTEM</span>
+              </div>
+              <h3 class="case-title">MySembako</h3>
+              <p class="case-tagline">
+                Platform Terpadu Manajemen Stok, Distribusi, dan Transaksi Komoditas Sembilan Bahan Pokok
+              </p>
+            </header>
+
+            <div class="case-body-grid">
+              <div class="case-column">
+                <div class="detail-block">
+                  <h4 class="block-label">KONTEKS PERMASALAHAN</h4>
+                  <p class="block-content">
+                    Pengelolaan pasokan sembako pada toko fisik konvensional rentan terhadap pencatatan ganda, ketidaksesuaian stok fisik dengan pembukuan, keterlambatan restock komoditas kritis, dan fluktuasi harga beli yang cepat. Diperlukan aplikasi terpusat untuk memantau inventaris secara real-time dan mengelola transaksi dengan akurat.
+                  </p>
+                </div>
+
+                <div class="detail-block">
+                  <h4 class="block-label">PERAN &amp; KONTRIBUSI SAYA</h4>
+                  <p class="block-content">
+                    <!-- TODO: isi detail peran di MySembako -->
+                    Sebagai pengembang utama (Full-Stack Developer) yang merancang skema database relasional untuk entitas barang, satuan multi-kemasan, log pergerakan stok, modul kasir/transaksi, serta dasbor pemantauan stok minimum.
+                  </p>
+                </div>
+
+                <div class="detail-block">
+                  <h4 class="block-label">FITUR UTAMA &amp; ALUR OPERASIONAL</h4>
+                  <p class="block-content">
+                    <!-- TODO: isi detail modul -->
+                    Pencatatan batch masuk dan keluar (FIFO/rata-rata), notifikasi batas minimum stok sembako, pencetakan rekap transaksi kasir harian, serta visibilitas katalog barang bagi konsumen/karyawan.
+                  </p>
+                </div>
+              </div>
+
+              <div class="case-column">
+                <div class="detail-block">
+                  <h4 class="block-label">STACK TEKNOLOGI</h4>
+                  <div class="tag-cloud">
+                    <!-- TODO: isi detail stack MySembako -->
+                    <span class="tech-tag">Web Stack (Node.js / PHP)</span>
+                    <span class="tech-tag">MySQL Relational DB</span>
+                    <span class="tech-tag">HTML5 / Modern CSS / Vanilla JS</span>
+                    <span class="tech-tag">RESTful Endpoints</span>
+                    <span class="tech-tag">Transaction ACID Safe</span>
+                  </div>
+                </div>
+
+                <div class="detail-block">
+                  <h4 class="block-label">TANTANGAN REKAYASA &amp; SOLUSI</h4>
+                  <p class="block-content">
+                    <!-- TODO: isi tantangan teknis -->
+                    Menjaga integritas data saat transaksi penjualan berlangsung serentak (concurrency control) agar kuantitas stok barang tidak menjadi negatif, serta merancang skema relasi tabel yang fleksibel untuk berbagai satuan barang (karton, pack, kilogram, liter).
+                  </p>
+                </div>
+
+                <div class="detail-block">
+                  <h4 class="block-label">HASIL &amp; INSIGHT UTAMA</h4>
+                  <p class="block-content">
+                    <!-- TODO: isi hasil -->
+                    Aplikasi menyederhanakan siklus rekonsiliasi stok harian dari hitungan jam menjadi hitungan menit, menghilangkan selisih stok manual, serta memberikan visibilitas margin keuntungan per komoditas secara instan.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <footer class="case-footer">
+              <div class="case-links">
+                <!-- TODO: isi link repo -->
+                <span class="link-label">Tautan Proyek:</span>
+                <span class="badge-code">Aplikasi Web / Database Schema Demo</span>
+              </div>
+              <div class="case-footer-note">
+                <span>Fokus Sistem: Integritas Transaksi &amp; Pelacakan Mutasi Stok</span>
+              </div>
+            </footer>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         CONTACT SECTION (Fungsional, Direct, Tanpa Form Palsu)
+         ======================================================================= -->
+    <section id="contact" class="section contact-section snap-section">
+      <div class="container">
+        <div class="section-header" data-anim="fade-up">
+          <span class="section-label">03 // DIRECT CHANNELS</span>
+          <h2 class="section-title">Mari Terhubung dan Berdiskusi</h2>
+          <p class="section-sub">
+            Terbuka untuk kolaborasi proyek perangkat lunak, penelitian Decision Support System, kesempatan magang, maupun pertukaran wawasan rekayasa teknologi.
+          </p>
+        </div>
+
+        <div class="contact-channels-grid">
+          <!-- Channel 1: Email Langsung + Tombol Salin Cepat -->
+          <div class="contact-card" data-anim="fade-up" data-anim-delay="1">
+            <div class="card-channel-label">SURAT ELEKTRONIK</div>
+            <div class="channel-value" id="emailText">
+              <!-- TODO: isi dengan email resmi Anda -->
+              chris.theo.purnomo@gmail.com
+            </div>
+            <div class="channel-actions">
+              <a href="mailto:chris.theo.purnomo@gmail.com" class="btn-channel" id="mailLink">
+                Kirim Email Langsung
+              </a>
+              <button type="button" class="btn-channel-secondary" id="btnCopyEmail" title="Salin alamat email">
+                <span id="copyBtnText">Salin Alamat</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Channel 2: GitHub -->
+
+          <div class="contact-card" data-anim="fade-up" data-anim-delay="2">
+            <div class="card-channel-label">SOURCE CODE &amp; REPOSITORI</div>
+            <div class="channel-value">github.com/christophertheop</div>
+            <div class="channel-actions">
+              <!-- TODO: sesuaikan URL GitHub Anda -->
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="btn-channel">
+                Kunjungi Profil GitHub
+              </a>
+            </div>
+          </div>
+
+          <!-- Channel 3: LinkedIn -->
+          <div class="contact-card" data-anim="fade-up" data-anim-delay="3">
+            <div class="card-channel-label">JARINGAN PROFESIONAL</div>
+            <div class="channel-value">linkedin.com/in/christopher-theo-purnomo</div>
+            <div class="channel-actions">
+              <!-- TODO: sesuaikan URL LinkedIn Anda -->
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="btn-channel">
+                Koneksi di LinkedIn
+              </a>
+            </div>
+          </div>
+
+          <!-- Channel 4: Instagram / Personal Media -->
+          <div class="contact-card" data-anim="fade-up" data-anim-delay="4">
+            <div class="card-channel-label">MEDIA SOSIAL &amp; PERSONAL</div>
+            <div class="channel-value">@chris_theo.p</div>
+            <div class="channel-actions">
+              <a href="https://instagram.com/chris_theo.p" target="_blank" rel="noopener noreferrer" class="btn-channel">
+                Buka Instagram
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================================================================
+       FOOTER
+       ========================================================================= -->
+  <footer class="site-footer">
+    <div class="container footer-content" data-anim="fade-up">
+      <div class="footer-left">
+        <span class="footer-author">Christopher Theo Purnomo</span>
+        <span class="footer-dot">•</span>
+        <span class="footer-inst">Unika Soegijapranata</span>
+      </div>
+      <div class="footer-right">
+        <span class="footer-mono">Semarang, ID // Hand-crafted with Vite + Vanilla JS</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================================
+       RESUME MODAL OVERLAY (Viewable, Tidak Menggantung)
+       ========================================================================= -->
+  <div id="resumeModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="resumeTitle">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-container">
+      <div class="modal-header">
+        <div>
+          <span class="modal-pre">CURRICULUM VITAE OVERVIEW</span>
+          <h3 class="modal-title" id="resumeTitle">Christopher Theo Purnomo</h3>
+        </div>
+        <button type="button" class="modal-close" id="btnCloseResume" aria-label="Tutup Ringkasan">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="resume-section">
+          <h4 class="resume-heading">Pendidikan</h4>
+          <p class="resume-detail">
+            <strong>Universitas Katolik Soegijapranata (Unika Soegijapranata)</strong> — Semarang<br>
+            Sarjana Teknik Informatika (Sedang Ditempuh)<br>
+            <em>Fokus: Decision Support System, Database Systems, Web Engineering, AI/ML &amp; IoT</em>
+          </p>
+        </div>
+
+        <div class="resume-section">
+          <h4 class="resume-heading">Proyek Utama</h4>
+          <ul class="resume-list">
+            <li>
+              <strong>InternMatch DSS:</strong> Sistem pendukung keputusan berbasis Multi-Criteria Decision Making (AHP/TOPSIS) untuk memetakan penempatan magang mahasiswa secara terstruktur dan transparan.
+            </li>
+            <li>
+              <strong>MySembako:</strong> Sistem manajemen inventaris dan transaksi sembako real-time dengan skema relasional ACID-compliant dan kontrol mutasi stok FIFO.
+            </li>
+          </ul>
+        </div>
+
+        <div class="resume-section">
+          <h4 class="resume-heading">Keahlian Teknis</h4>
+          <p class="resume-detail">
+            <strong>Bahasa &amp; Ekosistem:</strong> JavaScript, PHP, Python, SQL, HTML5, CSS3, Node.js, Laravel.<br>
+            <strong>Basis Data &amp; Konsep:</strong> MySQL/MariaDB, Normalisasi Database, Skema Relasional, ACID Transactions.<br>
+            <strong>Metodologi &amp; Tools:</strong> Decision Support Systems (AHP, TOPSIS, CBR), Git, RESTful API Architecture.
+          </p>
+        </div>
+
+        <div class="modal-footer-actions">
+          <a href="mailto:chris.theo.purnomo@gmail.com?subject=Permintaan%20Curriculum%20Vitae%20-%20Christopher%20Theo%20Purnomo" class="btn btn-primary">
+            <span>Minta Berkas CV Lengkap (.PDF)</span>
+          </a>
+          <button type="button" class="btn btn-secondary" id="btnModalCloseSecondary">
+            <span>Tutup Jendela</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vite Entry Point -->
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
