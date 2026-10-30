@@ -287,6 +287,25 @@ function runTier1() {
   const hasModalCta = containsText(html, 'Minta Berkas CV Lengkap (.PDF)') && /href=["']mailto:chris\.theo\.purnomo@gmail\.com[^"']*["']/i.test(html);
   const modalOk = hasModalTitle && hasModalEdu && hasModalProjects && hasModalSkills && hasModalCta;
   reporter.record(1, 'T1.24', 'Curriculum Vitae modal preserves education, projects, skills, and PDF mailto CTA', modalOk);
+
+  // 1.10 Project Deployment & Repository Links
+  const hasInternMatchVercel = /href=["']https:\/\/internmatch-dss\.vercel\.app\/?["']/i.test(html);
+  const hasInternMatchGithub = /href=["']https:\/\/github\.com\/Christopher112321\/internmatch-dss\/?["']/i.test(html);
+  const hasMySembakoVercel = /href=["']https:\/\/mysembako\.vercel\.app\/?["']/i.test(html);
+  const hasMySembakoGithub = /href=["']https:\/\/github\.com\/Christopher112321\/mysembako\/?["']/i.test(html);
+  const projectLinksOk = hasInternMatchVercel && hasInternMatchGithub && hasMySembakoVercel && hasMySembakoGithub;
+  reporter.record(1, 'T1.25', 'Case studies include explicit live Vercel deployments and GitHub repository links', projectLinksOk,
+    projectLinksOk ? null : `Vercel: IM=${hasInternMatchVercel}, MS=${hasMySembakoVercel}; GitHub: IM=${hasInternMatchGithub}, MS=${hasMySembakoGithub}`);
+
+  // 1.11 External Link Security Attributes
+  const projectLinkRegex = /<a\s+[^>]*href=["']https:\/\/(?:internmatch-dss\.vercel\.app|mysembako\.vercel\.app|github\.com\/Christopher112321\/[^"']+)["'][^>]*>/gi;
+  const projectLinkMatches = [...html.matchAll(projectLinkRegex)];
+  const allSecureExternal = projectLinkMatches.length >= 4 && projectLinkMatches.every(m => {
+    const tag = m[0];
+    return /target=["']_blank["']/i.test(tag) && /rel=["'][^"']*noopener[^"']*noreferrer[^"']*["']/i.test(tag);
+  });
+  reporter.record(1, 'T1.26', 'All external project links specify target="_blank" and rel="noopener noreferrer"', allSecureExternal,
+    allSecureExternal ? null : `Matched ${projectLinkMatches.length} links; security flags verification failed`);
 }
 
 // =============================================================================
@@ -407,6 +426,7 @@ function runTier3() {
   console.log(`\n${colors.bold}${colors.cyan}--- TIER 3: Cross-Feature & State Interactivity ---${colors.reset}`);
   const html = readText('index.html') || '';
   const js = readText('src/main.js') || '';
+  const css = readText('src/style.css') || '';
 
   // 3.1 Intro Loading Screen Elements
   const hasIntroScreen = /id=["']introScreen["']/i.test(html);
@@ -489,6 +509,40 @@ function runTier3() {
   const missingIds = uniqueIds.filter(id => !new RegExp(`id=["']${id}["']`, 'i').test(html));
   reporter.record(3, 'T3.11', 'src/main.js DOM references match index.html elements (no undefined element crashes)', missingIds.length === 0,
     missingIds.length === 0 ? null : `Missing IDs in HTML queried by JS: ${missingIds.join(', ')}`);
+
+  // 3.12 Project Card Interactive Attributes
+  const internMatchCard = html.match(/<article[^>]*id=["']project-internmatch["'][^>]*>/i);
+  const mySembakoCard = html.match(/<article[^>]*id=["']project-mysembako["'][^>]*>/i);
+  const imCardTag = internMatchCard ? internMatchCard[0] : '';
+  const msCardTag = mySembakoCard ? mySembakoCard[0] : '';
+
+  const imInteractive = /data-href=["']https:\/\/internmatch-dss\.vercel\.app\/?["']/i.test(imCardTag) &&
+                        /tabindex=["']0["']/i.test(imCardTag);
+  const msInteractive = /data-href=["']https:\/\/mysembako\.vercel\.app\/?["']/i.test(msCardTag) &&
+                        /tabindex=["']0["']/i.test(msCardTag);
+  reporter.record(3, 'T3.12', 'Project cards configure data-href and tabindex="0" for keyboard/click accessibility', imInteractive && msInteractive,
+    imInteractive && msInteractive ? null : `IM card: ${imCardTag}, MS card: ${msCardTag}`);
+
+  // 3.13 Project Card Navigation & Event Isolation Logic in JS
+  const hasCardNavigation = js.includes('project-internmatch') &&
+                            js.includes('project-mysembako') &&
+                            js.includes('https://internmatch-dss.vercel.app') &&
+                            js.includes('https://mysembako.vercel.app') &&
+                            js.includes('window.open(');
+  const hasEventIsolation = js.includes("e.target.closest('a, button')") &&
+                            js.includes('e.stopPropagation()');
+  const hasKeyboardActivation = js.includes("e.key === 'Enter'");
+  const cardLogicOk = hasCardNavigation && hasEventIsolation && hasKeyboardActivation;
+  reporter.record(3, 'T3.13', 'src/main.js implements card click navigation, Enter key activation, and nested link event isolation', cardLogicOk,
+    cardLogicOk ? null : `hasNav=${hasCardNavigation}, hasIsolation=${hasEventIsolation}, hasKey=${hasKeyboardActivation}`);
+
+  // 3.14 Project Card Edge Case Resilience & Visual Ambient Glow
+  const hasSelectionGuard = js.includes('window.getSelection') && js.includes('selection.toString()');
+  const hasAuxClick = js.includes('auxclick') && js.includes('e.button === 1');
+  const hasAmbientGlow = css.includes('case-study-card:hover::before') && css.includes('opacity: 1');
+  const edgeResilienceOk = hasSelectionGuard && hasAuxClick && hasAmbientGlow;
+  reporter.record(3, 'T3.14', 'Project cards guard against text selection drag, support auxclick, and illuminate ambient glow', edgeResilienceOk,
+    edgeResilienceOk ? null : `hasSelectionGuard=${hasSelectionGuard}, hasAuxClick=${hasAuxClick}, hasAmbientGlow=${hasAmbientGlow}`);
 }
 
 // =============================================================================

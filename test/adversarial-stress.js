@@ -271,6 +271,46 @@ const hasRestThreshold = srcJsContent.includes("distSq > 0.5 || speedSq > 0.5");
 const springHaltsLoop = srcJsContent.includes("rafId = null");
 assert(hasRestThreshold && springHaltsLoop, 'ADV:3.9', 'About spotlight spring physics halts requestAnimationFrame loop at resting equilibrium');
 
+// 3.7 Project Card Navigation & Live Links
+const hasImVercel = indexHtmlContent.includes('https://internmatch-dss.vercel.app');
+const hasImGithub = indexHtmlContent.includes('https://github.com/Christopher112321/internmatch-dss');
+const hasMsVercel = indexHtmlContent.includes('https://mysembako.vercel.app');
+const hasMsGithub = indexHtmlContent.includes('https://github.com/Christopher112321/mysembako');
+assert(hasImVercel && hasImGithub && hasMsVercel && hasMsGithub, 'ADV:3.10', 'Both project cards declare live Vercel deployments and GitHub repository URLs');
+
+// 3.8 Project Card Nested Link Event Isolation
+const hasNestedLinkStopPropagation = srcJsContent.includes('nestedLinks') &&
+                                     srcJsContent.includes('e.stopPropagation()');
+const hasCardTargetCheck = srcJsContent.includes("e.target.closest('a, button')");
+assert(hasNestedLinkStopPropagation && hasCardTargetCheck, 'ADV:3.11', 'Project cards prevent nested link/button clicks from conflicting with card navigation');
+
+// 3.9 Project Card Keyboard Activation (Enter Key)
+const hasCardEnterActivation = srcJsContent.includes("e.key === 'Enter'") &&
+                               srcJsContent.includes('projectCardsConfig');
+assert(hasCardEnterActivation, 'ADV:3.12', 'Project cards support keyboard navigation via Enter key activation');
+
+// 3.10 Accessible Project Card Attributes
+const hasCardA11y = /id=["']project-internmatch["'][^>]*data-href=["']https:\/\/internmatch-dss\.vercel\.app["'][^>]*tabindex=["']0["']/i.test(indexHtmlContent) &&
+                    /id=["']project-mysembako["'][^>]*data-href=["']https:\/\/mysembako\.vercel\.app["'][^>]*tabindex=["']0["']/i.test(indexHtmlContent);
+assert(hasCardA11y, 'ADV:3.13', 'Project cards configure data-href and tabindex="0" accessibility attributes');
+
+// 3.11 Text Selection Drag Navigation Protection
+const hasSelectionCheck = srcJsContent.includes('window.getSelection') &&
+                          srcJsContent.includes('selection.toString().trim().length > 0');
+assert(hasSelectionCheck, 'ADV:3.14', 'Project cards guard against text selection drag to prevent unintended navigation on mouseup');
+
+// 3.12 Middle-Click (auxclick) and Nested Keydown Isolation
+const hasAuxClickSupport = srcJsContent.includes("card.addEventListener('auxclick'") &&
+                           srcJsContent.includes('e.button === 1');
+const hasNestedKeydownIsolation = srcJsContent.includes("link.addEventListener('keydown'");
+assert(hasAuxClickSupport && hasNestedKeydownIsolation, 'ADV:3.15', 'Project cards support middle-click auxclick and isolate nested link keydown propagation');
+
+// 3.13 Top Ambient Glow Preservation on Card Hover and Focus
+const hasHoverAmbientGlow = srcCssContent.includes('.case-study-card:hover::before') &&
+                            srcCssContent.includes('opacity: 1');
+const hasFocusGlow = srcCssContent.includes('.case-study-card:focus-visible::before');
+assert(hasHoverAmbientGlow && hasFocusGlow, 'ADV:3.16', 'Case study cards preserve ambient glow illumination on hover and focus-visible');
+
 // ============================================================================
 // SUITE 4: VERCEL PRODUCTION DEPLOYMENT AUDIT
 // ============================================================================

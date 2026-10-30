@@ -846,4 +846,78 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, { passive: true });
 
+  /* ---------------------------------------------------------------------------
+   * 11. INTERACTIVE PROJECT CARDS NAVIGATION
+   *     - Direct click navigates to live Vercel deployments in new tab
+   *     - Keyboard activation via Enter key
+   *     - Event isolation: clicks on nested links/buttons do not trigger card event
+   *     - Selection protection: dragging/selecting text inside card does not navigate
+   *     - Middle-click (auxclick) support for opening in new tab
+   * --------------------------------------------------------------------------- */
+  const projectCardsConfig = [
+    { id: 'project-internmatch', defaultUrl: 'https://internmatch-dss.vercel.app' },
+    { id: 'project-mysembako', defaultUrl: 'https://mysembako.vercel.app' }
+  ];
+
+  projectCardsConfig.forEach(({ id, defaultUrl }) => {
+    const card = document.getElementById(id);
+    if (!card) return;
+
+    const getTargetUrl = () => card.getAttribute('data-href') || defaultUrl;
+
+    const openTarget = () => {
+      const targetUrl = getTargetUrl();
+      if (targetUrl) {
+        window.open(targetUrl, '_blank', 'noopener,noreferrer');
+      }
+    };
+
+    // Handle card click navigation
+    card.addEventListener('click', (e) => {
+      // Do not navigate if user clicked an explicit link, button, or nested interactive control
+      if (e.target.closest('a, button')) return;
+
+      // Do not navigate if user was selecting/highlighting text inside the card
+      const selection = window.getSelection();
+      if (selection && selection.toString().trim().length > 0) return;
+
+      openTarget();
+    });
+
+    // Handle middle-click (auxclick) for opening in new background tab
+    card.addEventListener('auxclick', (e) => {
+      if (e.button === 1) {
+        if (e.target.closest('a, button')) return;
+        openTarget();
+      }
+    });
+
+    // Handle keyboard activation (Enter key)
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        // If Enter occurred on a nested link/button inside card, allow default link behavior
+        if (e.target !== card && e.target.closest('a, button')) return;
+
+        e.preventDefault();
+        openTarget();
+      }
+    });
+
+    // Nested links stop propagation so card click listener is not triggered
+    const nestedLinks = card.querySelectorAll('a, button');
+    nestedLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+      link.addEventListener('auxclick', (e) => {
+        e.stopPropagation();
+      });
+      link.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.stopPropagation();
+        }
+      });
+    });
+  });
+
 });

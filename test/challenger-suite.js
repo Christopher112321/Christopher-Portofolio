@@ -11,7 +11,7 @@ const __dirname = path.dirname(__filename);
 const ROOT_DIR = path.resolve(__dirname, '..');
 
 const PORT = 4173;
-const BASE_URL = `http://localhost:${PORT}`;
+const BASE_URL = `http://127.0.0.1:${PORT}`;
 
 const colors = {
   reset: '\x1b[0m',
@@ -178,7 +178,7 @@ async function runEmpiricalChallenger() {
   console.log(`\n${colors.bold}--- SUITE 3: Static Server & Preview HTTP Tests ---${colors.reset}`);
   console.log(`  ${colors.dim}Spawning 'npx vite preview --port ${PORT}'...${colors.reset}`);
 
-  const previewProcess = spawn('npx', ['vite', 'preview', '--port', String(PORT), '--strictPort'], {
+  const previewProcess = spawn('npx', ['vite', 'preview', '--port', String(PORT), '--strictPort', '--host', '127.0.0.1'], {
     cwd: ROOT_DIR,
     shell: true,
     stdio: 'pipe'
@@ -373,6 +373,63 @@ async function runEmpiricalChallenger() {
   }
   record('Forensic', 'All 13 authoritative content and contact channels verified present in dist/index.html', allInfoPresent,
     allInfoPresent ? null : `Missing info: ${JSON.stringify(missingInfo)}`);
+
+  // Test 4.4: Project Cards Interactive & Live Links Verification in dist/index.html
+  const imCardMatch = distHtmlContent.match(/<article[^>]*id=["']project-internmatch["'][^>]*>/i);
+  const msCardMatch = distHtmlContent.match(/<article[^>]*id=["']project-mysembako["'][^>]*>/i);
+  const imTag = imCardMatch ? imCardMatch[0] : '';
+  const msTag = msCardMatch ? msCardMatch[0] : '';
+
+  const hasCardDataHref = imTag.includes('https://internmatch-dss.vercel.app') &&
+                          msTag.includes('https://mysembako.vercel.app');
+  const hasCardTabindex = imTag.includes('tabindex="0"') && msTag.includes('tabindex="0"');
+
+  const hasDistVercelLinks = distHtmlContent.includes('https://internmatch-dss.vercel.app') &&
+                             distHtmlContent.includes('https://mysembako.vercel.app');
+  const hasDistGithubLinks = distHtmlContent.includes('https://github.com/Christopher112321/internmatch-dss') &&
+                             distHtmlContent.includes('https://github.com/Christopher112321/mysembako');
+
+  const cardIntegrityOk = hasCardDataHref && hasCardTabindex && hasDistVercelLinks && hasDistGithubLinks;
+  record('Forensic', 'Interactive project card attributes (data-href, tabindex) and live Vercel/GitHub links verified in dist/index.html', cardIntegrityOk,
+    cardIntegrityOk ? null : `dataHref=${hasCardDataHref}, tabindex=${hasCardTabindex}, vercel=${hasDistVercelLinks}, github=${hasDistGithubLinks}`);
+
+  // Test 4.5: Card Cursor Pointer, Hover Glow & Focus Styling in Production CSS
+  let cssPointerOk = false;
+  let cssDetails = null;
+  if (cssAssetRel) {
+    const cssPath = path.join(ROOT_DIR, 'dist', cssAssetRel.replace(/^\//, ''));
+    if (fs.existsSync(cssPath)) {
+      const prodCss = fs.readFileSync(cssPath, 'utf8');
+      const hasCardPointer = /\.case-study-card[^{]*\{[^}]*cursor:\s*pointer/i.test(prodCss);
+      const hasFocusVisible = prodCss.includes('case-study-card:focus-visible');
+      const hasAmbientGlow = prodCss.includes('case-study-card:hover:before') || prodCss.includes('case-study-card:hover::before');
+      cssPointerOk = hasCardPointer && hasFocusVisible && hasAmbientGlow;
+      if (!cssPointerOk) {
+        cssDetails = `hasCardPointer=${hasCardPointer}, hasFocusVisible=${hasFocusVisible}, hasAmbientGlow=${hasAmbientGlow}`;
+      }
+    }
+  }
+  record('Forensic', 'Production CSS includes cursor: pointer, ambient glow, and focus-visible styling for case study cards', cssPointerOk, cssDetails);
+
+  // Test 4.6: Production JavaScript Project Navigation & Event Isolation Logic
+  let jsNavOk = false;
+  let jsNavDetails = null;
+  if (jsAssetRel) {
+    const jsPath = path.join(ROOT_DIR, 'dist', jsAssetRel.replace(/^\//, ''));
+    if (fs.existsSync(jsPath)) {
+      const prodJs = fs.readFileSync(jsPath, 'utf8');
+      const hasProdCards = prodJs.includes('project-internmatch') && prodJs.includes('project-mysembako');
+      const hasProdUrls = prodJs.includes('https://internmatch-dss.vercel.app') && prodJs.includes('https://mysembako.vercel.app');
+      const hasProdIsolation = prodJs.includes('stopPropagation');
+      const hasSelectionGuard = prodJs.includes('getSelection');
+      const hasAuxClick = prodJs.includes('auxclick');
+      jsNavOk = hasProdCards && hasProdUrls && hasProdIsolation && hasSelectionGuard && hasAuxClick;
+      if (!jsNavOk) {
+        jsNavDetails = `hasCards=${hasProdCards}, hasUrls=${hasProdUrls}, hasIsolation=${hasProdIsolation}, hasSelection=${hasSelectionGuard}, hasAux=${hasAuxClick}`;
+      }
+    }
+  }
+  record('Forensic', 'Production JS bundle includes card click navigation, selection guard, auxclick, and event isolation logic', jsNavOk, jsNavDetails);
 
   // =========================================================================
   // SUMMARY
