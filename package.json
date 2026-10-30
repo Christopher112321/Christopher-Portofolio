@@ -11,5 +11,8 @@
   },
   "devDependencies": {
     "vite": "^6.2.0"
+  },
+  "dependencies": {
+    "motion": "^14.9.0"
   }
 }
