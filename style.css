@@ -7,45 +7,67 @@
 
 @import url('https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800,700,500,400&display=swap');
 
-/* --- CSS Variables & Design Tokens --- */
+/* --- CSS Variables & Design Tokens (Margot by FTC Studio Editorial System) --- */
 :root {
-  /* --- Deep Neutral Background Hierarchy (Pitch Black & Deep Obsidian) --- */
-  --bg-primary: #000000;           /* Pure pitch black canvas background */
+  /* --- Deep Neutral Background Hierarchy (Pitch Black & Margot Obsidian) --- */
+  --bg-primary: #000000;           /* Pure pitch black canvas background (M1 compliant) */
+  --bg-canvas: #050505;            /* Margot signature obsidian dark canvas */
   --bg-secondary: #09090b;         /* Deep obsidian secondary background */
-  --bg-surface: #111113;           /* Card & container base surface */
-  --bg-surface-elevated: #18181b;  /* Elevated modal / pill card surface */
-  --bg-surface-hover: #222226;     /* Interactive card hover surface */
+  --bg-surface: #0e0e11;           /* Card & container base surface */
+  --bg-surface-elevated: #161619;  /* Elevated modal / pill card surface */
+  --bg-surface-hover: #1f1f24;     /* Interactive card hover surface */
 
-  /* --- Refined Structural Border Hierarchy (Pure Monochrome) --- */
-  --border-subtle: rgba(255, 255, 255, 0.08);  /* Hairline borders & dividers */
-  --border-mid: rgba(255, 255, 255, 0.14);     /* Default card & container borders */
-  --border-bright: rgba(255, 255, 255, 0.28);  /* Hover & interactive borders */
-  --border-accent: rgba(255, 255, 255, 0.45);  /* Accent highlight border */
+  /* Margot Frosted Glass Surfaces */
+  --surface-card: rgba(0, 0, 0, 0.66);
+  --surface-glass: rgba(255, 255, 255, 0.04);
+  --surface-glass-card: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.08) 100%);
+  --surface-glass-dark: linear-gradient(180deg, rgba(0, 0, 0, 0.75) 0%, rgba(255, 255, 255, 0.05) 100%);
+
+  /* --- Margot Hairline Border Architecture --- */
+  --border-hairline: rgba(255, 255, 255, 0.14);  /* Margot signature 1px hairline border */
+  --border-subtle: rgba(255, 255, 255, 0.08);    /* Hairline dividers & nested borders */
+  --border-mid: rgba(255, 255, 255, 0.14);       /* Default card & container borders */
+  --border-bright: rgba(255, 255, 255, 0.28);    /* Hover & interactive borders */
+  --border-focus: rgba(255, 255, 255, 0.50);     /* Active focus borders */
+  --border-hover: rgba(255, 255, 255, 0.45);     /* Elevated hover border glow */
+  --border-accent: rgba(255, 255, 255, 0.45);    /* Accent highlight border */
+  --border-glow: rgba(255, 255, 255, 0.80);
 
   /* --- Pure Monochrome High-Contrast Accent Hierarchy (White & Silver) --- */
-  --accent: #ffffff;                           /* Pure Crisp White — high-contrast minimal */
-  --accent-hover: #e5e5e5;                     /* Silver-200 on interactive hover */
-  --accent-secondary: #a3a3a3;                 /* Mid-tone silver/gray */
-  --accent-glow: rgba(255, 255, 255, 0.14);     /* Controlled, subtle monochrome glow */
+  --accent: #ffffff;                             /* Pure Crisp White — high-contrast minimal */
+  --accent-hover: #e5e5e5;                       /* Silver-200 on interactive hover */
+  --accent-secondary: #a3a3a3;                   /* Mid-tone silver/gray */
+  --accent-glow: rgba(255, 255, 255, 0.14);       /* Controlled, subtle monochrome glow */
   --accent-glow-subtle: rgba(255, 255, 255, 0.06);
   --accent-glow-vivid: rgba(255, 255, 255, 0.22);
 
   /* --- Status / Semantic Tokens --- */
-  --status-green: #ffffff;                     /* Operational status in crisp monochrome white */
+  --status-green: #ffffff;                       /* Operational status in crisp monochrome white */
 
-  /* --- High-Contrast Crisp Typography Hierarchy --- */
-  --text-primary: #ffffff;                     /* Crisp high-contrast headings & primary text */
-  --text-secondary: #a3a3a3;                   /* Neutral silver/gray readable body & descriptive text */
-  --text-muted: #737373;                       /* Muted neutral gray: captions, timestamps, metadata */
-  --text-inverse: #000000;                     /* Pitch black text on white accent buttons */
+  /* --- Margot Editorial Typography & Text Hierarchy --- */
+  --text-primary: #ffffff;                       /* Crisp high-contrast headings & primary text */
+  --text-warm: #fff5e3;                          /* Margot warm ivory for editorial highlights */
+  --text-cream: #f5d4a4;                         /* Margot cream accent for pips & status glyphs */
+  --text-secondary: rgba(255, 255, 255, 0.70);   /* Neutral readable body & descriptive text */
+  --text-tertiary: rgba(255, 255, 255, 0.45);    /* Section kickers & timestamps */
+  --text-muted: #888888;                         /* Margot muted captions, coordinates & metadata */
+  --text-inverse: #000000;                       /* Pitch black text on white accent buttons */
 
   --font-display: 'Cabinet Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
+  /* --- Margot Glassmorphic Blurs --- */
+  --blur-nav: blur(54px);
+  --blur-card: blur(8px);
+  --blur-modal: blur(24px);
+
+  /* --- Margot Spatial Geometry & Radii --- */
   --radius-xs: 2px;
-  --radius-sm: 4px;
+  --radius-sm: 8px;                              /* Margot signature 8px card radius */
+  --radius-card: 8px;
   --radius-md: 8px;
+  --radius-lg: 16px;
   --radius-pill: 9999px;
 
   /* --- Cinematic Easing Engine --- */
@@ -245,8 +267,8 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* =============================================================================
-   INTRO SCREEN: MODERN CLEAN MINIMALIST DARK LOADING
-   0-100% counter, sleek progress bar, ambient particles, shutter exit
+   INTRO SCREEN: MARGOT EDITORIAL MINIMALIST DARK LOADING
+   0-100% counter, hairline progress bar, ambient particles, shutter exit
    ============================================================================= */
 .intro-screen {
   position: fixed;
@@ -259,7 +281,7 @@ h1, h2, h3, h4, h5, h6,
   align-items: center;
   justify-content: center;
   pointer-events: all;
-  background-color: var(--bg-primary);
+  background-color: var(--bg-canvas);
   transition: visibility 0.4s ease 1.0s;
   overflow: hidden;
 }
@@ -288,30 +310,31 @@ h1, h2, h3, h4, h5, h6,
 
 .intro-shutter-top {
   top: 0;
-  border-bottom: 1px solid var(--border-mid);
+  border-bottom: 1px solid var(--border-hairline);
 }
 
 .intro-shutter-bottom {
   bottom: 0;
-  border-top: 1px solid var(--border-mid);
+  border-top: 1px solid var(--border-hairline);
 }
 
 .loading-card {
   position: relative;
   z-index: 5;
   text-align: center;
-  padding: 2.5rem 3rem;
+  padding: 2.75rem 3.25rem;
   width: 90%;
   max-width: 480px;
-  background: rgba(14, 14, 17, 0.85);
-  border: 1px solid var(--border-mid);
-  border-radius: var(--radius-sm);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(5, 5, 5, 0.85);
+  background-image: var(--surface-glass-card);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-card);
+  backdrop-filter: var(--blur-card);
+  -webkit-backdrop-filter: var(--blur-card);
   box-shadow:
-    0 24px 60px rgba(0, 0, 0, 0.7),
-    0 0 40px rgba(255, 255, 255, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    0 24px 60px rgba(0, 0, 0, 0.85),
+    0 0 35px rgba(255, 255, 255, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
   transition: opacity 0.35s ease 0.5s, transform 0.35s ease 0.5s;
   animation: cardFloat 3s ease-in-out infinite alternate;
 }
@@ -327,11 +350,12 @@ h1, h2, h3, h4, h5, h6,
   align-items: center;
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  color: var(--accent);
-  letter-spacing: 0.14em;
+  color: var(--text-warm);
+  letter-spacing: 0.18em;
   margin-bottom: 1.25rem;
-  padding-bottom: 0.6rem;
+  padding-bottom: 0.65rem;
   border-bottom: 1px solid var(--border-subtle);
+  text-transform: uppercase;
 }
 
 .loading-location {
@@ -339,15 +363,26 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .intro-headline {
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
 }
 
 .intro-title {
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(1.05rem, 2.5vw, 1.35rem);
-  letter-spacing: 0.08em;
+  font-weight: 800;
+  font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+  letter-spacing: 0.12em;
   color: var(--text-primary);
+  display: block;
+  text-transform: uppercase;
+}
+
+.intro-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-warm);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-top: 0.35rem;
   display: block;
 }
 
@@ -357,19 +392,19 @@ h1, h2, h3, h4, h5, h6,
 
 .loading-percent {
   font-family: var(--font-display);
-  font-size: clamp(3.2rem, 8vw, 4.5rem);
+  font-size: clamp(3.8rem, 9vw, 5.2rem);
   font-weight: 800;
   line-height: 1;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   color: var(--text-primary);
   display: inline-block;
-  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.2));
+  filter: drop-shadow(0 0 24px rgba(255, 255, 255, 0.25));
 }
 
 .loading-bar-track {
   width: 100%;
-  height: 3px;
-  background: var(--bg-surface-elevated);
+  height: 2px;
+  background: rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-pill);
   overflow: hidden;
   position: relative;
@@ -377,9 +412,9 @@ h1, h2, h3, h4, h5, h6,
 
 .loading-bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+  background: #ffffff;
   border-radius: var(--radius-pill);
-  box-shadow: 0 0 16px var(--accent-glow), 0 0 4px var(--accent);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
   transition: width 0.05s linear;
 }
 
@@ -409,7 +444,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* =============================================================================
-   FLOATING PILL NAVBAR
+   FLOATING PILL NAVBAR (Margot by FTC Studio 54px Blur Specification)
    ============================================================================= */
 .navbar-wrapper {
   position: fixed;
@@ -428,16 +463,16 @@ h1, h2, h3, h4, h5, h6,
   position: relative;
   display: inline-flex;
   align-items: center;
-  background: rgba(14, 14, 17, 0.88);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border-mid);
+  background: rgba(5, 5, 5, 0.75);
+  backdrop-filter: var(--blur-nav);
+  -webkit-backdrop-filter: var(--blur-nav);
+  border: 1px solid var(--border-hairline);
   padding: 0.35rem;
   border-radius: var(--radius-pill);
   box-shadow: 
-    0 10px 35px rgba(0, 0, 0, 0.7),
-    0 0 25px var(--accent-glow-subtle),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    0 12px 32px rgba(0, 0, 0, 0.75),
+    0 0 24px var(--accent-glow-subtle),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
   transition: 
     border-color var(--duration-normal) var(--ease-cinematic-soft),
     box-shadow var(--duration-normal) var(--ease-cinematic-soft);
@@ -446,9 +481,9 @@ h1, h2, h3, h4, h5, h6,
 .pill-navbar:hover {
   border-color: var(--border-bright);
   box-shadow: 
-    0 14px 45px rgba(0, 0, 0, 0.8),
+    0 16px 45px rgba(0, 0, 0, 0.85),
     0 0 35px var(--accent-glow),
-    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
 .nav-indicator {
@@ -459,7 +494,7 @@ h1, h2, h3, h4, h5, h6,
   width: 0;
   background: #ffffff;
   border-radius: var(--radius-pill);
-  box-shadow: 0 0 16px rgba(255, 255, 255, 0.25), 0 2px 8px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.35), 0 2px 8px rgba(0, 0, 0, 0.5);
   transition: 
     left var(--duration-normal) var(--ease-cinematic-momentum),
     width var(--duration-normal) var(--ease-cinematic-momentum);
@@ -470,9 +505,11 @@ h1, h2, h3, h4, h5, h6,
 .nav-link {
   position: relative;
   z-index: 2;
-  font-family: var(--font-body);
-  font-size: 0.875rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
   font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
   color: var(--text-secondary);
   padding: 0.5rem 1.25rem;
   border-radius: var(--radius-pill);
@@ -494,7 +531,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* =============================================================================
-   VERTICAL SIDE NAVIGATION RAIL (Referensi TikTok)
+   VERTICAL SIDE NAVIGATION RAIL (Margot Minimalist Vertical Navigation)
    ============================================================================= */
 .side-nav-rail {
   position: fixed;
@@ -506,13 +543,13 @@ h1, h2, h3, h4, h5, h6,
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
-  background: rgba(14, 14, 17, 0.88);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border-mid);
+  background: rgba(5, 5, 5, 0.75);
+  backdrop-filter: var(--blur-nav);
+  -webkit-backdrop-filter: var(--blur-nav);
+  border: 1px solid var(--border-hairline);
   padding: 0.75rem 0.5rem;
   border-radius: var(--radius-pill);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7), 0 0 25px var(--accent-glow-subtle);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.75), 0 0 25px var(--accent-glow-subtle);
   transition: border-color var(--duration-normal) var(--ease-cinematic-soft);
 }
 
@@ -682,15 +719,17 @@ main {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-mid);
-  padding: 0.4rem 0.85rem;
-  border-radius: var(--radius-sm);
+  background: var(--surface-glass);
+  border: 1px solid var(--border-hairline);
+  backdrop-filter: var(--blur-card);
+  -webkit-backdrop-filter: var(--blur-card);
+  padding: 0.45rem 1.15rem;
+  border-radius: var(--radius-pill);
   margin-bottom: 1.75rem;
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  color: var(--text-secondary);
-  letter-spacing: 0.02em;
+  color: var(--text-warm);
+  letter-spacing: 0.06em;
 }
 
 .badge-dot.live-dot,
@@ -699,17 +738,18 @@ main {
   height: 6px;
   border-radius: 50%;
   background-color: #ffffff;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
 }
 
 .hero-name {
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 5.2vw, 4.2rem);
+  font-size: clamp(3rem, 6.5vw, 5.5rem);
   font-weight: 800;
   color: var(--text-primary);
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  margin-bottom: 0.75rem;
+  line-height: 0.94;
+  letter-spacing: -0.035em;
+  margin-bottom: 0.85rem;
+  text-transform: uppercase;
 }
 
 .hero-name-accent {
@@ -720,14 +760,14 @@ main {
 
 .hero-role {
   font-family: var(--font-mono);
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  letter-spacing: 0.05em;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-warm);
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   margin-bottom: 1.5rem;
   border-left: 2px solid var(--accent);
-  padding-left: 0.75rem;
+  padding-left: 0.85rem;
 }
 
 .hero-summary {
@@ -749,10 +789,10 @@ main {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.85rem 1.6rem;
-  font-size: 0.9rem;
+  padding: 0.85rem 1.75rem;
+  font-size: 0.88rem;
   font-weight: 600;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-pill);
   position: relative;
   overflow: hidden;
   transform-style: preserve-3d;
@@ -796,9 +836,9 @@ main {
   background: #ffffff;
   color: #000000;
   font-weight: 600;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.6);
   box-shadow: 
-    0 4px 14px rgba(255, 255, 255, 0.18), 
+    0 4px 14px rgba(255, 255, 255, 0.22), 
     inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
@@ -806,7 +846,7 @@ main {
   filter: brightness(0.92);
   transform: translateY(-3px) scale(1.025) translateZ(10px);
   box-shadow: 
-    0 8px 28px rgba(255, 255, 255, 0.28), 
+    0 8px 28px rgba(255, 255, 255, 0.32), 
     inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
@@ -824,23 +864,25 @@ main {
 }
 
 .btn-secondary {
-  background-color: var(--bg-surface);
+  background-color: var(--surface-glass);
   color: var(--text-primary);
-  border: 1px solid var(--border-mid);
+  border: 1px solid var(--border-hairline);
+  backdrop-filter: var(--blur-card);
+  -webkit-backdrop-filter: var(--blur-card);
   box-shadow: 
-    0 4px 12px rgba(0, 0, 0, 0.3), 
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    0 4px 12px rgba(0, 0, 0, 0.4), 
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .btn-secondary:hover {
-  background-color: var(--bg-surface-elevated);
+  background-color: rgba(255, 255, 255, 0.08);
   border-color: var(--border-bright);
   color: #ffffff;
   transform: translateY(-3px) scale(1.02) translateZ(10px);
   box-shadow: 
-    0 8px 24px rgba(0, 0, 0, 0.55), 
+    0 8px 24px rgba(0, 0, 0, 0.65), 
     0 0 22px var(--accent-glow),
-    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
 }
 
 .btn-secondary:active {
@@ -1343,9 +1385,9 @@ main {
    ABOUT SECTION: MINIMALIST SPOTLIGHT REVEAL & PHOTO SHOWCASE
    ============================================================================= */
 .about-section {
-  background-color: var(--bg-secondary);
-  border-top: 1px solid var(--border-subtle);
-  border-bottom: 1px solid var(--border-subtle);
+  background-color: var(--bg-canvas);
+  border-top: 1px solid var(--border-hairline);
+  border-bottom: 1px solid var(--border-hairline);
 }
 
 .about-interactive-grid {
@@ -1358,20 +1400,20 @@ main {
 .about-photo-column {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .about-spotlight-container {
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-card);
   overflow: hidden;
   background-color: var(--bg-surface);
-  border: 1px solid var(--border-mid);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-hairline);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75), 0 0 30px rgba(255, 255, 255, 0.04);
   cursor: none;
-  /* Bottom fade mask applied to container, exactly matching Eka Wahyu: */
+  /* Bottom fade mask applied to container */
   -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
   mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
 }
@@ -1441,7 +1483,7 @@ main {
   90% { opacity: 0; }
 }
 
-/* Minimalist Difference Dot Cursor (Persis Eka Wahyu: w-2 h-2 rounded-full mix-blend-difference) */
+/* Minimalist Difference Dot Cursor */
 .spotlight-cursor-dot {
   position: absolute;
   width: 8px;
@@ -1484,8 +1526,73 @@ main {
 }
 
 .meta-location {
-  color: var(--accent);
+  color: var(--text-warm);
   font-weight: 500;
+}
+
+/* Editorial Secondary Profile Card with Christopher's Augmented Asset */
+.about-augmented-card {
+  background: var(--surface-glass-card);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-card);
+  backdrop-filter: var(--blur-card);
+  -webkit-backdrop-filter: var(--blur-card);
+  padding: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  transition: border-color var(--duration-normal) var(--ease-cinematic-soft),
+              transform var(--duration-micro) var(--ease-overshoot);
+}
+
+.about-augmented-card:hover {
+  border-color: var(--border-bright);
+  transform: translateY(-2px);
+}
+
+.augmented-photo-frame {
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  aspect-ratio: 16 / 10;
+  background: #000000;
+}
+
+.augmented-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  filter: grayscale(100%) contrast(1.08);
+  transition: filter 0.4s var(--ease-cinematic-soft);
+}
+
+.about-augmented-card:hover .augmented-photo-img {
+  filter: grayscale(0%) contrast(1.05);
+}
+
+.augmented-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.augmented-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-warm);
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.augmented-role {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 /* Kolom Kanan: Narasi & Focus Areas */
@@ -1519,13 +1626,15 @@ main {
 }
 
 .focus-card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-left: 3px solid var(--accent);
-  padding: 1.15rem 1.4rem;
-  border-radius: var(--radius-xs);
+  background: var(--surface-glass-card);
+  border: 1px solid var(--border-hairline);
+  border-left: 2px solid var(--accent);
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--radius-card);
+  backdrop-filter: var(--blur-card);
+  -webkit-backdrop-filter: var(--blur-card);
   transform-style: preserve-3d;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
   position: relative;
   overflow: hidden;
   transition: 
@@ -1549,7 +1658,7 @@ main {
 
 .focus-card:hover {
   transform: translateX(8px) translateY(-2px) scale(1.01) translateZ(10px);
-  border-color: var(--border-mid);
+  border-color: var(--border-bright);
   border-left-color: var(--accent);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55), 0 0 25px rgba(255, 255, 255, 0.08);
 }
@@ -1571,8 +1680,9 @@ main {
 .focus-index {
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  color: var(--accent);
+  color: var(--text-cream);
   font-weight: 700;
+  letter-spacing: 0.12em;
   display: block;
   margin-bottom: 0.35rem;
 }
@@ -1593,9 +1703,11 @@ main {
 
 /* Skills Sidebar Matrix */
 .skills-sidebar {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
+  background: var(--surface-glass-card);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-card);
+  backdrop-filter: var(--blur-card);
+  -webkit-backdrop-filter: var(--blur-card);
   padding: 1.75rem;
 }
 
@@ -1633,9 +1745,10 @@ main {
 .category-title {
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  color: var(--accent);
+  color: var(--text-warm);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
+  font-weight: 600;
   margin-bottom: 0.6rem;
 }
 
@@ -1647,12 +1760,12 @@ main {
 
 .tech-tag {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.76rem;
   color: var(--text-secondary);
-  background: var(--bg-surface-elevated);
-  border: 1px solid var(--border-subtle);
-  padding: 0.35rem 0.65rem;
-  border-radius: var(--radius-xs);
+  background: var(--surface-glass);
+  border: 1px solid var(--border-hairline);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-pill);
   transition: 
     color var(--duration-instant) var(--ease-cinematic-soft),
     background-color var(--duration-micro) var(--ease-cinematic-soft),
@@ -1759,22 +1872,23 @@ main {
   transform: rotateY(180deg);
 }
 
-/* Glass Card Faces */
+/* Glass Card Faces (Margot Editorial 8px Radius & Translucent Obsidian Glass) */
 .glass-card-face {
   grid-area: 1 / 1;
   width: 100%;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   transform-style: preserve-3d;
-  border-radius: var(--radius-sm);
-  background: rgba(14, 14, 17, 0.82);
-  backdrop-filter: blur(20px) saturate(1.35) brightness(1.02);
-  -webkit-backdrop-filter: blur(20px) saturate(1.35) brightness(1.02);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius-card);
+  background: rgba(8, 8, 10, 0.88);
+  background-image: var(--surface-glass-card);
+  backdrop-filter: var(--blur-card) saturate(1.2);
+  -webkit-backdrop-filter: var(--blur-card) saturate(1.2);
+  border: 1px solid var(--border-hairline);
   padding: 2.25rem;
   box-shadow: 
-    0 4px 16px rgba(0, 0, 0, 0.65),
-    0 16px 48px -6px rgba(0, 0, 0, 0.85),
+    0 4px 16px rgba(0, 0, 0, 0.7),
+    0 16px 48px -6px rgba(0, 0, 0, 0.9),
     inset 0 1px 1px rgba(255, 255, 255, 0.35),
     inset 0 -1px 1px rgba(255, 255, 255, 0.08);
   position: relative;
@@ -1785,10 +1899,10 @@ main {
 }
 
 .case-study-card:hover .glass-card-face {
-  border-color: rgba(255, 255, 255, 0.32);
+  border-color: var(--border-bright);
   box-shadow: 
-    0 8px 24px rgba(0, 0, 0, 0.75),
-    0 24px 64px -6px rgba(0, 0, 0, 0.9),
+    0 8px 24px rgba(0, 0, 0, 0.8),
+    0 24px 64px -6px rgba(0, 0, 0, 0.95),
     0 0 32px -4px rgba(255, 255, 255, 0.12),
     inset 0 1px 1px rgba(255, 255, 255, 0.5),
     inset 0 -1px 1px rgba(255, 255, 255, 0.1);
@@ -2296,9 +2410,26 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   margin-bottom: 0.75rem;
   font-family: var(--font-mono);
   font-size: 0.75rem;
+}
+
+.case-meta-glyph {
+  color: var(--text-cream);
+  font-size: 0.7rem;
+  margin: 0 0.25rem;
+}
+
+.case-meta-year {
+  color: var(--text-warm);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .case-id {
@@ -2308,8 +2439,9 @@ main {
 }
 
 .case-status {
-  color: var(--accent-hover);
-  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .case-title {
@@ -2479,11 +2611,11 @@ main {
 }
 
 /* =============================================================================
-   CONTACT SECTION
+   CONTACT SECTION (Margot Editorial Direct Channels)
    ============================================================================= */
 .contact-section {
-  background-color: var(--bg-secondary);
-  border-top: 1px solid var(--border-subtle);
+  background-color: var(--bg-canvas);
+  border-top: 1px solid var(--border-hairline);
 }
 
 .contact-channels-grid {
@@ -2494,10 +2626,12 @@ main {
 }
 
 .contact-card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
-  padding: 1.75rem;
+  background: var(--surface-glass-card);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-card);
+  backdrop-filter: var(--blur-card);
+  -webkit-backdrop-filter: var(--blur-card);
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -2551,9 +2685,10 @@ main {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 700;
-  color: var(--accent);
-  letter-spacing: 0.12em;
+  color: var(--text-warm);
+  letter-spacing: 0.14em;
   margin-bottom: 0.75rem;
+  text-transform: uppercase;
 }
 
 .channel-value {
@@ -2579,8 +2714,8 @@ main {
   font-weight: 600;
   color: #000000;
   background: #ffffff;
-  padding: 0.55rem 1.1rem;
-  border-radius: var(--radius-xs);
+  padding: 0.65rem 1.35rem;
+  border-radius: var(--radius-pill);
   position: relative;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(255, 255, 255, 0.2);
@@ -2605,11 +2740,13 @@ main {
   align-items: center;
   font-family: var(--font-mono);
   font-size: 0.8rem;
-  color: var(--text-secondary);
-  background-color: var(--bg-surface-elevated);
-  border: 1px solid var(--border-mid);
-  padding: 0.55rem 1rem;
-  border-radius: var(--radius-xs);
+  color: var(--text-warm);
+  background-color: var(--surface-glass);
+  border: 1px solid var(--border-hairline);
+  backdrop-filter: var(--blur-card);
+  -webkit-backdrop-filter: var(--blur-card);
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--radius-pill);
   transition: 
     color var(--duration-instant) var(--ease-cinematic-soft),
     border-color var(--duration-micro) var(--ease-cinematic-soft),
@@ -2629,12 +2766,12 @@ main {
 }
 
 /* =============================================================================
-   FOOTER
+   FOOTER (Margot Editorial Bottom Line)
    ============================================================================= */
 .site-footer {
-  border-top: 1px solid var(--border-subtle);
-  background-color: var(--bg-primary);
-  padding: 2.25rem 0;
+  border-top: 1px solid var(--border-hairline);
+  background-color: var(--bg-canvas);
+  padding: 2.5rem 0;
 }
 
 .footer-content {
@@ -2659,7 +2796,7 @@ main {
 }
 
 .footer-dot {
-  color: var(--accent);
+  color: var(--text-cream);
 }
 
 .footer-mono {
@@ -2668,7 +2805,7 @@ main {
 }
 
 /* =============================================================================
-   RESUME MODAL
+   RESUME MODAL (Margot Obsidian Glass Specification)
    ============================================================================= */
 .modal-overlay {
   position: fixed;
@@ -2697,9 +2834,9 @@ main {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.88);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(5, 5, 5, 0.85);
+  backdrop-filter: var(--blur-modal);
+  -webkit-backdrop-filter: var(--blur-modal);
 }
 
 .modal-container {
@@ -2707,11 +2844,12 @@ main {
   z-index: 2;
   width: 100%;
   max-width: 680px;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-mid);
-  border-radius: var(--radius-sm);
+  background: rgba(10, 10, 12, 0.95);
+  background-image: var(--surface-glass-dark);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-card);
   padding: 2.25rem;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.14);
   transform: translateY(12px);
   transition: transform 0.3s var(--ease-out-expo);
   max-height: 88vh;
@@ -2731,11 +2869,36 @@ main {
   margin-bottom: 1.5rem;
 }
 
+.modal-header-branding {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.modal-avatar-frame {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border-hairline);
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #000000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+.modal-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(1.05);
+}
+
 .modal-pre {
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  color: var(--accent);
-  letter-spacing: 0.12em;
+  color: var(--text-warm);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 .modal-title {
