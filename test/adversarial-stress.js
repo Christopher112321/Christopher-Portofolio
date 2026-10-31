@@ -204,46 +204,59 @@ assert(hasOverflowXHidden, 'ADV:2.8', 'Global horizontal overflow protection con
 // ============================================================================
 console.log('\n--- SUITE 3: INTERACTIVE WIDGET EXCEPTION FUZZING & RESILIENCE ---');
 
-// 3.1 Spotify Time Formatter Fuzzing
-function testFormatTime(sec) {
-  const m = Math.floor(sec / 60);
-  const s = Math.floor(sec % 60);
-  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+// 3.1 Lanyard Pass Spring Physics Convergence Fuzzing
+function calcSpringStep(pos, vel, target, stiffness, damping) {
+  const force = -stiffness * (pos - target);
+  const nextVel = (vel + force) * damping;
+  const nextPos = pos + nextVel;
+  return { pos: nextPos, vel: nextVel };
 }
 
-const timeFuzzInputs = [0, 1, 59, 60, 61, 102, 198, 3599, 3600];
-let timeFuzzPassed = true;
-timeFuzzInputs.forEach(input => {
-  const formatted = testFormatTime(input);
-  if (!/^\d{2,}:\d{2}$/.test(formatted)) {
-    timeFuzzPassed = false;
+const springInitialDisplacements = [-500, -140, -50, 0, 50, 140, 500];
+let springConvergencePassed = true;
+
+springInitialDisplacements.forEach(initPos => {
+  let p = initPos;
+  let v = 0;
+  for (let step = 0; step < 300; step++) {
+    const next = calcSpringStep(p, v, 0, 0.08, 0.88);
+    p = next.pos;
+    v = next.vel;
+  }
+  // Must converge within 0.05px of equilibrium without exploding/NaN
+  if (!Number.isFinite(p) || Math.abs(p) > 0.05) {
+    springConvergencePassed = false;
+    console.error(`Spring convergence failed for initPos=${initPos}: settled at ${p}`);
   }
 });
-assert(timeFuzzPassed, 'ADV:3.1', `Spotify formatTime handles boundary inputs cleanly (${timeFuzzInputs.join(', ')})`);
+assert(springConvergencePassed, 'ADV:3.1', `Lanyard Pass spring physics converges stably across boundary displacements (${springInitialDisplacements.join(', ')})`);
 
-// 3.2 Spotify Progress Math Boundary Checks
-function calculateSeek(clickX, rectWidth, totalSeconds) {
-  const pct = Math.max(0, Math.min(1, clickX / rectWidth));
-  return Math.floor(pct * totalSeconds);
+// 3.2 Lanyard Pass Drag Distance Clamping Boundary Checks
+function clampDistance(dx, dy, maxDist) {
+  const dist = Math.hypot(dx, dy);
+  if (dist <= maxDist || dist === 0) return { x: dx, y: dy };
+  const ratio = maxDist / dist;
+  return { x: dx * ratio, y: dy * ratio };
 }
 
-const seekEdgeCases = [
-  { clickX: -50, width: 200, total: 198, expected: 0 },
-  { clickX: 0, width: 200, total: 198, expected: 0 },
-  { clickX: 100, width: 200, total: 198, expected: 99 },
-  { clickX: 200, width: 200, total: 198, expected: 198 },
-  { clickX: 350, width: 200, total: 198, expected: 198 } // out-of-bounds click
+const dragClampCases = [
+  { dx: 0, dy: 0, maxDist: 140, expectedDist: 0 },
+  { dx: 80, dy: 60, maxDist: 140, expectedDist: 100 }, // within bounds
+  { dx: 140, dy: 0, maxDist: 140, expectedDist: 140 }, // boundary
+  { dx: 200, dy: 0, maxDist: 140, expectedDist: 140 }, // out of bounds clamped
+  { dx: -300, dy: -400, maxDist: 140, expectedDist: 140 } // extreme negative displacement clamped
 ];
 
-let seekPassed = true;
-seekEdgeCases.forEach(c => {
-  const res = calculateSeek(c.clickX, c.width, c.total);
-  if (res !== c.expected) {
-    seekPassed = false;
-    console.error(`Seek test failed for clickX=${c.clickX}: got ${res}, expected ${c.expected}`);
+let dragClampPassed = true;
+dragClampCases.forEach(c => {
+  const res = clampDistance(c.dx, c.dy, c.maxDist);
+  const actualDist = Math.hypot(res.x, res.y);
+  if (Math.abs(actualDist - c.expectedDist) > 0.001) {
+    dragClampPassed = false;
+    console.error(`Drag clamp failed for dx=${c.dx}, dy=${c.dy}: got dist ${actualDist}, expected ${c.expectedDist}`);
   }
 });
-assert(seekPassed, 'ADV:3.2', 'Spotify seek computation clamps out-of-bounds clicks safely to [0, totalDuration]');
+assert(dragClampPassed, 'ADV:3.2', 'Lanyard Pass drag computation clamps out-of-bounds displacements safely to maxDragDistance');
 
 // 3.3 Clipboard Copy Exception Handling
 // Verify src/main.js wraps navigator.clipboard in try-catch with prompt fallback

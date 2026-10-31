@@ -357,7 +357,7 @@ function runTier2() {
   const hasDieForYou = /Die\s+For\s+You/i.test(html);
   const hasReynaWordInHtml = />[^<]*\bReyna\b[^<]*</i.test(html);
   const loreAbsent = !hasValorantInHtml && !hasDieForYou && !hasReynaWordInHtml;
-  reporter.record(2, 'T2.4', 'index.html has zero Valorant / Reyna lore texts (Spotify widget & metadata rethemed)', loreAbsent,
+  reporter.record(2, 'T2.4', 'index.html has zero Valorant / Reyna lore texts (Lanyard badge & metadata rethemed)', loreAbsent,
     loreAbsent ? null : `Found lore: VALORANT=${hasValorantInHtml}, Die For You=${hasDieForYou}, Reyna text=${hasReynaWordInHtml}`);
 
   // 2.5 OpenGraph Image Points to Clean Portrait
@@ -457,17 +457,17 @@ function runTier3() {
   const hasBgCanvas = /id=["']bgCanvas["']/i.test(html);
   reporter.record(3, 'T3.5', 'Interactive background particle/grid canvas (#bgCanvas) exists', hasBgCanvas);
 
-  // 3.6 Spotify Card Interactive Elements
-  const hasSpotifyCard = /id=["']spotifyCard["']/i.test(html);
-  const hasVinylDisc = /id=["']vinylDisc["']/i.test(html);
-  const hasPlayPause = /id=["']btnPlayPause["']/i.test(html);
-  const hasTimeCurrent = /id=["']timeCurrent["']/i.test(html);
-  const hasTimeDuration = /id=["'](timeDuration|timeTotal)["']/i.test(html);
-  const hasProgressBarBg = /id=["']progressBarBg["']/i.test(html);
-  const hasProgressBarFill = /id=["']progressBarFill["']/i.test(html);
-  const spotifyOk = hasSpotifyCard && hasVinylDisc && hasPlayPause && hasTimeCurrent && hasTimeDuration && hasProgressBarBg && hasProgressBarFill;
-  reporter.record(3, 'T3.6', 'Spotify interactive widget controls intact (play/pause, vinyl disc, timeline, progress bar)', spotifyOk,
-    spotifyOk ? null : `Missing spotify elements in HTML`);
+  // 3.6 Interactive 3D Physics Lanyard Pass Badge Elements
+  const hasLanyardCard = /id=["']lanyardPassCard["']/i.test(html);
+  const hasLanyardBadge = /id=["']lanyardBadge["']/i.test(html);
+  const hasLanyardStrap = /class=["'][^"']*lanyard-strap[^"']*["']/i.test(html);
+  const hasLanyardClip = /class=["'][^"']*lanyard-clip[^"']*["']/i.test(html);
+  const hasLanyardHologram = /id=["']lanyardHologram["']/i.test(html);
+  const hasDevCreds = html.includes('Christopher Theo') && html.includes('CT-2026-DSS') && html.includes('ACCESS GRANTED');
+  const hasNoSpotify = !/id=["']spotifyCard["']/i.test(html) && !/id=["']btnPlayPause["']/i.test(html) && !/id=["']vinylDisc["']/i.test(html);
+  const lanyardOk = hasLanyardCard && hasLanyardBadge && hasLanyardStrap && hasLanyardClip && hasLanyardHologram && hasDevCreds && hasNoSpotify;
+  reporter.record(3, 'T3.6', 'Interactive 3D physics Lanyard Pass badge intact (#lanyardPassCard, #lanyardBadge, credentials, hologram, Spotify purged)', lanyardOk,
+    lanyardOk ? null : `Lanyard elements: card=${hasLanyardCard}, badge=${hasLanyardBadge}, strap=${hasLanyardStrap}, clip=${hasLanyardClip}, holo=${hasLanyardHologram}, creds=${hasDevCreds}, noSpotify=${hasNoSpotify}`);
 
   // 3.7 About Section Spotlight Container
   const hasSpotlightContainer = /id=["']aboutSpotlightContainer["']/i.test(html);

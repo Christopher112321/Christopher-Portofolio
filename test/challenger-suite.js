@@ -201,7 +201,8 @@ async function runEmpiricalChallenger() {
                    rootRes.headers['content-type']?.includes('text/html') &&
                    rootRes.body.includes('Christopher Theo Purnomo') &&
                    rootRes.body.includes('id="introScreen"') &&
-                   rootRes.body.includes('id="spotifyCard"') &&
+                   rootRes.body.includes('id="lanyardPassCard"') &&
+                   rootRes.body.includes('id="lanyardBadge"') &&
                    rootRes.body.includes('id="aboutSpotlightContainer"');
     record('HTTP', 'GET / returns 200 OK with valid text/html and complete DOM structures', rootOk,
       `Status: ${rootRes.statusCode}, Type: ${rootRes.headers['content-type']}`);

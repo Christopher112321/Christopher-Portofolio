@@ -4,7 +4,7 @@
  * Tema: MODERN CLEAN MINIMALIST DARK
  * Fitur:
  * 1. Minimalist 0-100% Numeric Loading Screen with Sleek Progress Bar
- * 2. Spotify Interactive Player Card in Hero Section
+ * 2. Interactive 3D Physics Lanyard Pass Badge (Hero Right Section)
  * 3. About Me: Smooth Spring-Physics Spotlight Reveal (Persis Referensi Eka Wahyu)
  * 4. Dual Synchronized Navigation (Top Pill Navbar + Vertical Side-Rail ^ & v)
  * 5. Interactive Canvas Grid, Precision Cursor, Copy Email, Resume Modal
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         this.maxOpacity = this.opacity;
         this.life = 1;
         this.decay = 0.002 + Math.random() * 0.0035;
-        this.isAccent = Math.random() > 0.82; // Subtle electric sky highlight
+        this.isAccent = Math.random() > 0.82; // Subtle crisp white highlight
         this.waveAmp = 0.4 + Math.random() * 1.2;
         this.waveFreq = 0.01 + Math.random() * 0.02;
         this.waveOffset = Math.random() * Math.PI * 2;
@@ -76,8 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fillStyle = this.isAccent
-          ? `rgba(56, 189, 248, ${this.opacity * 0.9})`
-          : `rgba(248, 250, 252, ${this.opacity * 0.75})`;
+          ? `rgba(255, 255, 255, ${this.opacity * 0.95})`
+          : `rgba(200, 200, 200, ${this.opacity * 0.65})`;
         ctx.fill();
       }
     }
@@ -113,8 +113,8 @@ document.addEventListener('DOMContentLoaded', () => {
       // Subtle neutral ambient backdrop fog
       const fogAlpha = 0.015 + eased * 0.025;
       const fogGrad = ctx.createRadialGradient(cW / 2, cH / 2, 0, cW / 2, cH / 2, cW * 0.55);
-      fogGrad.addColorStop(0, `rgba(56, 189, 248, ${fogAlpha * 0.4})`);
-      fogGrad.addColorStop(0.5, `rgba(255, 255, 255, ${fogAlpha * 0.15})`);
+      fogGrad.addColorStop(0, `rgba(255, 255, 255, ${fogAlpha * 0.25})`);
+      fogGrad.addColorStop(0.5, `rgba(255, 255, 255, ${fogAlpha * 0.08})`);
       fogGrad.addColorStop(1, 'transparent');
       ctx.fillStyle = fogGrad;
       ctx.fillRect(0, 0, cW, cH);
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
           // Make shutters solid before sliding them away
           const shutters = introScreen.querySelectorAll('.intro-shutter');
           shutters.forEach(s => {
-            s.style.backgroundColor = '#09090b';
+            s.style.backgroundColor = '#000000';
             s.style.pointerEvents = 'auto';
           });
           // Small delay to let shutters render solid, then slide
@@ -154,67 +154,218 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ---------------------------------------------------------------------------
-   * 2. SPOTIFY PLAYER INTERACTION (HERO RIGHT SECTION)
+   * 2. INTERACTIVE 3D PHYSICS LANYARD PASS BADGE (HERO RIGHT SECTION)
+   *    - Pointer drag interaction with setPointerCapture
+   *    - Damped harmonic oscillation / pendulum spring physics on release
+   *    - 3D hover proximity tilt & dynamic specular sheen / hologram shifts
+   *    - Keyboard accessibility (Arrow keys / Enter / Space)
    * --------------------------------------------------------------------------- */
-  const btnPlayPause = document.getElementById('btnPlayPause');
-  const iconPlay = document.getElementById('iconPlay');
-  const iconPause = document.getElementById('iconPause');
-  const vinylDisc = document.getElementById('vinylDisc');
-  const equalizerBars = document.querySelectorAll('.eq-bar');
-  const progressBarFill = document.getElementById('progressBarFill');
-  const progressBarBg = document.getElementById('progressBarBg');
-  const timeCurrent = document.getElementById('timeCurrent');
+  const lanyardPassCard = document.getElementById('lanyardPassCard');
+  const lanyardBadge = document.getElementById('lanyardBadge');
+  const lanyardStrap = document.getElementById('lanyardStrap');
+  const lanyardSheen = document.getElementById('lanyardSheen');
+  const lanyardHologram = document.getElementById('lanyardHologram');
 
-  let isPlaying = true;
-  let currentSeconds = 102; // 01:42
-  const totalSeconds = 198;  // 03:18
+  if (lanyardPassCard && lanyardBadge) {
+    // Physics parameters (Damped harmonic oscillator / pendulum model)
+    const stiffness = 0.08;
+    const damping = 0.88;
+    const maxDragDistance = 140;
 
-  function formatTime(sec) {
-    const m = Math.floor(sec / 60);
-    const s = Math.floor(sec % 60);
-    return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
-  }
+    let posX = 0;
+    let posY = 0;
+    let velX = 0;
+    let velY = 0;
 
-  function setPlayState(playing) {
-    isPlaying = playing;
-    if (isPlaying) {
-      if (iconPlay) iconPlay.style.display = 'none';
-      if (iconPause) iconPause.style.display = 'block';
-      if (vinylDisc) vinylDisc.style.animationPlayState = 'running';
-      equalizerBars.forEach(bar => bar.style.animationPlayState = 'running');
-    } else {
-      if (iconPlay) iconPlay.style.display = 'block';
-      if (iconPause) iconPause.style.display = 'none';
-      if (vinylDisc) vinylDisc.style.animationPlayState = 'paused';
-      equalizerBars.forEach(bar => bar.style.animationPlayState = 'paused');
+    let tiltX = 0;
+    let tiltY = 0;
+    let targetTiltX = 0;
+    let targetTiltY = 0;
+
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let isHovering = false;
+    let animRafId = null;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Helper: Clamps vector magnitude to max radius
+    function clampDistance(dx, dy, maxDist) {
+      const dist = Math.hypot(dx, dy);
+      if (dist <= maxDist || dist === 0) return { x: dx, y: dy };
+      const ratio = maxDist / dist;
+      return { x: dx * ratio, y: dy * ratio };
     }
-  }
 
-  if (btnPlayPause) {
-    btnPlayPause.addEventListener('click', () => {
-      setPlayState(!isPlaying);
+    // Step physics and render 3D transforms
+    function updatePhysics() {
+      if (!isDragging) {
+        if (prefersReducedMotion) {
+          posX = 0;
+          posY = 0;
+          velX = 0;
+          velY = 0;
+          tiltX = 0;
+          tiltY = 0;
+        } else {
+          // Hooke's Law + viscous damping: F = -k * x - c * v
+          const forceX = -stiffness * posX;
+          const forceY = -stiffness * posY;
+          velX = (velX + forceX) * damping;
+          velY = (velY + forceY) * damping;
+          posX += velX;
+          posY += velY;
+
+          // Smooth tilt interpolation towards hover target
+          tiltX += (targetTiltX - tiltX) * 0.12;
+          tiltY += (targetTiltY - tiltY) * 0.12;
+        }
+      }
+
+      // Compute badge rotation:
+      // RotZ follows horizontal displacement and velocity (pendulum swing)
+      const swingRotZ = (posX / 10) + (velX * 1.2);
+      // Dynamic tilt combinations
+      const totalRotX = isDragging ? -(posY * 0.12) : (tiltX - posY * 0.08);
+      const totalRotY = isDragging ? (posX * 0.14) : (tiltY + posX * 0.08);
+      const activeZ = isDragging ? 32 : (isHovering ? 18 : 0);
+
+      // Render badge 3D transform
+      lanyardBadge.style.transform = `perspective(1000px) translate3d(${posX.toFixed(2)}px, ${posY.toFixed(2)}px, ${activeZ}px) rotateX(${totalRotX.toFixed(2)}deg) rotateY(${totalRotY.toFixed(2)}deg) rotateZ(${swingRotZ.toFixed(2)}deg)`;
+
+      // Render lanyard strap transform: angles towards badge top connection
+      if (lanyardStrap) {
+        const strapAngle = Math.atan2(posX, 120 + Math.max(0, posY)) * (180 / Math.PI);
+        const strapStretch = Math.min(1.4, Math.max(0.9, 1 + posY * 0.002));
+        lanyardStrap.style.transform = `rotateZ(${strapAngle.toFixed(2)}deg) scaleY(${strapStretch.toFixed(3)})`;
+      }
+
+      // Dynamic Holographic & Sheen Angle
+      if (lanyardSheen) {
+        const sheenAngle = 135 + totalRotY * 2.2 + totalRotX * 1.5;
+        const sheenOpacity = Math.min(0.65, Math.max(0.12, 0.22 + (Math.abs(totalRotX) + Math.abs(totalRotY)) * 0.02 + Math.abs(posX) * 0.002));
+        lanyardSheen.style.background = `linear-gradient(${sheenAngle.toFixed(1)}deg, rgba(255,255,255,0) 25%, rgba(255,255,255,${sheenOpacity.toFixed(2)}) 50%, rgba(255,255,255,0) 75%)`;
+      }
+      if (lanyardHologram) {
+        const holoShiftX = 50 + totalRotY * 1.6 + posX * 0.1;
+        const holoShiftY = 50 + totalRotX * 1.6 + posY * 0.1;
+        lanyardHologram.style.backgroundPosition = `${holoShiftX.toFixed(1)}% ${holoShiftY.toFixed(1)}%`;
+      }
+
+      // Continue RAF loop if active movement exists
+      const energy = Math.abs(posX) + Math.abs(posY) + Math.abs(velX) + Math.abs(velY) + Math.abs(targetTiltX - tiltX) + Math.abs(targetTiltY - tiltY);
+      if (isDragging || isHovering || energy > 0.08) {
+        animRafId = requestAnimationFrame(updatePhysics);
+      } else {
+        // Natural settling to rest
+        posX = 0;
+        posY = 0;
+        velX = 0;
+        velY = 0;
+        tiltX = 0;
+        tiltY = 0;
+        lanyardBadge.style.transform = '';
+        if (lanyardStrap) lanyardStrap.style.transform = '';
+        animRafId = null;
+      }
+    }
+
+    function ensureAnimation() {
+      if (!animRafId) {
+        animRafId = requestAnimationFrame(updatePhysics);
+      }
+    }
+
+    // Pointer Event Handlers (Mouse, Pen, Touch with pointer capture)
+    lanyardPassCard.addEventListener('pointerdown', (e) => {
+      // Allow link clicking if any
+      if (e.target.closest('a, button')) return;
+      isDragging = true;
+      dragStartX = e.clientX - posX;
+      dragStartY = e.clientY - posY;
+      velX = 0;
+      velY = 0;
+      try {
+        lanyardPassCard.setPointerCapture(e.pointerId);
+      } catch (err) {
+        /* fallback if capture unsupported */
+      }
+      ensureAnimation();
     });
-  }
 
-  // Ticking track progress
-  setInterval(() => {
-    if (isPlaying) {
-      currentSeconds = (currentSeconds + 1) % totalSeconds;
-      const pct = (currentSeconds / totalSeconds) * 100;
-      if (progressBarFill) progressBarFill.style.width = `${pct}%`;
-      if (timeCurrent) timeCurrent.textContent = formatTime(currentSeconds);
+    lanyardPassCard.addEventListener('pointermove', (e) => {
+      if (isDragging) {
+        const rawDx = e.clientX - dragStartX;
+        const rawDy = e.clientY - dragStartY;
+        const clamped = clampDistance(rawDx, rawDy, maxDragDistance);
+        posX = clamped.x;
+        posY = clamped.y;
+        ensureAnimation();
+      } else if (isHovering && window.matchMedia('(pointer: fine)').matches) {
+        const rect = lanyardBadge.getBoundingClientRect();
+        const normX = (e.clientX - rect.left) / rect.width - 0.5;
+        const normY = (e.clientY - rect.top) / rect.height - 0.5;
+        targetTiltX = -normY * 14;
+        targetTiltY = normX * 16;
+        ensureAnimation();
+      }
+    });
+
+    function endDrag(e) {
+      if (isDragging) {
+        isDragging = false;
+        try {
+          if (lanyardPassCard.hasPointerCapture(e.pointerId)) {
+            lanyardPassCard.releasePointerCapture(e.pointerId);
+          }
+        } catch (err) {
+          /* fallback */
+        }
+        ensureAnimation();
+      }
     }
-  }, 1000);
 
-  // Click on progress bar to seek
-  if (progressBarBg) {
-    progressBarBg.addEventListener('click', (e) => {
-      const rect = progressBarBg.getBoundingClientRect();
-      const clickX = e.clientX - rect.left;
-      const pct = Math.max(0, Math.min(1, clickX / rect.width));
-      currentSeconds = Math.floor(pct * totalSeconds);
-      if (progressBarFill) progressBarFill.style.width = `${pct * 100}%`;
-      if (timeCurrent) timeCurrent.textContent = formatTime(currentSeconds);
+    lanyardPassCard.addEventListener('pointerup', endDrag);
+    lanyardPassCard.addEventListener('pointercancel', endDrag);
+
+    // Hover listeners for 3D proximity tilt
+    lanyardPassCard.addEventListener('mouseenter', () => {
+      isHovering = true;
+      ensureAnimation();
+    });
+
+    lanyardPassCard.addEventListener('mouseleave', () => {
+      isHovering = false;
+      targetTiltX = 0;
+      targetTiltY = 0;
+      ensureAnimation();
+    });
+
+    // Keyboard accessibility: Arrow keys produce tactile badge swings, Enter/Space provides bounce
+    lanyardPassCard.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        velX -= 15;
+        ensureAnimation();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        velX += 15;
+        ensureAnimation();
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        velY += 18;
+        ensureAnimation();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        velY -= 14;
+        ensureAnimation();
+      } else if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        velY += 24;
+        velX += (Math.random() - 0.5) * 16;
+        ensureAnimation();
+      }
     });
   }
 
@@ -503,7 +654,7 @@ document.addEventListener('DOMContentLoaded', () => {
         this.baseVx = (Math.random() - 0.5) * 0.35 * this.depth;
         this.baseVy = -(0.15 + Math.random() * 0.45) * this.depth;
         this.alpha = 0.18 + Math.random() * 0.50;
-        this.isAccent = Math.random() > 0.75; // Electric sky accent vs pure slate/white
+        this.isAccent = Math.random() > 0.75; // Pure white highlight vs muted silver
         this.pulseSpeed = 0.015 + Math.random() * 0.025;
         this.pulseOffset = Math.random() * Math.PI * 2;
       }
@@ -528,8 +679,8 @@ document.addEventListener('DOMContentLoaded', () => {
       draw(ctx, scrollVelocity) {
         const currentAlpha = Math.max(0.06, this.alpha * (0.8 + 0.2 * Math.sin(this.pulseOffset)));
         const color = this.isAccent
-          ? `rgba(56, 189, 248, ${currentAlpha})`
-          : `rgba(248, 250, 252, ${currentAlpha * 0.75})`;
+          ? `rgba(255, 255, 255, ${currentAlpha * 0.95})`
+          : `rgba(200, 200, 200, ${currentAlpha * 0.65})`;
 
         const absVel = Math.abs(scrollVelocity);
 
@@ -592,7 +743,7 @@ document.addEventListener('DOMContentLoaded', () => {
       scrollVelocity += (rawDelta - scrollVelocity) * 0.28;
       scrollVelocity *= 0.90; // smooth exponential decay
 
-      // 1. Draw Tactical Grid Dots & Crosses (Silver / Subtle Cyan)
+      // 1. Draw Tactical Grid Dots & Crosses (Silver / Subtle White)
       for (let x = spacing; x < width; x += spacing) {
         for (let y = spacing; y < height; y += spacing) {
           const dx = mouse.x - x;
@@ -602,7 +753,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
           if (dist < maxDist) {
             const factor = 1 - dist / maxDist;
-            ctx.strokeStyle = `rgba(56, 189, 248, ${0.15 + factor * 0.35})`;
+            ctx.strokeStyle = `rgba(255, 255, 255, ${0.15 + factor * 0.4})`;
             ctx.lineWidth = 1;
 
             const arm = 3 + factor * 4.5;
@@ -657,7 +808,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     requestAnimationFrame(renderRing);
 
-    const hoverables = document.querySelectorAll('a, button, .case-study-card, .contact-card, .focus-card, .spotify-card');
+    const hoverables = document.querySelectorAll('a, button, .case-study-card, .contact-card, .focus-card, .lanyard-pass-container');
     hoverables.forEach(el => {
       el.addEventListener('mouseenter', () => cursorRing.classList.add('cursor-active'));
       el.addEventListener('mouseleave', () => cursorRing.classList.remove('cursor-active'));
@@ -766,10 +917,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------------------------------------------------------------------------
    * 10. TACTILE 3D CARD TILT & DEPTH ENGINE (DESKTOP)
-   *     - Smooth spring-dampened 3D tilt for Project Cards & Spotify Card
+   *     - Smooth spring-dampened 3D tilt for Project Cards
    *     - Subtle Parallax depth floating for spotlight and focus cards
    * --------------------------------------------------------------------------- */
-  const tiltCards = document.querySelectorAll('.case-study-card, .spotify-card');
+  const tiltCards = document.querySelectorAll('.case-study-card');
 
   if (window.matchMedia('(pointer: fine)').matches) {
     tiltCards.forEach(card => {
@@ -802,11 +953,18 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       card.addEventListener('mousemove', (e) => {
+        if (card.classList.contains('is-flipped')) {
+          targetRotX = 0;
+          targetRotY = 0;
+          if (!tiltRaf) tiltRaf = requestAnimationFrame(updateTilt);
+          return;
+        }
+
         const rect = card.getBoundingClientRect();
         const normX = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 to 0.5
         const normY = (e.clientY - rect.top) / rect.height - 0.5; // -0.5 to 0.5
 
-        const maxAngle = card.classList.contains('spotify-card') ? 7 : 5;
+        const maxAngle = 5;
         targetRotX = -normY * maxAngle;
         targetRotY = normX * maxAngle;
 
@@ -877,6 +1035,9 @@ document.addEventListener('DOMContentLoaded', () => {
       // Do not navigate if user clicked an explicit link, button, or nested interactive control
       if (e.target.closest('a, button')) return;
 
+      // Do not navigate if card is currently flipped to back face
+      if (card.classList.contains('is-flipped')) return;
+
       // Do not navigate if user was selecting/highlighting text inside the card
       const selection = window.getSelection();
       if (selection && selection.toString().trim().length > 0) return;
@@ -888,6 +1049,7 @@ document.addEventListener('DOMContentLoaded', () => {
     card.addEventListener('auxclick', (e) => {
       if (e.button === 1) {
         if (e.target.closest('a, button')) return;
+        if (card.classList.contains('is-flipped')) return;
         openTarget();
       }
     });
@@ -897,6 +1059,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.key === 'Enter') {
         // If Enter occurred on a nested link/button inside card, allow default link behavior
         if (e.target !== card && e.target.closest('a, button')) return;
+        if (card.classList.contains('is-flipped')) return;
 
         e.preventDefault();
         openTarget();
@@ -917,6 +1080,82 @@ document.addEventListener('DOMContentLoaded', () => {
           e.stopPropagation();
         }
       });
+    });
+  });
+
+  /* ---------------------------------------------------------------------------
+   * 12. 3D LIQUID GLASS FLIP CARDS CONTROLLER
+   *     - Dedicated triggers (.btn-flip-trigger, .btn-flip-back) flip the 3D card
+   *     - Full keyboard accessibility (Enter and Space) with focus management
+   *     - Strict event isolation preventing accidental navigation on flip
+   * --------------------------------------------------------------------------- */
+  const flipTriggers = document.querySelectorAll('.btn-flip-trigger');
+  const flipBackButtons = document.querySelectorAll('.btn-flip-back');
+
+  const flipCardTo = (card, flipToBack) => {
+    if (!card) return;
+    if (flipToBack) {
+      card.classList.add('is-flipped');
+      card.setAttribute('aria-expanded', 'true');
+      const closeBtn = card.querySelector('.btn-flip-back');
+      if (closeBtn) {
+        setTimeout(() => closeBtn.focus(), 320);
+      }
+    } else {
+      card.classList.remove('is-flipped');
+      card.setAttribute('aria-expanded', 'false');
+      const triggerBtn = card.querySelector('.btn-flip-trigger');
+      if (triggerBtn) {
+        setTimeout(() => triggerBtn.focus(), 320);
+      }
+    }
+  };
+
+  flipTriggers.forEach(trigger => {
+    const handleFlip = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const card = trigger.closest('.case-study-card');
+      flipCardTo(card, true);
+    };
+
+    trigger.addEventListener('click', handleFlip);
+    trigger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        handleFlip(e);
+      }
+    });
+  });
+
+  flipBackButtons.forEach(btn => {
+    const handleFlipBack = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const card = btn.closest('.case-study-card');
+      flipCardTo(card, false);
+    };
+
+    btn.addEventListener('click', handleFlipBack);
+    btn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        handleFlipBack(e);
+      }
+    });
+  });
+
+  // Ensure all interactive links and buttons inside flip cards isolate their events
+  const flipCardInteractive = document.querySelectorAll('.case-study-card a, .case-study-card button');
+  flipCardInteractive.forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+    el.addEventListener('auxclick', (e) => {
+      e.stopPropagation();
+    });
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.stopPropagation();
+      }
     });
   });
 
