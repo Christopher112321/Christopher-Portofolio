@@ -6,83 +6,42 @@
    ============================================================================= */
 
 @import url('https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800,700,500,400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
-/* --- RUSHES Three-Layer Design Tokens --- */
+/* --- CSS Variables & Design Tokens --- */
 :root {
-  /* Layer 1: Primitive Tokens (RUSHES Cinematic Editorial Spec) */
-  --primitive-black-pitch:       #050505;
-  --primitive-black-obsidian:    #0a0a0a;
-  --primitive-charcoal-900:      #121215;
-  --primitive-charcoal-800:      #151519;
-  --primitive-charcoal-700:      #1e1e24;
-  --primitive-charcoal-600:      #232328;
-  --primitive-slate-500:         #3f3f46;
-  --primitive-slate-400:         #7d7d83;
-  --primitive-slate-300:         #9a9a9e;
-  --primitive-slate-200:         #d4d4d8;
-  --primitive-white-ivory:       #f4f2ed;
-  --primitive-white-pure:        #ffffff;
-  --primitive-amber-cine:        #e2612f;
-  --primitive-amber-glow:        rgba(226, 97, 47, 0.35);
-  --primitive-red-rec:           #c22e1f;
-  --primitive-red-glow:          rgba(194, 46, 31, 0.45);
-  --primitive-hairline-light:    rgba(255, 255, 255, 0.12);
-  --primitive-hairline-hud:      rgba(154, 154, 158, 0.2);
-
-  /* Layer 2: Semantic Tokens */
+  /* --- Deep Neutral Background Hierarchy (Pitch Black & Deep Obsidian) --- */
   --bg-primary: #000000;           /* Pure pitch black canvas background */
-  --bg-obsidian: var(--primitive-black-obsidian);
-  --bg-pitch: var(--primitive-black-pitch);
   --bg-secondary: #09090b;         /* Deep obsidian secondary background */
   --bg-surface: #111113;           /* Card & container base surface */
   --bg-surface-elevated: #18181b;  /* Elevated modal / pill card surface */
   --bg-surface-hover: #222226;     /* Interactive card hover surface */
-  --bg-card: var(--primitive-charcoal-800);
-  --bg-card-hover: var(--primitive-charcoal-700);
 
-  /* Refined Structural Border Hierarchy */
+  /* --- Refined Structural Border Hierarchy (Pure Monochrome) --- */
   --border-subtle: rgba(255, 255, 255, 0.08);  /* Hairline borders & dividers */
   --border-mid: rgba(255, 255, 255, 0.14);     /* Default card & container borders */
   --border-bright: rgba(255, 255, 255, 0.28);  /* Hover & interactive borders */
   --border-accent: rgba(255, 255, 255, 0.45);  /* Accent highlight border */
-  --border-hairline: var(--primitive-hairline-light);
-  --border-hud: var(--primitive-hairline-hud);
-  --border-cine-active: var(--primitive-amber-cine);
 
-  /* Pure Monochrome & Cinematic Accent Hierarchy */
+  /* --- Pure Monochrome High-Contrast Accent Hierarchy (White & Silver) --- */
   --accent: #ffffff;                           /* Pure Crisp White — high-contrast minimal */
   --accent-hover: #e5e5e5;                     /* Silver-200 on interactive hover */
   --accent-secondary: #a3a3a3;                 /* Mid-tone silver/gray */
   --accent-glow: rgba(255, 255, 255, 0.14);     /* Controlled, subtle monochrome glow */
   --accent-glow-subtle: rgba(255, 255, 255, 0.06);
   --accent-glow-vivid: rgba(255, 255, 255, 0.22);
-  --accent-cine: var(--primitive-amber-cine);
-  --accent-cine-glow: var(--primitive-amber-glow);
-  --accent-rec: var(--primitive-red-rec);
-  --accent-rec-glow: var(--primitive-red-glow);
 
-  /* Status / Semantic Tokens */
+  /* --- Status / Semantic Tokens --- */
   --status-green: #ffffff;                     /* Operational status in crisp monochrome white */
 
-  /* High-Contrast Crisp Typography Hierarchy */
-  --text-high-contrast: var(--primitive-white-ivory);
+  /* --- High-Contrast Crisp Typography Hierarchy --- */
   --text-primary: #ffffff;                     /* Crisp high-contrast headings & primary text */
   --text-secondary: #a3a3a3;                   /* Neutral silver/gray readable body & descriptive text */
   --text-muted: #737373;                       /* Muted neutral gray: captions, timestamps, metadata */
-  --text-mono-hud: var(--primitive-slate-300);
   --text-inverse: #000000;                     /* Pitch black text on white accent buttons */
 
-  --font-display: 'Cabinet Grotesk', 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-space-grotesk: 'Space Grotesk', 'Cabinet Grotesk', sans-serif;
-  --font-body: 'Inter', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Cabinet Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
-
-  /* Layer 3: Component Tokens */
-  --card-bracket-color: rgba(154, 154, 158, 0.4);
-  --card-bracket-active: var(--primitive-amber-cine);
-  --card-bracket-size: 18px;
-  --hud-rec-color: var(--primitive-red-rec);
 
   --radius-xs: 2px;
   --radius-sm: 4px;
@@ -286,240 +245,6 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* =============================================================================
-   RUSHES CINEMATIC HUD & VIEWFINDER BRACKETS (OPTICAL CAMERA RIG SPEC)
-   ============================================================================= */
-.cinematic-hud-frame {
-  position: relative;
-}
-
-.hud-corner {
-  position: absolute;
-  width: var(--card-bracket-size, 18px);
-  height: var(--card-bracket-size, 18px);
-  border-color: var(--card-bracket-color);
-  pointer-events: none;
-  z-index: 12;
-  transition: border-color var(--duration-normal) var(--ease-cinematic-soft),
-              width var(--duration-normal) var(--ease-cinematic-soft),
-              height var(--duration-normal) var(--ease-cinematic-soft),
-              box-shadow var(--duration-normal) var(--ease-cinematic-soft);
-}
-
-.hud-corner-tl {
-  top: 10px;
-  left: 10px;
-  border-top: 1.5px solid;
-  border-left: 1.5px solid;
-}
-
-.hud-corner-tr {
-  top: 10px;
-  right: 10px;
-  border-top: 1.5px solid;
-  border-right: 1.5px solid;
-}
-
-.hud-corner-bl {
-  bottom: 10px;
-  left: 10px;
-  border-bottom: 1.5px solid;
-  border-left: 1.5px solid;
-}
-
-.hud-corner-br {
-  bottom: 10px;
-  right: 10px;
-  border-bottom: 1.5px solid;
-  border-right: 1.5px solid;
-}
-
-/* Hover expansion and cine amber illumination */
-.cinematic-hud-frame:hover .hud-corner,
-.case-study-card:hover .hud-corner {
-  border-color: var(--card-bracket-active);
-  width: 26px;
-  height: 26px;
-  filter: drop-shadow(0 0 4px var(--accent-cine-glow));
-}
-
-/* Tactical Recording Indicator Tag */
-.hud-rec-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  color: var(--text-high-contrast);
-  text-transform: uppercase;
-}
-
-.hud-rec-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background-color: var(--accent-rec);
-  display: inline-block;
-  animation: ct-rec-pulse 1.8s infinite ease-in-out;
-}
-
-@keyframes ct-rec-pulse {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
-    box-shadow: 0 0 6px var(--accent-rec-glow);
-  }
-  50% {
-    opacity: 0.28;
-    transform: scale(0.92);
-    box-shadow: none;
-  }
-}
-
-/* Timecode & Telemetry Tags */
-.hud-timecode {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  color: var(--accent-cine);
-  background: rgba(226, 97, 47, 0.08);
-  border: 1px solid rgba(226, 97, 47, 0.22);
-  padding: 2px 7px;
-  border-radius: var(--radius-xs);
-  display: inline-block;
-}
-
-.hud-telemetry-tag {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.06em;
-  color: var(--text-muted);
-}
-
-.hud-tag-divider {
-  color: var(--primitive-slate-400);
-  opacity: 0.5;
-  font-family: var(--font-mono);
-}
-
-.hero-telemetry-strip {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  margin-bottom: 0.9rem;
-  color: var(--text-muted);
-}
-
-/* About Architect HUD Telemetry Card (R4: profile-augmented.jpg) */
-.about-architect-hud {
-  margin-top: 1.5rem;
-  width: 100%;
-  max-width: 320px;
-  border: 1px solid var(--border-mid);
-  border-radius: var(--radius-sm);
-  background: var(--bg-card);
-  padding: 8px;
-  transition: border-color var(--duration-normal) var(--ease-cinematic-soft),
-              box-shadow var(--duration-normal) var(--ease-cinematic-soft);
-}
-
-.about-architect-hud:hover {
-  border-color: var(--accent-cine);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7), 0 0 20px var(--accent-cine-glow);
-}
-
-.architect-hud-inner {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  border-radius: 2px;
-}
-
-.architect-hud-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: contrast(1.05) brightness(0.95);
-  transition: transform var(--duration-cinematic) var(--ease-cinematic-soft);
-}
-
-.about-architect-hud:hover .architect-hud-img {
-  transform: scale(1.04);
-}
-
-.architect-hud-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 10px;
-  background: linear-gradient(to top, rgba(10, 10, 10, 0.85) 0%, transparent 50%, rgba(10, 10, 10, 0.6) 100%);
-  pointer-events: none;
-}
-
-.architect-hud-badge {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.architect-spec-name {
-  display: block;
-  font-family: var(--font-display);
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: var(--text-high-contrast);
-  letter-spacing: 0.04em;
-}
-
-.architect-spec-meta {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  color: var(--text-muted);
-  letter-spacing: 0.05em;
-}
-
-/* CV Modal Header Profile with profile.jpg (R4) */
-.modal-header-profile {
-  display: flex;
-  align-items: center;
-  gap: 1.15rem;
-}
-
-.modal-avatar-frame {
-  position: relative;
-  width: 58px;
-  height: 58px;
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-  border: 1.5px solid var(--border-bright);
-  background: var(--bg-card);
-  flex-shrink: 0;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6), 0 0 12px var(--accent-cine-glow);
-}
-
-.modal-avatar-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.modal-avatar-hud-reticle {
-  position: absolute;
-  inset: 0;
-  border: 1px dashed rgba(226, 97, 47, 0.4);
-  pointer-events: none;
-}
-
-/* =============================================================================
    INTRO SCREEN: MODERN CLEAN MINIMALIST DARK LOADING
    0-100% counter, sleek progress bar, ambient particles, shutter exit
    ============================================================================= */
@@ -577,16 +302,16 @@ h1, h2, h3, h4, h5, h6,
   text-align: center;
   padding: 2.5rem 3rem;
   width: 90%;
-  max-width: 520px;
-  background: rgba(10, 10, 10, 0.92);
-  border: 1px solid var(--border-hairline);
+  max-width: 480px;
+  background: rgba(14, 14, 17, 0.85);
+  border: 1px solid var(--border-mid);
   border-radius: var(--radius-sm);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   box-shadow:
-    0 24px 60px rgba(0, 0, 0, 0.85),
-    0 0 40px rgba(226, 97, 47, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    0 24px 60px rgba(0, 0, 0, 0.7),
+    0 0 40px rgba(255, 255, 255, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
   transition: opacity 0.35s ease 0.5s, transform 0.35s ease 0.5s;
   animation: cardFloat 3s ease-in-out infinite alternate;
 }
@@ -603,12 +328,10 @@ h1, h2, h3, h4, h5, h6,
   font-family: var(--font-mono);
   font-size: 0.72rem;
   color: var(--accent);
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   margin-bottom: 1.25rem;
   padding-bottom: 0.6rem;
   border-bottom: 1px solid var(--border-subtle);
-  flex-wrap: wrap;
-  gap: 6px;
 }
 
 .loading-location {
@@ -624,17 +347,8 @@ h1, h2, h3, h4, h5, h6,
   font-weight: 700;
   font-size: clamp(1.05rem, 2.5vw, 1.35rem);
   letter-spacing: 0.08em;
-  color: var(--text-high-contrast);
+  color: var(--text-primary);
   display: block;
-}
-
-.hud-calibration-sub {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: var(--accent-cine);
-  letter-spacing: 0.14em;
-  margin-top: 4px;
 }
 
 .loading-counter-wrap {
@@ -647,15 +361,15 @@ h1, h2, h3, h4, h5, h6,
   font-weight: 800;
   line-height: 1;
   letter-spacing: -0.02em;
-  color: var(--text-high-contrast);
+  color: var(--text-primary);
   display: inline-block;
-  filter: drop-shadow(0 0 20px rgba(226, 97, 47, 0.25));
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.2));
 }
 
 .loading-bar-track {
   width: 100%;
   height: 3px;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--bg-surface-elevated);
   border-radius: var(--radius-pill);
   overflow: hidden;
   position: relative;
@@ -663,28 +377,10 @@ h1, h2, h3, h4, h5, h6,
 
 .loading-bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--accent-cine), var(--accent));
+  background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
   border-radius: var(--radius-pill);
-  box-shadow: 0 0 16px var(--accent-cine-glow), 0 0 4px var(--accent-cine);
+  box-shadow: 0 0 16px var(--accent-glow), 0 0 4px var(--accent);
   transition: width 0.05s linear;
-}
-
-.loading-telemetry-strip {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 1.25rem;
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  color: var(--text-muted);
-  letter-spacing: 0.06em;
-}
-
-.hud-telemetry-sep {
-  color: var(--accent-cine);
-  opacity: 0.6;
 }
 
 .intro-screen.intro-finished {
@@ -2453,14 +2149,14 @@ main {
 }
 
 .btn-live-project:hover {
-  background: var(--accent-cine);
+  background: #e5e5e5;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px var(--accent-cine-glow), 0 4px 8px rgba(0, 0, 0, 0.6);
-  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.35), 0 4px 8px rgba(0, 0, 0, 0.6);
+  color: #000000;
 }
 
 .btn-live-project:focus-visible {
-  outline: 2px solid var(--accent-cine);
+  outline: 2px solid #ffffff;
   outline-offset: 3px;
 }
 
@@ -2481,14 +2177,12 @@ main {
   transition: 
     background-color var(--duration-micro) var(--ease-cinematic-soft),
     border-color var(--duration-micro) var(--ease-cinematic-soft),
-    box-shadow var(--duration-micro) var(--ease-cinematic-soft),
     transform var(--duration-micro) var(--ease-overshoot);
 }
 
 .btn-flip-trigger:hover {
-  background: rgba(226, 97, 47, 0.12);
-  border-color: var(--accent-cine);
-  box-shadow: 0 4px 16px var(--accent-cine-glow);
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.45);
   transform: translateY(-2px);
 }
 
@@ -3512,9 +3206,7 @@ main {
     animation: none !important;
   }
 
-  .pulse-indicator,
-  .hud-rec-dot {
+  .pulse-indicator {
     animation: none !important;
-    opacity: 1 !important;
   }
 }
