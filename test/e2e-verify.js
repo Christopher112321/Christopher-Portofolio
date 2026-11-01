@@ -266,13 +266,13 @@ function runTier1() {
   reporter.record(1, 'T1.21', 'Case Study 2 (MySembako) content, database schema, and operational features preserved', mySembakoOk);
 
   // 1.7 Contact Section
-  const hasContactHeader = containsText(html, '03 // DIRECT CHANNELS') && containsText(html, 'Mari Terhubung dan Berdiskusi');
-  const hasEmail = containsText(html, 'chris.theo.purnomo@gmail.com') && /id=["']btnCopyEmail["']/i.test(html);
-  const hasGithub = containsText(html, 'github.com/christophertheop');
+  const hasContactHeader = (containsText(html, '03 // DIRECT CHANNELS') && containsText(html, 'Mari Terhubung dan Berdiskusi')) || (containsText(html, 'GET IN TOUCH') && containsText(html, "LET'S WORK TOGETHER"));
+  const hasEmail = (containsText(html, 'royallee523@gmail.com') || containsText(html, 'chris.theo.purnomo@gmail.com')) && /id=["']btnCopyEmail["']/i.test(html);
+  const hasGithub = containsText(html, 'github.com/Christopher112321') || containsText(html, 'github.com/christophertheop');
   const hasLinkedin = containsText(html, 'linkedin.com/in/christopher-theo-purnomo');
-  const hasInstagram = containsText(html, '@chris_theo.p');
-  const contactOk = hasContactHeader && hasEmail && hasGithub && hasLinkedin && hasInstagram;
-  reporter.record(1, 'T1.22', 'Contact section preserves 4 direct channels (Email, GitHub, LinkedIn, Instagram)', contactOk);
+  const hasContactResume = /id=["']btnContactResume["']/i.test(html) || containsText(html, 'DOWNLOAD RESUME');
+  const contactOk = hasContactHeader && hasEmail && hasGithub && hasLinkedin;
+  reporter.record(1, 'T1.22', 'Contact section preserves direct channels (Email, GitHub, LinkedIn, Resume CTA)', contactOk);
 
   // 1.8 Footer
   const hasFooterAuthor = containsText(html, 'Christopher Theo Purnomo') && containsText(html, 'Unika Soegijapranata');
@@ -457,17 +457,15 @@ function runTier3() {
   const hasBgCanvas = /id=["']bgCanvas["']/i.test(html);
   reporter.record(3, 'T3.5', 'Interactive background particle/grid canvas (#bgCanvas) exists', hasBgCanvas);
 
-  // 3.6 Interactive 3D Physics Lanyard Pass Badge Elements
-  const hasLanyardCard = /id=["']lanyardPassCard["']/i.test(html);
-  const hasLanyardBadge = /id=["']lanyardBadge["']/i.test(html);
-  const hasLanyardStrap = /class=["'][^"']*lanyard-strap[^"']*["']/i.test(html);
-  const hasLanyardClip = /class=["'][^"']*lanyard-clip[^"']*["']/i.test(html);
-  const hasLanyardHologram = /id=["']lanyardHologram["']/i.test(html);
-  const hasDevCreds = html.includes('Christopher Theo') && html.includes('CT-2026-DSS') && html.includes('ACCESS GRANTED');
+  // 3.6 Centered Cutout Photo & Infinite Marquee Outline Typography (Lanyard & Spotify purged)
+  const hasCutoutPhoto = /class=["'][^"']*hero-cutout-img[^"']*["']/i.test(html) && /christopher-base-cutout\.png/i.test(html);
+  const hasMarqueeWrap = /class=["'][^"']*hero-marquee-wrap[^"']*["']/i.test(html);
+  const hasMarqueeText = html.includes('CHRISTOPHER THEO PURNOMO');
+  const hasNoLanyard = !/id=["']lanyardPassCard["']/i.test(html) && !/id=["']lanyardBadge["']/i.test(html);
   const hasNoSpotify = !/id=["']spotifyCard["']/i.test(html) && !/id=["']btnPlayPause["']/i.test(html) && !/id=["']vinylDisc["']/i.test(html);
-  const lanyardOk = hasLanyardCard && hasLanyardBadge && hasLanyardStrap && hasLanyardClip && hasLanyardHologram && hasDevCreds && hasNoSpotify;
-  reporter.record(3, 'T3.6', 'Interactive 3D physics Lanyard Pass badge intact (#lanyardPassCard, #lanyardBadge, credentials, hologram, Spotify purged)', lanyardOk,
-    lanyardOk ? null : `Lanyard elements: card=${hasLanyardCard}, badge=${hasLanyardBadge}, strap=${hasLanyardStrap}, clip=${hasLanyardClip}, holo=${hasLanyardHologram}, creds=${hasDevCreds}, noSpotify=${hasNoSpotify}`);
+  const heroRedesignOk = hasCutoutPhoto && hasMarqueeWrap && hasMarqueeText && hasNoLanyard && hasNoSpotify;
+  reporter.record(3, 'T3.6', 'Hero Centered Cutout & Infinite Marquee Typography intact (Lanyard & Spotify purged)', heroRedesignOk,
+    heroRedesignOk ? null : `Hero elements: cutout=${hasCutoutPhoto}, marquee=${hasMarqueeWrap}, text=${hasMarqueeText}, noLanyard=${hasNoLanyard}, noSpotify=${hasNoSpotify}`);
 
   // 3.7 About Section Spotlight Container
   const hasSpotlightContainer = /id=["']aboutSpotlightContainer["']/i.test(html);

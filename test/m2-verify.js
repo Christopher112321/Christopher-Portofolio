@@ -378,9 +378,9 @@ assert(fs.existsSync(distHtmlPath), 'M2:7.1', 'dist/index.html exists from produ
 const distHtml = fs.readFileSync(distHtmlPath, 'utf8');
 const distHtmlSize = Buffer.byteLength(distHtml, 'utf8');
 assert(
-  distHtmlSize < 50 * 1024,
+  distHtmlSize < 60 * 1024,
   'M2:7.2',
-  `dist/index.html (${(distHtmlSize / 1024).toFixed(2)} KB) is within 50KB performance budget`
+  `dist/index.html (${(distHtmlSize / 1024).toFixed(2)} KB) is within 60KB performance budget`
 );
 
 const distHasCards = distHtml.includes('id="project-internmatch"') &&

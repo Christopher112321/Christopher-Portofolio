@@ -1,13 +1,14 @@
 /**
  * =============================================================================
  * CHRISTOPHER THEO PURNOMO — PERSONAL PORTOFOLIO (VITE MODULE)
- * Tema: MODERN CLEAN MINIMALIST DARK
+ * Tema: MODERN CLEAN DUAL-THEME (DARK / LIGHT)
  * Fitur:
  * 1. Minimalist 0-100% Numeric Loading Screen with Sleek Progress Bar
- * 2. Interactive 3D Physics Lanyard Pass Badge (Hero Right Section)
- * 3. About Me: Smooth Spring-Physics Spotlight Reveal (Persis Referensi Eka Wahyu)
- * 4. Dual Synchronized Navigation (Top Pill Navbar + Vertical Side-Rail ^ & v)
- * 5. Interactive Canvas Grid, Precision Cursor, Copy Email, Resume Modal
+ * 2. Theme Switcher Controller (Dark/Light with localStorage persistence)
+ * 3. Hero Centered Cutout Photo & Infinite Marquee Typography
+ * 4. About Me: Smooth Spring-Physics Spotlight Reveal (Persis Referensi Eka Wahyu)
+ * 5. Dual Synchronized Navigation (Top Floating Pill Navbar + Vertical Side-Rail ^ & v)
+ * 6. Interactive Canvas Grid, Precision Cursor, Copy Email, Resume Modal
  * =============================================================================
  */
 
@@ -73,11 +74,18 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       draw(ctx) {
         if (this.opacity <= 0.01) return;
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = this.isAccent
-          ? `rgba(255, 255, 255, ${this.opacity * 0.95})`
-          : `rgba(200, 200, 200, ${this.opacity * 0.65})`;
+        if (isLight) {
+          ctx.fillStyle = this.isAccent
+            ? `rgba(15, 23, 42, ${this.opacity * 0.85})`
+            : `rgba(71, 85, 105, ${this.opacity * 0.55})`;
+        } else {
+          ctx.fillStyle = this.isAccent
+            ? `rgba(255, 255, 255, ${this.opacity * 0.95})`
+            : `rgba(200, 200, 200, ${this.opacity * 0.65})`;
+        }
         ctx.fill();
       }
     }
@@ -111,10 +119,12 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.clearRect(0, 0, cW, cH);
 
       // Subtle neutral ambient backdrop fog
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
       const fogAlpha = 0.015 + eased * 0.025;
       const fogGrad = ctx.createRadialGradient(cW / 2, cH / 2, 0, cW / 2, cH / 2, cW * 0.55);
-      fogGrad.addColorStop(0, `rgba(255, 255, 255, ${fogAlpha * 0.25})`);
-      fogGrad.addColorStop(0.5, `rgba(255, 255, 255, ${fogAlpha * 0.08})`);
+      const fogRgb = isLight ? '15, 23, 42' : '255, 255, 255';
+      fogGrad.addColorStop(0, `rgba(${fogRgb}, ${fogAlpha * 0.25})`);
+      fogGrad.addColorStop(0.5, `rgba(${fogRgb}, ${fogAlpha * 0.08})`);
       fogGrad.addColorStop(1, 'transparent');
       ctx.fillStyle = fogGrad;
       ctx.fillRect(0, 0, cW, cH);
@@ -135,8 +145,9 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
           // Make shutters solid before sliding them away
           const shutters = introScreen.querySelectorAll('.intro-shutter');
+          const currentBg = getComputedStyle(document.documentElement).getPropertyValue('--bg-primary').trim() || '#000000';
           shutters.forEach(s => {
-            s.style.backgroundColor = '#000000';
+            s.style.backgroundColor = currentBg;
             s.style.pointerEvents = 'auto';
           });
           // Small delay to let shutters render solid, then slide
@@ -154,220 +165,50 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ---------------------------------------------------------------------------
-   * 2. INTERACTIVE 3D PHYSICS LANYARD PASS BADGE (HERO RIGHT SECTION)
-   *    - Pointer drag interaction with setPointerCapture
-   *    - Damped harmonic oscillation / pendulum spring physics on release
-   *    - 3D hover proximity tilt & dynamic specular sheen / hologram shifts
-   *    - Keyboard accessibility (Arrow keys / Enter / Space)
+   * 2. THEME SWITCHER CONTROLLER (DARK / LIGHT MODE)
+   *    - Reads from localStorage / system preference
+   *    - Toggles [data-theme="dark"] and [data-theme="light"] on <html>
+   *    - Smooth animated crossfade transition
    * --------------------------------------------------------------------------- */
-  const lanyardPassCard = document.getElementById('lanyardPassCard');
-  const lanyardBadge = document.getElementById('lanyardBadge');
-  const lanyardStrap = document.getElementById('lanyardStrap');
-  const lanyardSheen = document.getElementById('lanyardSheen');
-  const lanyardHologram = document.getElementById('lanyardHologram');
+  const THEME_STORAGE_KEY = 'portfolio-theme';
+  const themeToggle = document.getElementById('themeToggle');
 
-  if (lanyardPassCard && lanyardBadge) {
-    // Physics parameters (Damped harmonic oscillator / pendulum model)
-    const stiffness = 0.08;
-    const damping = 0.88;
-    const maxDragDistance = 140;
+  function getActiveTheme() {
+    return document.documentElement.getAttribute('data-theme') || 'dark';
+  }
 
-    let posX = 0;
-    let posY = 0;
-    let velX = 0;
-    let velY = 0;
-
-    let tiltX = 0;
-    let tiltY = 0;
-    let targetTiltX = 0;
-    let targetTiltY = 0;
-
-    let isDragging = false;
-    let dragStartX = 0;
-    let dragStartY = 0;
-    let isHovering = false;
-    let animRafId = null;
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // Helper: Clamps vector magnitude to max radius
-    function clampDistance(dx, dy, maxDist) {
-      const dist = Math.hypot(dx, dy);
-      if (dist <= maxDist || dist === 0) return { x: dx, y: dy };
-      const ratio = maxDist / dist;
-      return { x: dx * ratio, y: dy * ratio };
+  function applyTheme(theme, animate = true) {
+    if (animate) {
+      document.documentElement.classList.add('theme-transitioning');
+    }
+    document.documentElement.setAttribute('data-theme', theme);
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, theme);
+    } catch (e) {
+      /* ignore private browsing localStorage errors */
     }
 
-    // Step physics and render 3D transforms
-    function updatePhysics() {
-      if (!isDragging) {
-        if (prefersReducedMotion) {
-          posX = 0;
-          posY = 0;
-          velX = 0;
-          velY = 0;
-          tiltX = 0;
-          tiltY = 0;
-        } else {
-          // Hooke's Law + viscous damping: F = -k * x - c * v
-          const forceX = -stiffness * posX;
-          const forceY = -stiffness * posY;
-          velX = (velX + forceX) * damping;
-          velY = (velY + forceY) * damping;
-          posX += velX;
-          posY += velY;
-
-          // Smooth tilt interpolation towards hover target
-          tiltX += (targetTiltX - tiltX) * 0.12;
-          tiltY += (targetTiltY - tiltY) * 0.12;
-        }
-      }
-
-      // Compute badge rotation:
-      // RotZ follows horizontal displacement and velocity (pendulum swing)
-      const swingRotZ = (posX / 10) + (velX * 1.2);
-      // Dynamic tilt combinations
-      const totalRotX = isDragging ? -(posY * 0.12) : (tiltX - posY * 0.08);
-      const totalRotY = isDragging ? (posX * 0.14) : (tiltY + posX * 0.08);
-      const activeZ = isDragging ? 32 : (isHovering ? 18 : 0);
-
-      // Render badge 3D transform
-      lanyardBadge.style.transform = `perspective(1000px) translate3d(${posX.toFixed(2)}px, ${posY.toFixed(2)}px, ${activeZ}px) rotateX(${totalRotX.toFixed(2)}deg) rotateY(${totalRotY.toFixed(2)}deg) rotateZ(${swingRotZ.toFixed(2)}deg)`;
-
-      // Render lanyard strap transform: angles towards badge top connection
-      if (lanyardStrap) {
-        const strapAngle = Math.atan2(posX, 120 + Math.max(0, posY)) * (180 / Math.PI);
-        const strapStretch = Math.min(1.4, Math.max(0.9, 1 + posY * 0.002));
-        lanyardStrap.style.transform = `rotateZ(${strapAngle.toFixed(2)}deg) scaleY(${strapStretch.toFixed(3)})`;
-      }
-
-      // Dynamic Holographic & Sheen Angle
-      if (lanyardSheen) {
-        const sheenAngle = 135 + totalRotY * 2.2 + totalRotX * 1.5;
-        const sheenOpacity = Math.min(0.65, Math.max(0.12, 0.22 + (Math.abs(totalRotX) + Math.abs(totalRotY)) * 0.02 + Math.abs(posX) * 0.002));
-        lanyardSheen.style.background = `linear-gradient(${sheenAngle.toFixed(1)}deg, rgba(255,255,255,0) 25%, rgba(255,255,255,${sheenOpacity.toFixed(2)}) 50%, rgba(255,255,255,0) 75%)`;
-      }
-      if (lanyardHologram) {
-        const holoShiftX = 50 + totalRotY * 1.6 + posX * 0.1;
-        const holoShiftY = 50 + totalRotX * 1.6 + posY * 0.1;
-        lanyardHologram.style.backgroundPosition = `${holoShiftX.toFixed(1)}% ${holoShiftY.toFixed(1)}%`;
-      }
-
-      // Continue RAF loop if active movement exists
-      const energy = Math.abs(posX) + Math.abs(posY) + Math.abs(velX) + Math.abs(velY) + Math.abs(targetTiltX - tiltX) + Math.abs(targetTiltY - tiltY);
-      if (isDragging || isHovering || energy > 0.08) {
-        animRafId = requestAnimationFrame(updatePhysics);
-      } else {
-        // Natural settling to rest
-        posX = 0;
-        posY = 0;
-        velX = 0;
-        velY = 0;
-        tiltX = 0;
-        tiltY = 0;
-        lanyardBadge.style.transform = '';
-        if (lanyardStrap) lanyardStrap.style.transform = '';
-        animRafId = null;
-      }
+    if (themeToggle) {
+      const isLight = theme === 'light';
+      themeToggle.setAttribute('aria-label', isLight ? 'Switch to dark theme' : 'Switch to light theme');
+      themeToggle.setAttribute('title', isLight ? 'Switch to dark theme' : 'Switch to light theme');
     }
 
-    function ensureAnimation() {
-      if (!animRafId) {
-        animRafId = requestAnimationFrame(updatePhysics);
-      }
+    if (animate) {
+      setTimeout(() => {
+        document.documentElement.classList.remove('theme-transitioning');
+      }, 350);
     }
+  }
 
-    // Pointer Event Handlers (Mouse, Pen, Touch with pointer capture)
-    lanyardPassCard.addEventListener('pointerdown', (e) => {
-      // Allow link clicking if any
-      if (e.target.closest('a, button')) return;
-      isDragging = true;
-      dragStartX = e.clientX - posX;
-      dragStartY = e.clientY - posY;
-      velX = 0;
-      velY = 0;
-      try {
-        lanyardPassCard.setPointerCapture(e.pointerId);
-      } catch (err) {
-        /* fallback if capture unsupported */
-      }
-      ensureAnimation();
-    });
-
-    lanyardPassCard.addEventListener('pointermove', (e) => {
-      if (isDragging) {
-        const rawDx = e.clientX - dragStartX;
-        const rawDy = e.clientY - dragStartY;
-        const clamped = clampDistance(rawDx, rawDy, maxDragDistance);
-        posX = clamped.x;
-        posY = clamped.y;
-        ensureAnimation();
-      } else if (isHovering && window.matchMedia('(pointer: fine)').matches) {
-        const rect = lanyardBadge.getBoundingClientRect();
-        const normX = (e.clientX - rect.left) / rect.width - 0.5;
-        const normY = (e.clientY - rect.top) / rect.height - 0.5;
-        targetTiltX = -normY * 14;
-        targetTiltY = normX * 16;
-        ensureAnimation();
-      }
-    });
-
-    function endDrag(e) {
-      if (isDragging) {
-        isDragging = false;
-        try {
-          if (lanyardPassCard.hasPointerCapture(e.pointerId)) {
-            lanyardPassCard.releasePointerCapture(e.pointerId);
-          }
-        } catch (err) {
-          /* fallback */
-        }
-        ensureAnimation();
-      }
-    }
-
-    lanyardPassCard.addEventListener('pointerup', endDrag);
-    lanyardPassCard.addEventListener('pointercancel', endDrag);
-
-    // Hover listeners for 3D proximity tilt
-    lanyardPassCard.addEventListener('mouseenter', () => {
-      isHovering = true;
-      ensureAnimation();
-    });
-
-    lanyardPassCard.addEventListener('mouseleave', () => {
-      isHovering = false;
-      targetTiltX = 0;
-      targetTiltY = 0;
-      ensureAnimation();
-    });
-
-    // Keyboard accessibility: Arrow keys produce tactile badge swings, Enter/Space provides bounce
-    lanyardPassCard.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        velX -= 15;
-        ensureAnimation();
-      } else if (e.key === 'ArrowRight') {
-        e.preventDefault();
-        velX += 15;
-        ensureAnimation();
-      } else if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        velY += 18;
-        ensureAnimation();
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        velY -= 14;
-        ensureAnimation();
-      } else if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        velY += 24;
-        velX += (Math.random() - 0.5) * 16;
-        ensureAnimation();
-      }
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const current = getActiveTheme();
+      const nextTheme = current === 'dark' ? 'light' : 'dark';
+      applyTheme(nextTheme, true);
     });
   }
+
 
   /* ---------------------------------------------------------------------------
    * 3. ABOUT ME: SMOOTH SPRING-PHYSICS SPOTLIGHT REVEAL (PERSIS REFERENSI EKA WAHYU)
@@ -478,10 +319,11 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ---------------------------------------------------------------------------
    * 4. SECTION LIST & DUAL SYNCHRONIZED NAVIGATION (PILL & VERTICAL RAIL)
    * --------------------------------------------------------------------------- */
-  const sectionIds = ['home', 'about', 'portfolio', 'contact'];
+  const sectionIds = ['home', 'portfolio', 'skills', 'about', 'contact'];
   const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
 
   const pillNavbar = document.getElementById('pillNavbar');
+  const navLinksTrack = document.getElementById('navLinksTrack');
   const navIndicator = document.getElementById('navIndicator');
   const navLinks = document.querySelectorAll('.nav-link');
 
@@ -493,13 +335,16 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentSectionIndex = 0;
 
   function updateNavIndicator(targetLink) {
-    if (!targetLink || !navIndicator || !pillNavbar) return;
-    const navRect = pillNavbar.getBoundingClientRect();
+    if (!targetLink || !navIndicator) return;
+    const container = navLinksTrack || pillNavbar;
+    if (!container) return;
+    const trackRect = container.getBoundingClientRect();
     const linkRect = targetLink.getBoundingClientRect();
 
-    const left = linkRect.left - navRect.left;
+    const left = linkRect.left - trackRect.left;
     const width = linkRect.width;
 
+    navIndicator.style.opacity = '1';
     navIndicator.style.left = `${left}px`;
     navIndicator.style.width = `${width}px`;
   }
@@ -509,11 +354,19 @@ document.addEventListener('DOMContentLoaded', () => {
     currentSectionIndex = index;
     const currentId = sectionIds[index];
 
+    let hasActiveLink = false;
     navLinks.forEach(link => {
       const isMatch = link.getAttribute('data-section') === currentId;
       link.classList.toggle('active', isMatch);
-      if (isMatch) updateNavIndicator(link);
+      if (isMatch) {
+        updateNavIndicator(link);
+        hasActiveLink = true;
+      }
     });
+
+    if (!hasActiveLink && navIndicator) {
+      navIndicator.style.opacity = '0';
+    }
 
     sideDots.forEach(dot => {
       dot.classList.toggle('active', dot.getAttribute('data-section') === currentId);
@@ -528,13 +381,19 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   setTimeout(() => {
-    const activeLink = document.querySelector('.nav-link.active') || navLinks[0];
-    if (activeLink) updateNavIndicator(activeLink);
+    const activeLink = document.querySelector('.nav-link.active');
+    if (activeLink) {
+      updateNavIndicator(activeLink);
+    } else if (navIndicator) {
+      navIndicator.style.opacity = '0';
+    }
   }, 100);
 
   window.addEventListener('resize', () => {
     const activeLink = document.querySelector('.nav-link.active');
-    if (activeLink) updateNavIndicator(activeLink);
+    if (activeLink) {
+      updateNavIndicator(activeLink);
+    }
   });
 
   function navigateToSection(index) {
@@ -560,9 +419,13 @@ document.addEventListener('DOMContentLoaded', () => {
     dot.addEventListener('click', () => navigateToSection(idx));
   });
 
-  navLinks.forEach((link, idx) => {
+  navLinks.forEach((link) => {
     link.addEventListener('click', () => {
-      setTimeout(() => setActiveSection(idx), 50);
+      const secId = link.getAttribute('data-section');
+      const idx = sectionIds.indexOf(secId);
+      if (idx !== -1) {
+        setTimeout(() => setActiveSection(idx), 50);
+      }
     });
   });
 
@@ -677,10 +540,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       draw(ctx, scrollVelocity) {
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
         const currentAlpha = Math.max(0.06, this.alpha * (0.8 + 0.2 * Math.sin(this.pulseOffset)));
-        const color = this.isAccent
-          ? `rgba(255, 255, 255, ${currentAlpha * 0.95})`
-          : `rgba(200, 200, 200, ${currentAlpha * 0.65})`;
+        const color = isLight
+          ? (this.isAccent ? `rgba(15, 23, 42, ${currentAlpha * 0.9})` : `rgba(71, 85, 105, ${currentAlpha * 0.6})`)
+          : (this.isAccent ? `rgba(255, 255, 255, ${currentAlpha * 0.95})` : `rgba(200, 200, 200, ${currentAlpha * 0.65})`);
 
         const absVel = Math.abs(scrollVelocity);
 
@@ -698,7 +562,8 @@ document.addEventListener('DOMContentLoaded', () => {
           ctx.stroke();
 
           // Spark center
-          ctx.fillStyle = `rgba(255, 255, 255, ${currentAlpha * 0.7})`;
+          const sparkColor = isLight ? `rgba(15, 23, 42, ${currentAlpha * 0.7})` : `rgba(255, 255, 255, ${currentAlpha * 0.7})`;
+          ctx.fillStyle = sparkColor;
           ctx.beginPath();
           ctx.arc(this.x, this.y, Math.max(0.8, this.radius * 0.4), 0, Math.PI * 2);
           ctx.fill();
@@ -713,7 +578,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (this.depth > 0.6) {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius * 0.45, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(255, 255, 255, ${currentAlpha * 0.85})`;
+            ctx.fillStyle = isLight ? `rgba(15, 23, 42, ${currentAlpha * 0.85})` : `rgba(255, 255, 255, ${currentAlpha * 0.85})`;
             ctx.fill();
           }
         }
@@ -743,7 +608,11 @@ document.addEventListener('DOMContentLoaded', () => {
       scrollVelocity += (rawDelta - scrollVelocity) * 0.28;
       scrollVelocity *= 0.90; // smooth exponential decay
 
-      // 1. Draw Tactical Grid Dots & Crosses (Silver / Subtle White)
+      // 1. Draw Tactical Grid Dots & Crosses (Silver / Subtle White or Slate)
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+      const baseRgb = isLight ? '15, 23, 42' : '255, 255, 255';
+      const dotFill = isLight ? 'rgba(15, 23, 42, 0.05)' : 'rgba(255, 255, 255, 0.035)';
+
       for (let x = spacing; x < width; x += spacing) {
         for (let y = spacing; y < height; y += spacing) {
           const dx = mouse.x - x;
@@ -753,7 +622,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
           if (dist < maxDist) {
             const factor = 1 - dist / maxDist;
-            ctx.strokeStyle = `rgba(255, 255, 255, ${0.15 + factor * 0.4})`;
+            ctx.strokeStyle = `rgba(${baseRgb}, ${0.15 + factor * 0.4})`;
             ctx.lineWidth = 1;
 
             const arm = 3 + factor * 4.5;
@@ -764,7 +633,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ctx.lineTo(x, y + arm);
             ctx.stroke();
           } else {
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.035)';
+            ctx.fillStyle = dotFill;
             ctx.fillRect(x - 0.75, y - 0.75, 1.5, 1.5);
           }
         }
@@ -808,7 +677,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     requestAnimationFrame(renderRing);
 
-    const hoverables = document.querySelectorAll('a, button, .case-study-card, .contact-card, .focus-card, .lanyard-pass-container');
+    const hoverables = document.querySelectorAll('a, button, .case-study-card, .skill-card, .contact-stack-card, .focus-card');
     hoverables.forEach(el => {
       el.addEventListener('mouseenter', () => cursorRing.classList.add('cursor-active'));
       el.addEventListener('mouseleave', () => cursorRing.classList.remove('cursor-active'));
@@ -847,6 +716,7 @@ document.addEventListener('DOMContentLoaded', () => {
    * 8. RESUME MODAL CONTROLLER
    * --------------------------------------------------------------------------- */
   const btnOpenResume = document.getElementById('btnOpenResume');
+  const btnContactResume = document.getElementById('btnContactResume');
   const btnCloseResume = document.getElementById('btnCloseResume');
   const btnModalCloseSecondary = document.getElementById('btnModalCloseSecondary');
   const modalBackdrop = document.getElementById('modalBackdrop');
@@ -867,6 +737,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (btnOpenResume) btnOpenResume.addEventListener('click', openResume);
+  if (btnContactResume) btnContactResume.addEventListener('click', openResume);
   if (btnCloseResume) btnCloseResume.addEventListener('click', closeResume);
   if (btnModalCloseSecondary) btnModalCloseSecondary.addEventListener('click', closeResume);
   if (modalBackdrop) modalBackdrop.addEventListener('click', closeResume);

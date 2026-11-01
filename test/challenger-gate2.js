@@ -411,15 +411,16 @@ if (distHtml) {
   const hasAboutId = /id=["']about["']/i.test(distHtml);
   const hasPortfolioId = /id=["']portfolio["']/i.test(distHtml);
   const hasContactId = /id=["']contact["']/i.test(distHtml);
-  const hasLanyardId = /id=["']lanyardPassCard["']/i.test(distHtml);
+  const hasSkillsId = /id=["']skills["']/i.test(distHtml);
+  const hasMarquee = /class=["'][^"']*hero-marquee-wrap[^"']*["']/i.test(distHtml);
   const hasResumeModalId = /id=["']resumeModal["']/i.test(distHtml);
 
   harness.assert(
     'Audit 6: Dist Artifacts',
     'DIST:DOM:SECTIONS',
-    'dist/index.html preserves #home, #about, #portfolio, #contact, #lanyardPassCard, #resumeModal',
-    hasHomeId && hasAboutId && hasPortfolioId && hasContactId && hasLanyardId && hasResumeModalId,
-    `Missing in dist/index.html: home=${hasHomeId}, about=${hasAboutId}, portfolio=${hasPortfolioId}, contact=${hasContactId}, lanyard=${hasLanyardId}, modal=${hasResumeModalId}`
+    'dist/index.html preserves #home, #skills, #about, #portfolio, #contact, #resumeModal',
+    hasHomeId && hasAboutId && hasPortfolioId && hasContactId && hasSkillsId && hasMarquee && hasResumeModalId,
+    `Missing in dist/index.html: home=${hasHomeId}, skills=${hasSkillsId}, marquee=${hasMarquee}, about=${hasAboutId}, portfolio=${hasPortfolioId}, contact=${hasContactId}, modal=${hasResumeModalId}`
   );
 
   // Check that root-relative paths in dist/index.html do not use /portof/
