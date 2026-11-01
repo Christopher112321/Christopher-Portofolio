@@ -1,77 +1,77 @@
-# Project: Portfolio Pure B&W Monochrome Revamp, 3D Flip Cards & Lanyard Badge
+# Project: RUSHES Cinematic Editorial Portfolio Redesign
 
 ## Architecture
-- **Framework & Stack**: Pure Vanilla HTML5, Modern CSS3 with 3D Transforms (`preserve-3d`, `perspective`), and Modular ES6 JavaScript bundled via Vite 6.2.0. No heavy frontend framework dependencies.
-- **Component & DOM Structure**: Single Page Application structure in `index.html`:
-  - Global Overlays: Precision Cursor (`#cursorDot`, `#cursorRing`), Ambient Monochrome Canvas (`#bgCanvas`), Intro Loading Screen (`#introScreen`), and CV Modal (`#resumeModal`).
-  - Navigation Systems: Floating Top Monochrome Glass Navbar (`#pillNavbar`) and Vertical Side Rail Navigation (`#sideNavRail`).
-  - Core Content Sections:
-    - Hero (`#home`): Bio narrative, CTAs, and Interactive 3D Physics Lanyard Pass Badge (`#lanyardPassCard`) replacing the obsolete Spotify player widget.
-    - About Me (`#about`): Developer narrative and monochrome spotlight reveal.
-    - Portfolio Showcase (`#portfolio`): 3D Liquid Glass Flip Cards (`#project-internmatch` and `#project-mysembako`) featuring dual faces (Front: preview image, title, tags, direct live app button, flip button; Back: full case study text, technical contributions, challenges, GitHub repo links, back flip button).
-    - Contact Channels (`#contact`): 4 direct channels (Email copy, GitHub, LinkedIn, Instagram).
-    - Footer & Accessible CV Modal.
-- **Data Flow & State Management**:
-  - Content statically maintained in `index.html` ensuring 100% preservation.
-  - Interactive state (loading progression, 3D card flipping, lanyard pass physics, active section scroll-spying, modal dialog, and clipboard operations) handled in `src/main.js`.
-  - Design tokens and component theming centralized in `src/style.css` (mirrored to root `style.css` for static compatibility).
-- **Deployment Architecture**:
-  - Build System: Vite Bundler (`npm run build`) compiling to `dist/`.
-  - Hosting: Vercel Static Hosting (`base: '/'` in `vite.config.js`, `vercel.json` rewrites and cache headers).
-
----
+- **Tech Stack**: Vanilla HTML5, Modern CSS3 with Three-Layer Design Tokens, ES6 JavaScript, bundled via Vite 6.2.0+.
+- **Design Reference**: RUSHES by Marta Koziarz on Framer (`https://www.framer.com/marketplace/templates/rushes/`, `https://rushes.framer.website/`).
+- **Core Principles**:
+  - Dark Cinematic Editorial Aesthetic: Deep Obsidian canvas (`#0a0a0a`), Pitch Black base (`#050505`), Warm Ivory typography (`#f4f2ed`), Cine Amber primary accent (`#e2612f`), Tactical Red recording indicators (`#c22e1f`), and Hairline Slate borders (`rgba(154, 154, 158, 0.2)` / `rgba(255, 255, 255, 0.12)`).
+  - Tri-Stack Typography: Space Grotesk (display titles and section headings), Inter (humanist editorial body copy), and JetBrains Mono / Space Mono (cinematic HUD metadata, timecodes, coordinates, telemetry).
+  - Cinematic HUD Elements: Viewfinder corner brackets (`┌ ┐ └ ┘`), crosshairs (`+`), live timecodes (`[00:00:00:00]`), recording pulse (`REC ●`), lens metadata (`24FPS`, `ISO 800`, `SHUTTER 180°`), and geographical coordinate tags (`SEMARANG, ID // LAT: -7.0051, LON: 110.4381`).
+  - Camera Boot Loading Screen HUD: Rethemes intro loading screen to an optical camera boot & HUD calibration sequence while preserving the exact 2400ms duration, ease-out-cubic RAF, 300ms hold, and 850ms shutter release.
+  - Featured Projects Showcase: Prominently showcases **MySembako** (`https://mysembako.vercel.app`, `https://github.com/Christopher112321/mysembako`) and **InternMatch DSS** (`https://internmatch-dss.vercel.app`, `https://github.com/Christopher112321/internmatch-dss`) with widescreen editorial cards and all 12 case study blocks.
+  - Photo Integration: Christopher Theo's photos from `assets/` (`christopher-base.jpg`, `christopher-base-cutout.png`, `profile-augmented.jpg`, `profile.jpg`) integrated into hero badge, about spotlight HUD frame, and CV modal.
+  - 100% Verbatim Content Retention: All personal details, bio narrative, focus areas, 4 skills matrix categories, 17 tech tags, metrics, and external links strictly preserved.
+  - Dual-File Mirroring Contract: `src/style.css` ↔ `style.css` and `src/main.js` ↔ `script.js` must remain byte-for-byte identical (verified by SHA256).
 
 ## Feature Inventory
 | # | Feature | Description | Milestone | Source |
 |---|---------|-------------|-----------|--------|
-| 1 | Pure Monochrome B&W Theme | High-contrast black & white palette across backgrounds, text, borders, glass cards, and controls | M1 | ORIGINAL_REQUEST §R1 |
-| 2 | Cabinet Grotesk Typography | Import Cabinet Grotesk font and apply to headings and display elements | M1 | ORIGINAL_REQUEST §R1 |
-| 3 | Monochrome Canvas & Cursor | Retheme `#bgCanvas` particles/grid and `#cursorDot`/`#cursorRing` to pure monochrome silver/white/gray | M1 | ORIGINAL_REQUEST §R1 |
-| 4 | 3D Liquid Glass Flip Cards | Convert `#project-internmatch` and `#project-mysembako` to 3D liquid glass flip cards | M2 | ORIGINAL_REQUEST §R2 |
-| 5 | Direct Live App Buttons | Direct link on front card face to open live Vercel deployments in new tab | M2 | ORIGINAL_REQUEST §R2 |
-| 6 | 3D Flip Trigger & Case Study Back Face | Smooth 3D flip button revealing complete preserved case study text and GitHub links | M2 | ORIGINAL_REQUEST §R2 |
-| 7 | Spotify Widget Removal | Remove obsolete Spotify player markup (`#spotifyCard`, `#vinylDisc`, `#btnPlayPause`, `#progressBarBg`) and script logic | M3 | ORIGINAL_REQUEST §R3 |
-| 8 | Interactive 3D Physics Lanyard Pass | Interactive 3D physics-enabled Christopher Theo ID lanyard badge with drag/tilt dynamics | M3 | ORIGINAL_REQUEST §R3 |
-| 9 | 100% Content Preservation | Preserve all case study content, affiliations, skills, links, and structure verbatim | M4 | ORIGINAL_REQUEST §R4 |
-| 10 | Automated Test Suite Update | Update `test/e2e-verify.js`, `test/challenger-suite.js`, `test/adversarial-stress.js` for new features | M4 | ORIGINAL_REQUEST §R5 |
-| 11 | Build & Test Zero-Error Verification | Verify `npm run build` exits 0 and `npm test` passes 100% with zero failures | M4 | ORIGINAL_REQUEST §R4, R5 |
-
----
+| 1 | RUSHES Three-Layer CSS Tokens | Primitive, semantic, and component tokens for Obsidian `#0a0a0a`, Ivory `#f4f2ed`, Cine Amber `#e2612f`, Tactical Red `#c22e1f`, and hairline borders | M1 | Survey 2 |
+| 2 | Tri-Stack Typography Hierarchy | Space Grotesk (headings), Inter (body), JetBrains Mono (HUD/timecodes/metadata) | M1 | Survey 2 |
+| 3 | Camera Boot Loading Screen HUD | Rethemed optical camera boot sequence preserving exact 2400ms timing, ease-out-cubic RAF, 300ms hold, and 850ms shutter release | M1 | R2, Survey 1, Survey 2 |
+| 4 | Cinematic Navigation Rails | Floating pill navbar blur(54px) with hairline border, active indicator, and vertical side rail with section counter (`01 / 04`) | M1 | Survey 1, Survey 2 |
+| 5 | Cinematic Hero Section | Large display typography, affiliation badge, status telemetry (`REC ●`, `24FPS`), bio narrative, action CTAs, and quick metrics strip | M1 | R1, Survey 1, Survey 3 |
+| 6 | Hero Cinematic Pass Badge | Interactive badge using `assets/christopher-base.jpg`, DEV PASS 2026 branding, barcode, and optical telemetry | M1 | R4, Survey 3 |
+| 7 | About Section Cinematic Bento & Spotlight | Narrative bio blocks, focus areas (01 DSS, 02 Web Systems, 03 AI/ML & IoT), and interactive HUD frame using `assets/christopher-base-cutout.png` & `assets/profile-augmented.jpg` | M1 | R1, R4, Survey 3 |
+| 8 | Technical Skills Matrix HUD Pills | 4 categorized skills groups with technical tags styled in HUD telemetry pill badges | M1 | R1, Survey 3 |
+| 9 | InternMatch DSS Featured Showcase Card | Widescreen editorial card with live link, repo link, AHP/TOPSIS visual matrix, and 6 case study blocks | M1 | R1, R3, Survey 3 |
+| 10 | MySembako Featured Showcase Card | Widescreen editorial card with live link, repo link, FIFO inventory preview, and 6 case study blocks | M1 | R1, R3, Survey 3 |
+| 11 | Contact Channels & Minimalist Footer | 4-channel contact grid (Email with 1-click clipboard copy, GitHub, LinkedIn, Instagram) and cinematic footer | M1 | R1, Survey 3 |
+| 12 | CV Modal Cinematic HUD Restyle | Accessible modal with `assets/profile.jpg`, education, projects, skills, and close triggers | M1 | R1, R4, Survey 3 |
+| 13 | Dual-File Synchronization | Byte-for-byte SHA256 mirroring between `src/` and root files (`src/style.css` ↔ `style.css`, `src/main.js` ↔ `script.js`) | M1 | Survey 1 |
+| 14 | E2E Test Suite Hardening & Alignment | Update/harden test suites in `test/` to verify RUSHES tokens, typography, HUD elements, photo assets, project links, and content retention | M2 | R5, Survey 1 |
+| 15 | Multi-Agent Swarm Verification & Forensic Audit | Production build exit code 0, 100% pass across Reviewers, Challengers, and Forensic Auditor CLEAN verdict | M2 | R5 |
 
 ## Milestones
 | # | Name | Scope | Dependencies | Status |
 |---|------|-------|-------------|--------|
-| M1 | Monochrome B&W Theme & Cabinet Grotesk | Pure black & white `:root` palette, Cabinet Grotesk font integration, monochrome canvas & cursor | none | DONE |
-| M2 | 3D Liquid Glass Flip Cards | Card 3D flip markup, front/back faces, direct live links, flip animations, 100% content | M1 | DONE |
-| M3 | Interactive 3D Physics Lanyard Pass Badge | Remove Spotify widget, integrate Christopher Theo 3D physics lanyard pass badge | M1, M2 | DONE |
-| M4 | Automated Test Suites & Regression Verification | Comprehensive multi-suite verification, build verification, and full gate review | M1, M2, M3 | DONE |
+| M1 | RUSHES Cinematic Editorial Implementation | Core tokens, typography, HUD elements, hero, about, skills, featured project showcases (MySembako & InternMatch DSS), camera boot loading screen HUD, photo integration, and dual-file sync | Survey Phase | DONE |
+| M2 | Test Hardening, Swarm Verification & Forensic Audit | Test suite alignment, Vite production build, 2 Reviewers, 2 Challengers, and Forensic Auditor verification | M1 | DONE |
 
----
+## Key Verification Results
+- **Gate Result**: PASS (Unanimous APPROVE by Reviewer 1, Reviewer 2, Challenger 1, Challenger 2; CLEAN verdict by Forensic Auditor).
+- **Automated Test Results**: Over 400 assertions passed (100% pass rate) across 8 test suites.
+- **Production Build**: Vite 6.4.3 exit code 0 (`dist/index.html` 45.13 kB, `dist/assets/*.css` 58.94 kB, `dist/assets/*.js` 16.94 kB).
+- **Dual-File SHA256 Mirroring**:
+  - `src/style.css` = `style.css` (`657D2CE1831F196ACDC67CDCDABDEEFEFBC7F0AD14F3F118678EF316FB35F055`)
+  - `src/main.js` = `script.js` (`3059DE955C1BE77DA20FF6FED59218FF066C8CB7E42044855DF95D2AA9DA9115`)
+- **Content Preservation**: 100% verbatim retention of all personal info, technical skills, 12 case study blocks, and external links.
+- **Intro Loading Screen**: 2400ms duration, 300ms hold, 850ms shutter unmount strictly preserved.
+- **Featured Projects**: Verified live Vercel deployments and GitHub repos for MySembako and InternMatch DSS.
+- **Photo Assets**: Integrated `christopher-base.jpg`, `christopher-base-cutout.png`, `profile-augmented.jpg`, and `profile.jpg`.
 
 ## Interface Contracts
-### `src/style.css` ↔ `index.html`
-- Typography: `@import` and `<link>` for Cabinet Grotesk; applied via `var(--font-display)` to headings and display elements.
-- Palette Tokens: Pure high-contrast monochrome (pitch black `#000000`, white `#ffffff`, neutral grays).
-- Flip Card Classes: `.flip-card-wrapper`, `.flip-card-inner`, `.flip-card-front`, `.flip-card-back`, `.btn-flip-trigger`, `.btn-flip-back`, `.btn-live-project`.
-- Lanyard Badge Classes: `.lanyard-pass-container`, `.lanyard-strap`, `.lanyard-badge`, `.lanyard-badge-inner`, `.lanyard-hologram`.
+### DOM Structure & Section IDs
+- Section anchors `#home`, `#about`, `#portfolio`, `#contact` remain strictly intact.
+- Intro loading screen elements `#introScreen`, `#loadingPercent`, `#loadingBarFill`, and shutter elements remain intact.
+- Action buttons `#btnViewProjects`, `#btnOpenResume`, modal `#resumeModal` and close triggers remain intact.
+- Featured project IDs `#project-internmatch` and `#project-mysembako` remain intact.
 
-### `src/main.js` ↔ `index.html`
-- Flip Card Interactions: Event listeners for `.btn-flip-trigger` and `.btn-flip-back` toggling `.is-flipped` state on the respective card container, supporting both click and keyboard triggers.
-- Lanyard Physics: Inertia / spring / tilt physics responding to mouse movement or drag interaction on `#lanyardPassCard`.
-- Removal of dead Spotify selectors: No references to `#spotifyCard`, `#vinylDisc`, `#btnPlayPause`, `#progressBarBg` in JavaScript.
+### Dual-File Mirroring Contract
+- `src/style.css` ↔ `style.css` byte-for-byte identical (SHA256: `657D2CE1831F196ACDC67CDCDABDEEFEFBC7F0AD14F3F118678EF316FB35F055`).
+- `src/main.js` ↔ `script.js` byte-for-byte identical (SHA256: `3059DE955C1BE77DA20FF6FED59218FF066C8CB7E42044855DF95D2AA9DA9115`).
 
----
+### Timing & Sequence Contract
+- Intro loading duration: 2400ms duration, ease-out-cubic counter progression.
+- Terminal hold: 300ms hold at 100%.
+- Shutter unmount: 850ms transition before DOM removal.
 
 ## Code Layout
-- `c:\laragon\www\projekmandiri\portof\index.html` — Authoritative single-page HTML.
-- `c:\laragon\www\projekmandiri\portof\src\style.css` (and mirror `style.css`) — Authoritative styles and design tokens.
-- `c:\laragon\www\projekmandiri\portof\src\main.js` (and mirror `script.js`) — Authoritative interactive script logic.
-- `c:\laragon\www\projekmandiri\portof\test\e2e-verify.js` — E2E verification test suite.
-- `c:\laragon\www\projekmandiri\portof\test\challenger-suite.js` — Empirical challenger test suite.
-- `c:\laragon\www\projekmandiri\portof\test\adversarial-stress.js` — Adversarial stress test suite.
-- `c:\laragon\www\projekmandiri\portof\test\m1-verify.js` — Milestone 1 verification suite.
-- `c:\laragon\www\projekmandiri\portof\test\m2-verify.js` — Milestone 2 verification suite.
-- `c:\laragon\www\projekmandiri\portof\test\m3-verify.js` — Milestone 3 verification suite.
-- `c:\laragon\www\projekmandiri\portof\test\challenger-gate1.js` — Challenger Gate 1 adversarial suite.
-- `c:\laragon\www\projekmandiri\portof\test\challenger-gate2.js` — Challenger Gate 2 adversarial suite.
-- `c:\laragon\www\projekmandiri\portof\vite.config.js` — Vite configuration.
+- `index.html`: Main HTML entry point containing all section DOM elements, HUD markup, and metadata.
+- `src/style.css`: Primary CSS file containing design tokens, HUD styles, and responsive breakpoints.
+- `style.css`: Mirrored copy of `src/style.css` (enforced identical SHA256).
+- `src/main.js`: Main JavaScript application logic (camera boot HUD, navigation, interactive badges, modal).
+- `script.js`: Mirrored copy of `src/main.js` (enforced identical SHA256).
+- `assets/`: Image assets (`profile.jpg`, `christopher-base.jpg`, `profile-augmented.jpg`, `christopher-base-cutout.png`).
+- `public/assets/`: Public distribution mirror of image assets.
+- `test/`: Verification test suites (`e2e-verify.js`, `challenger-gate2.js`, `adversarial-stress.js`, `challenger-suite.js`, etc.).
