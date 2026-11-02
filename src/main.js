@@ -319,7 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ---------------------------------------------------------------------------
    * 4. SECTION LIST & DUAL SYNCHRONIZED NAVIGATION (PILL & VERTICAL RAIL)
    * --------------------------------------------------------------------------- */
-  const sectionIds = ['home', 'portfolio', 'skills', 'about', 'contact'];
+  const sectionIds = ['home', 'about', 'skills', 'portfolio', 'contact'];
   const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
 
   const pillNavbar = document.getElementById('pillNavbar');

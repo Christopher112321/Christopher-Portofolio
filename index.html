@@ -92,17 +92,14 @@
       <!-- Navigation Links in Center -->
       <div class="nav-links-track" id="navLinksTrack">
         <div class="nav-indicator" id="navIndicator" aria-hidden="true"></div>
-        <a href="#portfolio" class="nav-link" data-section="portfolio">
-          <span class="nav-text">WORK</span>
+        <a href="#about" class="nav-link" data-section="about">
+          <span class="nav-text">ABOUT</span>
         </a>
         <a href="#skills" class="nav-link" data-section="skills">
           <span class="nav-text">SKILLS</span>
         </a>
-        <a href="#about" class="nav-link" data-section="about">
-          <span class="nav-text">ABOUT</span>
-        </a>
-        <a href="#contact" class="nav-link" data-section="contact">
-          <span class="nav-text">CONTACT</span>
+        <a href="#portfolio" class="nav-link" data-section="portfolio">
+          <span class="nav-text">WORK</span>
         </a>
       </div>
 
@@ -150,9 +147,9 @@
     
     <div class="side-nav-indicators" id="sideNavIndicators">
       <button type="button" class="side-dot active" data-section="home" aria-label="Pindah ke Home"></button>
-      <button type="button" class="side-dot" data-section="portfolio" aria-label="Pindah ke Portfolio"></button>
-      <button type="button" class="side-dot" data-section="skills" aria-label="Pindah ke Skills"></button>
       <button type="button" class="side-dot" data-section="about" aria-label="Pindah ke About"></button>
+      <button type="button" class="side-dot" data-section="skills" aria-label="Pindah ke Skills"></button>
+      <button type="button" class="side-dot" data-section="portfolio" aria-label="Pindah ke Portfolio"></button>
       <button type="button" class="side-dot" data-section="contact" aria-label="Pindah ke Contact"></button>
     </div>
     
@@ -260,16 +257,314 @@
               <span class="stat-label">DOMISILI &amp; KAMPUS</span>
               <span class="stat-value">Semarang / Unika Soegijapranata</span>
             </div>
-            <div class="stat-separator"></div>
-            <div class="stat-item">
-              <span class="stat-label">BIDANG FOKUS</span>
-              <span class="stat-value">DSS, Web Systems, Databases, AI/ML</span>
-            </div>
           </div>
         </div>
       </div>
     </section>
 
+
+
+
+
+    <!-- =======================================================================
+         ABOUT SECTION (INTERACTIVE SPOTLIGHT REVEAL — MINIMALIST CLEAN)
+         ======================================================================= -->
+    <section id="about" class="section about-section snap-section">
+      <div class="container">
+        <div class="section-header" data-anim="fade-up">
+          <span class="section-label">01 // ABOUT ME</span>
+          <h2 class="section-title">Rekayasa Berbasis Logika, Keputusan Berbasis Data.</h2>
+        </div>
+
+        <div class="about-interactive-grid">
+          <!-- Kolom Kiri: Foto Cutout dengan Spotlight Reveal Halus (Persis Referensi Eka Wahyu) -->
+          <div class="about-photo-column" data-anim="fade-scale" data-anim-delay="2" data-anim-speed="slow">
+            <div class="about-spotlight-container" id="aboutSpotlightContainer">
+              <!-- Radial Glow Backdrop Behind Cutout -->
+              <div class="portrait-aura-backdrop" aria-hidden="true"></div>
+
+              <!-- Base Cutout Photo: Christopher Asli (Monochrome Base) -->
+              <img src="/assets/christopher-base-cutout.png" alt="Foto Christopher Theo Purnomo" class="about-img about-base-img" loading="lazy">
+              
+              <!-- Reveal Layer: Christopher Full-Vibrancy Spring Spotlight Reveal -->
+              <div class="about-photo-reveal-wrapper" id="aboutPhotoReveal">
+                <img src="/assets/christopher-base-cutout.png" alt="Christopher Theo Purnomo — Color Portrait" class="about-img about-reveal-img" id="aboutRevealImg" loading="lazy">
+              </div>
+
+              <!-- Minimalist Difference Dot Cursor (Persis Referensi Eka Wahyu: w-2 h-2 rounded-full mix-blend-difference) -->
+              <div class="spotlight-cursor-dot" id="spotlightCursorDot" aria-hidden="true"></div>
+
+              <!-- Bottom Fade Gradient (Persis Referensi: linear-gradient to bottom) -->
+              <div class="about-bottom-fade" aria-hidden="true"></div>
+            </div>
+
+            <div class="about-photo-meta">
+              <span class="meta-location">Semarang, Indonesia</span>
+              <span class="meta-tag">Teknik Informatika // Unika Soegijapranata</span>
+            </div>
+          </div>
+
+          <!-- Kolom Kanan: Narasi Personal & Matriks Skill -->
+          <div class="about-content-column" data-anim="fade-right" data-anim-delay="3">
+            <div class="about-narrative">
+              <p class="about-paragraph">
+                Saya adalah mahasiswa Teknik Informatika di <strong>Universitas Katolik Soegijapranata (Unika Soegijapranata)</strong> Semarang. Ketertarikan utama saya terletak pada titik temu antara logika komputasi, algoritma pengambilan keputusan (Decision Support System), dan rekayasa perangkat lunak yang tangguh.
+              </p>
+              <p class="about-paragraph">
+                Bagi saya, perangkat lunak yang bernilai bukan tentang tumpukan buzzword atau antarmuka yang dibuat-buat, melainkan sistem yang dapat diandalkan: basis data yang ternormalisasi dengan baik, alur pemrosesan data yang transparan, dan antarmuka yang efisien bagi penggunanya.
+              </p>
+            </div>
+
+            <div class="focus-areas-grid" data-anim="fade-up" data-anim-delay="4">
+              <div class="focus-card">
+                <span class="focus-index">01</span>
+                <h3 class="focus-title">Decision Support Systems</h3>
+                <p class="focus-desc">Merancang engine analitis multi-kriteria untuk mengkuantifikasi parameter subjektif menjadi rekomendasi keputusan yang objektif dan transparan.</p>
+              </div>
+              <div class="focus-card">
+                <span class="focus-index">02</span>
+                <h3 class="focus-title">Full-Stack &amp; Web Systems</h3>
+                <p class="focus-desc">Membangun arsitektur web fungsional mulai dari relasi skema basis data, REST API terstruktur, hingga antarmuka front-end yang responsif.</p>
+              </div>
+              <div class="focus-card">
+                <span class="focus-index">03</span>
+                <h3 class="focus-title">Applied AI/ML &amp; IoT</h3>
+                <p class="focus-desc">Mengintegrasikan model pembelajaran mesin terapan dan ekosistem telemetri sensorik untuk otomatisasi dan pengawasan sistem cerdas.</p>
+              </div>
+            </div>
+
+            <!-- Skills & Technical Stack Matrix (Minimalist Tags, No Progress Bars) -->
+            <div class="skills-sidebar" data-anim="fade-up" data-anim-delay="5">
+              <div class="skills-header">
+                <span class="skills-title">KAPABILITAS TEKNIS</span>
+                <span class="skills-sub">Stack &amp; Instrumen yang Digunakan</span>
+              </div>
+
+              <div class="skills-matrix-inline">
+                <div class="skill-category">
+                  <div class="category-title">Core Languages</div>
+                  <div class="tag-cloud">
+                    <span class="tech-tag">JavaScript (ES6+)</span>
+                    <span class="tech-tag">PHP</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">SQL</span>
+                    <span class="tech-tag">HTML5 / CSS3</span>
+                  </div>
+                </div>
+
+                <div class="skill-category">
+                  <div class="category-title">Web &amp; Frameworks</div>
+                  <div class="tag-cloud">
+                    <span class="tech-tag">Node.js</span>
+                    <span class="tech-tag">Vite &amp; Modern Bundlers</span>
+                    <span class="tech-tag">Laravel / Native PHP</span>
+                    <span class="tech-tag">RESTful API Design</span>
+                  </div>
+                </div>
+
+                <div class="skill-category">
+                  <div class="category-title">Database &amp; Data Layer</div>
+                  <div class="tag-cloud">
+                    <span class="tech-tag">MySQL / MariaDB</span>
+                    <span class="tech-tag">Relational Schema Design</span>
+                    <span class="tech-tag">Query Optimization</span>
+                    <span class="tech-tag">ACID Transactions</span>
+                  </div>
+                </div>
+
+                <div class="skill-category">
+                  <div class="category-title">DSS, Data &amp; Systems</div>
+                  <div class="tag-cloud">
+                    <span class="tech-tag">Multi-Criteria Decision Making (MCDM)</span>
+                    <span class="tech-tag">AHP / TOPSIS / CBR Analysis</span>
+                    <span class="tech-tag">Data Preprocessing</span>
+                    <span class="tech-tag">Git &amp; Version Control</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =======================================================================
+         DEDICATED SKILLS SECTION (R4: Visual Tech Stack Grid)
+         ======================================================================= -->
+    <section id="skills" class="section skills-section snap-section">
+      <div class="container">
+        <div class="section-header" data-anim="fade-up">
+          <span class="section-label">TECH STACK &amp; INSTRUMENTS</span>
+          <h2 class="section-title">Teknologi &amp; Fondasi Rekayasa</h2>
+          <p class="section-sub">
+            Instrumen dan ekosistem rekayasa perangkat lunak yang saya gunakan sehari-hari untuk merancang sistem web performan, database terstruktur, dan analitik keputusan yang andal.
+          </p>
+        </div>
+
+        <div class="skills-card-grid" data-anim="fade-up" data-anim-delay="2">
+          <!-- 1. HTML5 -->
+          <div class="skill-card" data-tech="html5">
+            <div class="skill-icon-wrap" aria-hidden="true">
+              <svg class="skill-svg" viewBox="0 0 24 24" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M4 2L5.5 19L12 21L18.5 19L20 2H4Z" fill="#E34F26"/>
+                <path d="M12 3.8V19.4L17.2 17.9L18.4 3.8H12Z" fill="#EF652A"/>
+                <path d="M7.4 6.8H16.6L16.4 9H9.8L10 11.2H16.2L15.6 16.5L12 17.5L8.4 16.5L8.2 13.8H10.4L10.5 14.9L12 15.3L13.5 14.9L13.7 12.8H7.9L7.4 6.8Z" fill="#FFFFFF"/>
+              </svg>
+            </div>
+            <div class="skill-card-body">
+              <div class="skill-card-top">
+                <h3 class="skill-name">HTML5</h3>
+                <span class="skill-type-pill">Markup</span>
+              </div>
+              <p class="skill-summary">Standar struktur semantik W3C, aksesibilitas ramah pembaca layar (ARIA), dan arsitektur dokumen terindeks rapi.</p>
+            </div>
+          </div>
+
+          <!-- 2. CSS3 -->
+          <div class="skill-card" data-tech="css3">
+            <div class="skill-icon-wrap" aria-hidden="true">
+              <svg class="skill-svg" viewBox="0 0 24 24" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M4 2L5.5 19L12 21L18.5 19L20 2H4Z" fill="#1572B6"/>
+                <path d="M12 3.8V19.4L17.2 17.9L18.4 3.8H12Z" fill="#33A9DC"/>
+                <path d="M7.4 6.8H16.6L16.4 9H12V11.2H16.2L15.6 16.5L12 17.5L8.4 16.5L8.2 13.8H10.4L10.5 14.9L12 15.3L13.5 14.9L13.7 12.8H12V10.6H7.7L7.4 6.8Z" fill="#FFFFFF"/>
+              </svg>
+            </div>
+            <div class="skill-card-body">
+              <div class="skill-card-top">
+                <h3 class="skill-name">CSS3</h3>
+                <span class="skill-type-pill">Styling</span>
+              </div>
+              <p class="skill-summary">Desain responsif modern dengan CSS Grid, Flexbox, Custom Properties (Tokens), serta animasi mikro berkinerja tinggi.</p>
+            </div>
+          </div>
+
+          <!-- 3. JavaScript -->
+          <div class="skill-card" data-tech="javascript">
+            <div class="skill-icon-wrap" aria-hidden="true">
+              <svg class="skill-svg" viewBox="0 0 24 24" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect width="24" height="24" rx="4" fill="#F7DF1E"/>
+                <path d="M7.5 17.5C7.5 18.5 8.2 19.2 9.5 19.2C10.8 19.2 11.5 18.4 11.5 16.8V10.5H9.5V16.7C9.5 17.3 9.3 17.6 8.8 17.6C8.4 17.6 8.2 17.3 8.1 16.8L7.5 17.5ZM13.8 18.3C14.4 18.9 15.3 19.3 16.5 19.3C18.2 19.3 19.3 18.3 19.3 16.8C19.3 15.4 18.5 14.7 17.1 14.1L16.4 13.8C15.5 13.4 15.1 13 15.1 12.4C15.1 11.7 15.7 11.2 16.6 11.2C17.4 11.2 18.1 11.5 18.6 12L19.2 10.6C18.6 10.1 17.7 9.8 16.6 9.8C14.9 9.8 13.8 10.8 13.8 12.4C13.8 13.7 14.6 14.4 15.9 15L16.7 15.3C17.6 15.7 18.1 16.2 18.1 16.9C18.1 17.7 17.4 18.2 16.4 18.2C15.4 18.2 14.6 17.7 14.1 17L13.8 18.3Z" fill="#000000"/>
+              </svg>
+            </div>
+            <div class="skill-card-body">
+              <div class="skill-card-top">
+                <h3 class="skill-name">JavaScript</h3>
+                <span class="skill-type-pill">Language</span>
+              </div>
+              <p class="skill-summary">Pemrograman modern ES6+, manipulasi DOM presisi, manajemen state reaktif, serta pemrosesan asinkron (Promises / Async-Await).</p>
+            </div>
+          </div>
+
+          <!-- 4. PHP -->
+          <div class="skill-card" data-tech="php">
+            <div class="skill-icon-wrap" aria-hidden="true">
+              <svg class="skill-svg" viewBox="0 0 24 24" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <ellipse cx="12" cy="12" rx="11" ry="6.5" fill="#777BB4"/>
+                <path d="M5.5 9.5H7.8C8.8 9.5 9.4 9.9 9.4 10.7C9.4 11.6 8.7 12.1 7.6 12.1H6.5L5.8 14.5H4.8L5.5 9.5ZM6.9 10.3L6.5 11.4H7.3C7.9 11.4 8.3 11.1 8.3 10.7C8.3 10.4 8.1 10.3 7.6 10.3H6.9ZM10.5 9.5H11.5L10.8 11.8H12.3L13 9.5H14L12.5 14.5H11.5L12.1 12.5H10.6L10 14.5H9L10.5 9.5ZM15 9.5H17.3C18.3 9.5 18.9 9.9 18.9 10.7C18.9 11.6 18.2 12.1 17.1 12.1H16L15.3 14.5H14.3L15 9.5ZM16.4 10.3L16 11.4H16.8C17.4 11.4 17.8 11.1 17.8 10.7C17.8 10.4 17.6 10.3 17.1 10.3H16.4Z" fill="#FFFFFF"/>
+              </svg>
+            </div>
+            <div class="skill-card-body">
+              <div class="skill-card-top">
+                <h3 class="skill-name">PHP</h3>
+                <span class="skill-type-pill">Backend</span>
+              </div>
+              <p class="skill-summary">Pengembangan logika server-side, arsitektur RESTful API terstruktur, autentikasi sesi aman, dan integrasi modul CRUD.</p>
+            </div>
+          </div>
+
+          <!-- 5. MySQL -->
+          <div class="skill-card" data-tech="mysql">
+            <div class="skill-icon-wrap" aria-hidden="true">
+              <svg class="skill-svg" viewBox="0 0 24 24" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M21.5 14.2C20.9 12.7 19.8 11.5 18.4 10.8C18.1 10.6 17.8 10.5 17.5 10.4C17.3 9.2 16.7 8.2 15.8 7.4C14.7 6.4 13.2 5.8 11.7 5.8C10.7 5.8 9.7 6.1 8.8 6.6C7.2 7.4 6.2 8.9 5.8 10.6C4.8 10.9 3.9 11.5 3.3 12.4C2.5 13.5 2.2 14.9 2.5 16.2C2.7 17.3 3.4 18.3 4.4 18.9C5.5 19.5 6.8 19.6 8 19.2C9.2 18.8 10.2 18 10.8 16.9C11.6 15.5 11.7 13.8 11.2 12.3C11 11.7 10.7 11.1 10.3 10.6C10.7 10.2 11.2 9.9 11.7 9.8C12.5 9.6 13.4 9.8 14 10.3C14.5 10.7 14.8 11.3 14.9 12C14.4 12.5 14 13.1 13.8 13.8C13.4 15.1 13.6 16.5 14.3 17.6C15 18.7 16.2 19.4 17.5 19.5C18.8 19.6 20.1 19 20.9 18C21.7 16.9 21.9 15.5 21.5 14.2Z" fill="#00758F"/>
+                <path d="M17.5 13.8C17.3 13.4 17 13.1 16.6 12.9C16.4 13.7 16.5 14.6 16.9 15.3C17.3 15.9 17.9 16.3 18.6 16.4C18.6 15.5 18.2 14.5 17.5 13.8Z" fill="#F29111"/>
+              </svg>
+            </div>
+            <div class="skill-card-body">
+              <div class="skill-card-top">
+                <h3 class="skill-name">MySQL</h3>
+                <span class="skill-type-pill">Database</span>
+              </div>
+              <p class="skill-summary">Desain skema relasional ternormalisasi, penulisan query teroptimasi, indeks komposit, serta integritas transaksi ACID.</p>
+            </div>
+          </div>
+
+          <!-- 6. Python -->
+          <div class="skill-card" data-tech="python">
+            <div class="skill-icon-wrap" aria-hidden="true">
+              <svg class="skill-svg" viewBox="0 0 24 24" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M11.87 2C6.9 2 7.23 4.15 7.23 4.15L7.24 6.38H12V7.12H5.06C2.37 7.12 2 9.5 2 9.5C2 11.86 3.54 12.72 5.06 12.72H6.55V10.63C6.55 8.24 8.58 8.27 8.58 8.27H13.29C14.68 8.27 15.65 7.24 15.65 5.86C15.65 4.47 15.65 3.86 15.65 3.86C15.65 3.86 15.82 2 11.87 2ZM9.68 3.52C10.27 3.52 10.74 3.99 10.74 4.58C10.74 5.17 10.27 5.64 9.68 5.64C9.09 5.64 8.62 5.17 8.62 4.58C8.62 3.99 9.09 3.52 9.68 3.52Z" fill="#3776AB"/>
+                <path d="M12.13 22C17.1 22 16.77 19.85 16.77 19.85L16.76 17.62H12V16.88H18.94C21.63 16.88 22 14.5 22 14.5C22 12.14 20.46 11.28 18.94 11.28H17.45V13.37C17.45 15.76 15.42 15.73 15.42 15.73H10.71C9.32 15.73 8.35 16.76 8.35 18.14C8.35 19.53 8.35 20.14 8.35 20.14C8.35 20.14 8.18 22 12.13 22ZM14.32 20.48C13.73 20.48 13.26 20.01 13.26 19.42C13.26 18.83 13.73 18.36 14.32 18.36C14.91 18.36 15.38 18.83 15.38 19.42C15.38 20.01 14.91 20.48 14.32 20.48Z" fill="#FFD43B"/>
+              </svg>
+            </div>
+            <div class="skill-card-body">
+              <div class="skill-card-top">
+                <h3 class="skill-name">Python</h3>
+                <span class="skill-type-pill">Algorithms</span>
+              </div>
+              <p class="skill-summary">Komputasi matriks keputusan (AHP/TOPSIS), rekayasa fitur data, automasi alur kerja, dan model kecerdasan buatan terapan.</p>
+            </div>
+          </div>
+
+          <!-- 7. Tailwind CSS -->
+          <div class="skill-card" data-tech="tailwind">
+            <div class="skill-icon-wrap" aria-hidden="true">
+              <svg class="skill-svg" viewBox="0 0 24 24" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.336 6.182 14.975 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.336 13.382 8.975 12 6.001 12z" fill="#06B6D4"/>
+              </svg>
+            </div>
+            <div class="skill-card-body">
+              <div class="skill-card-top">
+                <h3 class="skill-name">Tailwind CSS</h3>
+                <span class="skill-type-pill">Framework</span>
+              </div>
+              <p class="skill-summary">Penerapan utility-first styling, standarisasi token desain antarmuka, konsistensi tipografi, dan tata letak modular adaptif.</p>
+            </div>
+          </div>
+
+          <!-- 8. Git -->
+          <div class="skill-card" data-tech="git">
+            <div class="skill-icon-wrap" aria-hidden="true">
+              <svg class="skill-svg" viewBox="0 0 24 24" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M21.6 10.9L13.1 2.4C12.5 1.8 11.5 1.8 10.9 2.4L9.2 4.1L11.4 6.3C12 6.1 12.8 6.2 13.3 6.7C13.9 7.3 14 8.2 13.7 8.9L15.8 11C16.5 10.7 17.4 10.8 18 11.4C18.8 12.2 18.8 13.5 18 14.3C17.2 15.1 15.9 15.1 15.1 14.3C14.5 13.7 14.4 12.8 14.7 12.1L12.7 10.1V15.2C12.9 15.4 13 15.7 13 16C13 17.1 12.1 18 11 18C9.9 18 9 17.1 9 16C9 15.1 9.6 14.4 10.4 14.1V9.3C9.6 9 9 8.3 9 7.4C9 7.1 9.1 6.8 9.2 6.5L2.4 13.3C1.8 13.9 1.8 14.9 2.4 15.5L10.9 24C11.5 24.6 12.5 24.6 13.1 24L21.6 15.5C22.2 14.9 22.2 13.9 21.6 13.3" fill="#F05032"/>
+              </svg>
+            </div>
+            <div class="skill-card-body">
+              <div class="skill-card-top">
+                <h3 class="skill-name">Git</h3>
+                <span class="skill-type-pill">DevOps</span>
+              </div>
+              <p class="skill-summary">Manajemen versi kode sumber berbasis cabang (branching), commit atomic, resolusi konflik, dan kolaborasi tim via GitHub.</p>
+            </div>
+          </div>
+
+          <!-- 9. Vite -->
+          <div class="skill-card" data-tech="vite">
+            <div class="skill-icon-wrap" aria-hidden="true">
+              <svg class="skill-svg" viewBox="0 0 24 24" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M21.7 3.5L12.9 19.8C12.5 20.5 11.5 20.5 11.1 19.8L2.3 3.5C1.8 2.6 2.6 1.6 3.6 1.8L12 3.5L20.4 1.8C21.4 1.6 22.2 2.6 21.7 3.5Z" fill="url(#viteGrad)"/>
+                <path d="M13.8 1.8L8.2 12.3H12.2L10.4 19.2L16.8 8.8H12.6L13.8 1.8Z" fill="#FFD62E"/>
+                <defs>
+                  <linearGradient id="viteGrad" x1="2" y1="2" x2="22" y2="20" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#41D1FF"/>
+                    <stop offset="1" stop-color="#BD34FE"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <div class="skill-card-body">
+              <div class="skill-card-top">
+                <h3 class="skill-name">Vite</h3>
+                <span class="skill-type-pill">Tooling</span>
+              </div>
+              <p class="skill-summary">Pengembangan front-end instan dengan Hot Module Replacement (HMR) dan bundling produksi teroptimasi via Rollup / esbuild.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
 
     <!-- =======================================================================
@@ -278,7 +573,7 @@
     <section id="portfolio" class="section portfolio-section snap-section">
       <div class="container">
         <div class="section-header" data-anim="fade-up">
-          <span class="section-label">02 // SELECTED ENGINEERING PROJECTS</span>
+          <span class="section-label">03 // SELECTED ENGINEERING PROJECTS</span>
           <h2 class="section-title">Studi Kasus Proyek &amp; Implementasi Sistem</h2>
           <p class="section-sub">
             Setiap proyek dikerjakan berdasarkan kebutuhan nyata dengan pertimbangan arsitektur teknis, efisiensi komputasi, dan solusi yang dapat dipertanggungjawabkan.
@@ -756,304 +1051,6 @@
       </div>
     </section>
 
-    <!-- =======================================================================
-         DEDICATED SKILLS SECTION (R4: Visual Tech Stack Grid)
-         ======================================================================= -->
-    <section id="skills" class="section skills-section snap-section">
-      <div class="container">
-        <div class="section-header" data-anim="fade-up">
-          <span class="section-label">TECH STACK &amp; INSTRUMENTS</span>
-          <h2 class="section-title">Teknologi &amp; Fondasi Rekayasa</h2>
-          <p class="section-sub">
-            Instrumen dan ekosistem rekayasa perangkat lunak yang saya gunakan sehari-hari untuk merancang sistem web performan, database terstruktur, dan analitik keputusan yang andal.
-          </p>
-        </div>
-
-        <div class="skills-card-grid" data-anim="fade-up" data-anim-delay="2">
-          <!-- 1. HTML5 -->
-          <div class="skill-card" data-tech="html5">
-            <div class="skill-icon-wrap" aria-hidden="true">
-              <svg class="skill-svg" viewBox="0 0 24 24" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M4 2L5.5 19L12 21L18.5 19L20 2H4Z" fill="#E34F26"/>
-                <path d="M12 3.8V19.4L17.2 17.9L18.4 3.8H12Z" fill="#EF652A"/>
-                <path d="M7.4 6.8H16.6L16.4 9H9.8L10 11.2H16.2L15.6 16.5L12 17.5L8.4 16.5L8.2 13.8H10.4L10.5 14.9L12 15.3L13.5 14.9L13.7 12.8H7.9L7.4 6.8Z" fill="#FFFFFF"/>
-              </svg>
-            </div>
-            <div class="skill-card-body">
-              <div class="skill-card-top">
-                <h3 class="skill-name">HTML5</h3>
-                <span class="skill-type-pill">Markup</span>
-              </div>
-              <p class="skill-summary">Standar struktur semantik W3C, aksesibilitas ramah pembaca layar (ARIA), dan arsitektur dokumen terindeks rapi.</p>
-            </div>
-          </div>
-
-          <!-- 2. CSS3 -->
-          <div class="skill-card" data-tech="css3">
-            <div class="skill-icon-wrap" aria-hidden="true">
-              <svg class="skill-svg" viewBox="0 0 24 24" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M4 2L5.5 19L12 21L18.5 19L20 2H4Z" fill="#1572B6"/>
-                <path d="M12 3.8V19.4L17.2 17.9L18.4 3.8H12Z" fill="#33A9DC"/>
-                <path d="M7.4 6.8H16.6L16.4 9H12V11.2H16.2L15.6 16.5L12 17.5L8.4 16.5L8.2 13.8H10.4L10.5 14.9L12 15.3L13.5 14.9L13.7 12.8H12V10.6H7.7L7.4 6.8Z" fill="#FFFFFF"/>
-              </svg>
-            </div>
-            <div class="skill-card-body">
-              <div class="skill-card-top">
-                <h3 class="skill-name">CSS3</h3>
-                <span class="skill-type-pill">Styling</span>
-              </div>
-              <p class="skill-summary">Desain responsif modern dengan CSS Grid, Flexbox, Custom Properties (Tokens), serta animasi mikro berkinerja tinggi.</p>
-            </div>
-          </div>
-
-          <!-- 3. JavaScript -->
-          <div class="skill-card" data-tech="javascript">
-            <div class="skill-icon-wrap" aria-hidden="true">
-              <svg class="skill-svg" viewBox="0 0 24 24" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <rect width="24" height="24" rx="4" fill="#F7DF1E"/>
-                <path d="M7.5 17.5C7.5 18.5 8.2 19.2 9.5 19.2C10.8 19.2 11.5 18.4 11.5 16.8V10.5H9.5V16.7C9.5 17.3 9.3 17.6 8.8 17.6C8.4 17.6 8.2 17.3 8.1 16.8L7.5 17.5ZM13.8 18.3C14.4 18.9 15.3 19.3 16.5 19.3C18.2 19.3 19.3 18.3 19.3 16.8C19.3 15.4 18.5 14.7 17.1 14.1L16.4 13.8C15.5 13.4 15.1 13 15.1 12.4C15.1 11.7 15.7 11.2 16.6 11.2C17.4 11.2 18.1 11.5 18.6 12L19.2 10.6C18.6 10.1 17.7 9.8 16.6 9.8C14.9 9.8 13.8 10.8 13.8 12.4C13.8 13.7 14.6 14.4 15.9 15L16.7 15.3C17.6 15.7 18.1 16.2 18.1 16.9C18.1 17.7 17.4 18.2 16.4 18.2C15.4 18.2 14.6 17.7 14.1 17L13.8 18.3Z" fill="#000000"/>
-              </svg>
-            </div>
-            <div class="skill-card-body">
-              <div class="skill-card-top">
-                <h3 class="skill-name">JavaScript</h3>
-                <span class="skill-type-pill">Language</span>
-              </div>
-              <p class="skill-summary">Pemrograman modern ES6+, manipulasi DOM presisi, manajemen state reaktif, serta pemrosesan asinkron (Promises / Async-Await).</p>
-            </div>
-          </div>
-
-          <!-- 4. PHP -->
-          <div class="skill-card" data-tech="php">
-            <div class="skill-icon-wrap" aria-hidden="true">
-              <svg class="skill-svg" viewBox="0 0 24 24" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <ellipse cx="12" cy="12" rx="11" ry="6.5" fill="#777BB4"/>
-                <path d="M5.5 9.5H7.8C8.8 9.5 9.4 9.9 9.4 10.7C9.4 11.6 8.7 12.1 7.6 12.1H6.5L5.8 14.5H4.8L5.5 9.5ZM6.9 10.3L6.5 11.4H7.3C7.9 11.4 8.3 11.1 8.3 10.7C8.3 10.4 8.1 10.3 7.6 10.3H6.9ZM10.5 9.5H11.5L10.8 11.8H12.3L13 9.5H14L12.5 14.5H11.5L12.1 12.5H10.6L10 14.5H9L10.5 9.5ZM15 9.5H17.3C18.3 9.5 18.9 9.9 18.9 10.7C18.9 11.6 18.2 12.1 17.1 12.1H16L15.3 14.5H14.3L15 9.5ZM16.4 10.3L16 11.4H16.8C17.4 11.4 17.8 11.1 17.8 10.7C17.8 10.4 17.6 10.3 17.1 10.3H16.4Z" fill="#FFFFFF"/>
-              </svg>
-            </div>
-            <div class="skill-card-body">
-              <div class="skill-card-top">
-                <h3 class="skill-name">PHP</h3>
-                <span class="skill-type-pill">Backend</span>
-              </div>
-              <p class="skill-summary">Pengembangan logika server-side, arsitektur RESTful API terstruktur, autentikasi sesi aman, dan integrasi modul CRUD.</p>
-            </div>
-          </div>
-
-          <!-- 5. MySQL -->
-          <div class="skill-card" data-tech="mysql">
-            <div class="skill-icon-wrap" aria-hidden="true">
-              <svg class="skill-svg" viewBox="0 0 24 24" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M21.5 14.2C20.9 12.7 19.8 11.5 18.4 10.8C18.1 10.6 17.8 10.5 17.5 10.4C17.3 9.2 16.7 8.2 15.8 7.4C14.7 6.4 13.2 5.8 11.7 5.8C10.7 5.8 9.7 6.1 8.8 6.6C7.2 7.4 6.2 8.9 5.8 10.6C4.8 10.9 3.9 11.5 3.3 12.4C2.5 13.5 2.2 14.9 2.5 16.2C2.7 17.3 3.4 18.3 4.4 18.9C5.5 19.5 6.8 19.6 8 19.2C9.2 18.8 10.2 18 10.8 16.9C11.6 15.5 11.7 13.8 11.2 12.3C11 11.7 10.7 11.1 10.3 10.6C10.7 10.2 11.2 9.9 11.7 9.8C12.5 9.6 13.4 9.8 14 10.3C14.5 10.7 14.8 11.3 14.9 12C14.4 12.5 14 13.1 13.8 13.8C13.4 15.1 13.6 16.5 14.3 17.6C15 18.7 16.2 19.4 17.5 19.5C18.8 19.6 20.1 19 20.9 18C21.7 16.9 21.9 15.5 21.5 14.2Z" fill="#00758F"/>
-                <path d="M17.5 13.8C17.3 13.4 17 13.1 16.6 12.9C16.4 13.7 16.5 14.6 16.9 15.3C17.3 15.9 17.9 16.3 18.6 16.4C18.6 15.5 18.2 14.5 17.5 13.8Z" fill="#F29111"/>
-              </svg>
-            </div>
-            <div class="skill-card-body">
-              <div class="skill-card-top">
-                <h3 class="skill-name">MySQL</h3>
-                <span class="skill-type-pill">Database</span>
-              </div>
-              <p class="skill-summary">Desain skema relasional ternormalisasi, penulisan query teroptimasi, indeks komposit, serta integritas transaksi ACID.</p>
-            </div>
-          </div>
-
-          <!-- 6. Python -->
-          <div class="skill-card" data-tech="python">
-            <div class="skill-icon-wrap" aria-hidden="true">
-              <svg class="skill-svg" viewBox="0 0 24 24" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M11.87 2C6.9 2 7.23 4.15 7.23 4.15L7.24 6.38H12V7.12H5.06C2.37 7.12 2 9.5 2 9.5C2 11.86 3.54 12.72 5.06 12.72H6.55V10.63C6.55 8.24 8.58 8.27 8.58 8.27H13.29C14.68 8.27 15.65 7.24 15.65 5.86C15.65 4.47 15.65 3.86 15.65 3.86C15.65 3.86 15.82 2 11.87 2ZM9.68 3.52C10.27 3.52 10.74 3.99 10.74 4.58C10.74 5.17 10.27 5.64 9.68 5.64C9.09 5.64 8.62 5.17 8.62 4.58C8.62 3.99 9.09 3.52 9.68 3.52Z" fill="#3776AB"/>
-                <path d="M12.13 22C17.1 22 16.77 19.85 16.77 19.85L16.76 17.62H12V16.88H18.94C21.63 16.88 22 14.5 22 14.5C22 12.14 20.46 11.28 18.94 11.28H17.45V13.37C17.45 15.76 15.42 15.73 15.42 15.73H10.71C9.32 15.73 8.35 16.76 8.35 18.14C8.35 19.53 8.35 20.14 8.35 20.14C8.35 20.14 8.18 22 12.13 22ZM14.32 20.48C13.73 20.48 13.26 20.01 13.26 19.42C13.26 18.83 13.73 18.36 14.32 18.36C14.91 18.36 15.38 18.83 15.38 19.42C15.38 20.01 14.91 20.48 14.32 20.48Z" fill="#FFD43B"/>
-              </svg>
-            </div>
-            <div class="skill-card-body">
-              <div class="skill-card-top">
-                <h3 class="skill-name">Python</h3>
-                <span class="skill-type-pill">Algorithms</span>
-              </div>
-              <p class="skill-summary">Komputasi matriks keputusan (AHP/TOPSIS), rekayasa fitur data, automasi alur kerja, dan model kecerdasan buatan terapan.</p>
-            </div>
-          </div>
-
-          <!-- 7. Tailwind CSS -->
-          <div class="skill-card" data-tech="tailwind">
-            <div class="skill-icon-wrap" aria-hidden="true">
-              <svg class="skill-svg" viewBox="0 0 24 24" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.336 6.182 14.975 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.336 13.382 8.975 12 6.001 12z" fill="#06B6D4"/>
-              </svg>
-            </div>
-            <div class="skill-card-body">
-              <div class="skill-card-top">
-                <h3 class="skill-name">Tailwind CSS</h3>
-                <span class="skill-type-pill">Framework</span>
-              </div>
-              <p class="skill-summary">Penerapan utility-first styling, standarisasi token desain antarmuka, konsistensi tipografi, dan tata letak modular adaptif.</p>
-            </div>
-          </div>
-
-          <!-- 8. Git -->
-          <div class="skill-card" data-tech="git">
-            <div class="skill-icon-wrap" aria-hidden="true">
-              <svg class="skill-svg" viewBox="0 0 24 24" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M21.6 10.9L13.1 2.4C12.5 1.8 11.5 1.8 10.9 2.4L9.2 4.1L11.4 6.3C12 6.1 12.8 6.2 13.3 6.7C13.9 7.3 14 8.2 13.7 8.9L15.8 11C16.5 10.7 17.4 10.8 18 11.4C18.8 12.2 18.8 13.5 18 14.3C17.2 15.1 15.9 15.1 15.1 14.3C14.5 13.7 14.4 12.8 14.7 12.1L12.7 10.1V15.2C12.9 15.4 13 15.7 13 16C13 17.1 12.1 18 11 18C9.9 18 9 17.1 9 16C9 15.1 9.6 14.4 10.4 14.1V9.3C9.6 9 9 8.3 9 7.4C9 7.1 9.1 6.8 9.2 6.5L2.4 13.3C1.8 13.9 1.8 14.9 2.4 15.5L10.9 24C11.5 24.6 12.5 24.6 13.1 24L21.6 15.5C22.2 14.9 22.2 13.9 21.6 13.3" fill="#F05032"/>
-              </svg>
-            </div>
-            <div class="skill-card-body">
-              <div class="skill-card-top">
-                <h3 class="skill-name">Git</h3>
-                <span class="skill-type-pill">DevOps</span>
-              </div>
-              <p class="skill-summary">Manajemen versi kode sumber berbasis cabang (branching), commit atomic, resolusi konflik, dan kolaborasi tim via GitHub.</p>
-            </div>
-          </div>
-
-          <!-- 9. Vite -->
-          <div class="skill-card" data-tech="vite">
-            <div class="skill-icon-wrap" aria-hidden="true">
-              <svg class="skill-svg" viewBox="0 0 24 24" width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M21.7 3.5L12.9 19.8C12.5 20.5 11.5 20.5 11.1 19.8L2.3 3.5C1.8 2.6 2.6 1.6 3.6 1.8L12 3.5L20.4 1.8C21.4 1.6 22.2 2.6 21.7 3.5Z" fill="url(#viteGrad)"/>
-                <path d="M13.8 1.8L8.2 12.3H12.2L10.4 19.2L16.8 8.8H12.6L13.8 1.8Z" fill="#FFD62E"/>
-                <defs>
-                  <linearGradient id="viteGrad" x1="2" y1="2" x2="22" y2="20" gradientUnits="userSpaceOnUse">
-                    <stop stop-color="#41D1FF"/>
-                    <stop offset="1" stop-color="#BD34FE"/>
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
-            <div class="skill-card-body">
-              <div class="skill-card-top">
-                <h3 class="skill-name">Vite</h3>
-                <span class="skill-type-pill">Tooling</span>
-              </div>
-              <p class="skill-summary">Pengembangan front-end instan dengan Hot Module Replacement (HMR) dan bundling produksi teroptimasi via Rollup / esbuild.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =======================================================================
-         ABOUT SECTION (INTERACTIVE SPOTLIGHT REVEAL — MINIMALIST CLEAN)
-         ======================================================================= -->
-    <section id="about" class="section about-section snap-section">
-      <div class="container">
-        <div class="section-header" data-anim="fade-up">
-          <span class="section-label">01 // ABOUT ME</span>
-          <h2 class="section-title">Rekayasa Berbasis Logika, Keputusan Berbasis Data.</h2>
-        </div>
-
-        <div class="about-interactive-grid">
-          <!-- Kolom Kiri: Foto Cutout dengan Spotlight Reveal Halus (Persis Referensi Eka Wahyu) -->
-          <div class="about-photo-column" data-anim="fade-scale" data-anim-delay="2" data-anim-speed="slow">
-            <div class="about-spotlight-container" id="aboutSpotlightContainer">
-              <!-- Radial Glow Backdrop Behind Cutout -->
-              <div class="portrait-aura-backdrop" aria-hidden="true"></div>
-
-              <!-- Base Cutout Photo: Christopher Asli (Monochrome Base) -->
-              <img src="/assets/christopher-base-cutout.png" alt="Foto Christopher Theo Purnomo" class="about-img about-base-img" loading="lazy">
-              
-              <!-- Reveal Layer: Christopher Full-Vibrancy Spring Spotlight Reveal -->
-              <div class="about-photo-reveal-wrapper" id="aboutPhotoReveal">
-                <img src="/assets/christopher-base-cutout.png" alt="Christopher Theo Purnomo — Color Portrait" class="about-img about-reveal-img" id="aboutRevealImg" loading="lazy">
-              </div>
-
-              <!-- Minimalist Difference Dot Cursor (Persis Referensi Eka Wahyu: w-2 h-2 rounded-full mix-blend-difference) -->
-              <div class="spotlight-cursor-dot" id="spotlightCursorDot" aria-hidden="true"></div>
-
-              <!-- Bottom Fade Gradient (Persis Referensi: linear-gradient to bottom) -->
-              <div class="about-bottom-fade" aria-hidden="true"></div>
-            </div>
-
-            <div class="about-photo-meta">
-              <span class="meta-location">Semarang, Indonesia</span>
-              <span class="meta-tag">Teknik Informatika // Unika Soegijapranata</span>
-            </div>
-          </div>
-
-          <!-- Kolom Kanan: Narasi Personal & Matriks Skill -->
-          <div class="about-content-column" data-anim="fade-right" data-anim-delay="3">
-            <div class="about-narrative">
-              <p class="about-paragraph">
-                Saya adalah mahasiswa Teknik Informatika di <strong>Universitas Katolik Soegijapranata (Unika Soegijapranata)</strong> Semarang. Ketertarikan utama saya terletak pada titik temu antara logika komputasi, algoritma pengambilan keputusan (Decision Support System), dan rekayasa perangkat lunak yang tangguh.
-              </p>
-              <p class="about-paragraph">
-                Bagi saya, perangkat lunak yang bernilai bukan tentang tumpukan buzzword atau antarmuka yang dibuat-buat, melainkan sistem yang dapat diandalkan: basis data yang ternormalisasi dengan baik, alur pemrosesan data yang transparan, dan antarmuka yang efisien bagi penggunanya.
-              </p>
-            </div>
-
-            <div class="focus-areas-grid" data-anim="fade-up" data-anim-delay="4">
-              <div class="focus-card">
-                <span class="focus-index">01</span>
-                <h3 class="focus-title">Decision Support Systems</h3>
-                <p class="focus-desc">Merancang engine analitis multi-kriteria untuk mengkuantifikasi parameter subjektif menjadi rekomendasi keputusan yang objektif dan transparan.</p>
-              </div>
-              <div class="focus-card">
-                <span class="focus-index">02</span>
-                <h3 class="focus-title">Full-Stack &amp; Web Systems</h3>
-                <p class="focus-desc">Membangun arsitektur web fungsional mulai dari relasi skema basis data, REST API terstruktur, hingga antarmuka front-end yang responsif.</p>
-              </div>
-              <div class="focus-card">
-                <span class="focus-index">03</span>
-                <h3 class="focus-title">Applied AI/ML &amp; IoT</h3>
-                <p class="focus-desc">Mengintegrasikan model pembelajaran mesin terapan dan ekosistem telemetri sensorik untuk otomatisasi dan pengawasan sistem cerdas.</p>
-              </div>
-            </div>
-
-            <!-- Skills & Technical Stack Matrix (Minimalist Tags, No Progress Bars) -->
-            <div class="skills-sidebar" data-anim="fade-up" data-anim-delay="5">
-              <div class="skills-header">
-                <span class="skills-title">KAPABILITAS TEKNIS</span>
-                <span class="skills-sub">Stack &amp; Instrumen yang Digunakan</span>
-              </div>
-
-              <div class="skills-matrix-inline">
-                <div class="skill-category">
-                  <div class="category-title">Core Languages</div>
-                  <div class="tag-cloud">
-                    <span class="tech-tag">JavaScript (ES6+)</span>
-                    <span class="tech-tag">PHP</span>
-                    <span class="tech-tag">Python</span>
-                    <span class="tech-tag">SQL</span>
-                    <span class="tech-tag">HTML5 / CSS3</span>
-                  </div>
-                </div>
-
-                <div class="skill-category">
-                  <div class="category-title">Web &amp; Frameworks</div>
-                  <div class="tag-cloud">
-                    <span class="tech-tag">Node.js</span>
-                    <span class="tech-tag">Vite &amp; Modern Bundlers</span>
-                    <span class="tech-tag">Laravel / Native PHP</span>
-                    <span class="tech-tag">RESTful API Design</span>
-                  </div>
-                </div>
-
-                <div class="skill-category">
-                  <div class="category-title">Database &amp; Data Layer</div>
-                  <div class="tag-cloud">
-                    <span class="tech-tag">MySQL / MariaDB</span>
-                    <span class="tech-tag">Relational Schema Design</span>
-                    <span class="tech-tag">Query Optimization</span>
-                    <span class="tech-tag">ACID Transactions</span>
-                  </div>
-                </div>
-
-                <div class="skill-category">
-                  <div class="category-title">DSS, Data &amp; Systems</div>
-                  <div class="tag-cloud">
-                    <span class="tech-tag">Multi-Criteria Decision Making (MCDM)</span>
-                    <span class="tech-tag">AHP / TOPSIS / CBR Analysis</span>
-                    <span class="tech-tag">Data Preprocessing</span>
-                    <span class="tech-tag">Git &amp; Version Control</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- =======================================================================
          CONTACT SECTION (R5: Modern Two-Column Layout)
@@ -1161,6 +1158,29 @@
                 </div>
               </div>
 
+              <!-- Card 04: INSTAGRAM -->
+              <div class="contact-stack-card" data-channel="instagram">
+                <div class="stack-card-left">
+                  <span class="stack-index">04</span>
+                  <div class="stack-details">
+                    <span class="stack-label">04 // INSTAGRAM</span>
+                    <a href="https://instagram.com/chris_theo.p" target="_blank" rel="noopener noreferrer" class="stack-value">
+                      @chris_theo.p
+                    </a>
+                  </div>
+                </div>
+                <div class="stack-card-actions">
+                  <a href="https://instagram.com/chris_theo.p" target="_blank" rel="noopener noreferrer" class="btn-stack-action" aria-label="Kunjungi profil Instagram">
+                    <span>Follow</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
             </div>
 
             <!-- SEND ME A MESSAGE ACTION BUTTON -->
@@ -1230,8 +1250,15 @@
           <h4 class="resume-heading">Pendidikan</h4>
           <p class="resume-detail">
             <strong>Universitas Katolik Soegijapranata (Unika Soegijapranata)</strong> — Semarang<br>
-            Sarjana Teknik Informatika (Sedang Ditempuh)<br>
-            <em>Fokus: Decision Support System, Database Systems, Web Engineering, AI/ML &amp; IoT</em>
+            Sarjana Teknik Informatika (Sedang Ditempuh) — Angkatan 2024<br>
+            <em>IPK: 3.98 (Semester 2)</em>
+          </p>
+        </div>
+
+        <div class="resume-section">
+          <h4 class="resume-heading">Pengalaman Organisasi</h4>
+          <p class="resume-detail">
+            <strong>HMTI (Himpunan Mahasiswa Teknik Informatika)</strong> — Bendahara | 2025–2026
           </p>
         </div>
 
@@ -1248,11 +1275,19 @@
         </div>
 
         <div class="resume-section">
-          <h4 class="resume-heading">Keahlian Teknis</h4>
+          <h4 class="resume-heading">Hard Skills</h4>
           <p class="resume-detail">
-            <strong>Bahasa &amp; Ekosistem:</strong> JavaScript, PHP, Python, SQL, HTML5, CSS3, Node.js, Laravel.<br>
-            <strong>Basis Data &amp; Konsep:</strong> MySQL/MariaDB, Normalisasi Database, Skema Relasional, ACID Transactions.<br>
-            <strong>Metodologi &amp; Tools:</strong> Decision Support Systems (AHP, TOPSIS, CBR), Git, RESTful API Architecture.
+            <strong>Bahasa &amp; Ekosistem:</strong> HTML, CSS, JavaScript, PHP, Java, React, Vite, Tailwind CSS, Laravel, Node.js, Express.js<br>
+            <strong>API &amp; Auth:</strong> REST API, JWT Authentication<br>
+            <strong>Basis Data:</strong> MySQL, PostgreSQL, MongoDB<br>
+            <strong>Tools &amp; Deploy:</strong> Git/GitHub, VS Code, Postman, Vercel, Railway
+          </p>
+        </div>
+
+        <div class="resume-section">
+          <h4 class="resume-heading">Soft Skills</h4>
+          <p class="resume-detail">
+            Team collaboration, adaptable, good communication, fast learner, meticulous, responsible, time management
           </p>
         </div>
 

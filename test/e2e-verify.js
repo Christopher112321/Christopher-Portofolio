@@ -205,15 +205,13 @@ function runTier1() {
   reporter.record(1, 'T1.10', 'Hero CTA buttons ("Lihat Proyek" & "Ringkasan Resume") preserved', hasHeroCta1 && hasHeroCta2);
 
   const hasMetric1 = containsText(html, 'DOMISILI & KAMPUS') && containsText(html, 'Semarang / Unika Soegijapranata');
-  const hasMetric2 = containsText(html, 'BIDANG FOKUS') && containsText(html, 'DSS, Web Systems, Databases, AI/ML');
-  reporter.record(1, 'T1.11', 'Hero quick metrics strip preserved (Campus & Focus Areas)', hasMetric1 && hasMetric2);
+  reporter.record(1, 'T1.11', 'Hero quick metrics strip preserved (Campus)', hasMetric1);
 
   // 1.4 Navigation Systems
   const hasNavLinks = /href=["']#home["']/i.test(html) &&
                      /href=["']#about["']/i.test(html) &&
-                     /href=["']#portfolio["']/i.test(html) &&
-                     /href=["']#contact["']/i.test(html);
-  reporter.record(1, 'T1.12', 'Pill navbar preserves navigation links to #home, #about, #portfolio, #contact', hasNavLinks);
+                     /href=["']#portfolio["']/i.test(html);
+  reporter.record(1, 'T1.12', 'Pill navbar preserves navigation links to #home, #about, #portfolio', hasNavLinks);
 
   const hasSideRail = /id=["']sideNavRail["']/i.test(html) &&
                       /id=["']sideNavPrev["']/i.test(html) &&
@@ -243,7 +241,7 @@ function runTier1() {
   reporter.record(1, 'T1.18', 'Skills matrix Category 3 & 4 (Database Layer & DSS Methodology) preserved', skillsDatabase && skillsDSS);
 
   // 1.6 Portfolio Case Studies
-  const hasPortfolioHeader = containsText(html, '02 // SELECTED ENGINEERING PROJECTS') && containsText(html, 'Studi Kasus Proyek & Implementasi Sistem');
+  const hasPortfolioHeader = (containsText(html, '02 // SELECTED ENGINEERING PROJECTS') || containsText(html, '03 // SELECTED ENGINEERING PROJECTS')) && containsText(html, 'Studi Kasus Proyek & Implementasi Sistem');
   reporter.record(1, 'T1.19', 'Portfolio section heading and subtitle preserved', hasPortfolioHeader);
 
   // Project 01: InternMatch DSS
@@ -270,9 +268,10 @@ function runTier1() {
   const hasEmail = (containsText(html, 'royallee523@gmail.com') || containsText(html, 'chris.theo.purnomo@gmail.com')) && /id=["']btnCopyEmail["']/i.test(html);
   const hasGithub = containsText(html, 'github.com/Christopher112321') || containsText(html, 'github.com/christophertheop');
   const hasLinkedin = containsText(html, 'linkedin.com/in/christopher-theo-purnomo');
+  const hasInstagram = containsText(html, 'instagram.com/chris_theo.p') || containsText(html, '@chris_theo.p');
   const hasContactResume = /id=["']btnContactResume["']/i.test(html) || containsText(html, 'DOWNLOAD RESUME');
-  const contactOk = hasContactHeader && hasEmail && hasGithub && hasLinkedin;
-  reporter.record(1, 'T1.22', 'Contact section preserves direct channels (Email, GitHub, LinkedIn, Resume CTA)', contactOk);
+  const contactOk = hasContactHeader && hasEmail && hasGithub && hasLinkedin && hasInstagram;
+  reporter.record(1, 'T1.22', 'Contact section preserves direct channels (Email, GitHub, LinkedIn, Instagram, Resume CTA)', contactOk);
 
   // 1.8 Footer
   const hasFooterAuthor = containsText(html, 'Christopher Theo Purnomo') && containsText(html, 'Unika Soegijapranata');
@@ -283,7 +282,7 @@ function runTier1() {
   const hasModalTitle = containsText(html, 'CURRICULUM VITAE OVERVIEW');
   const hasModalEdu = containsText(html, 'Pendidikan') && containsText(html, 'Universitas Katolik Soegijapranata');
   const hasModalProjects = containsText(html, 'InternMatch DSS') && containsText(html, 'MySembako');
-  const hasModalSkills = containsText(html, 'Keahlian Teknis') && containsText(html, 'JavaScript, PHP, Python, SQL');
+  const hasModalSkills = containsText(html, 'Hard Skills') && containsText(html, 'JavaScript');
   const hasModalCta = containsText(html, 'Minta Berkas CV Lengkap (.PDF)') && /href=["']mailto:chris\.theo\.purnomo@gmail\.com[^"']*["']/i.test(html);
   const modalOk = hasModalTitle && hasModalEdu && hasModalProjects && hasModalSkills && hasModalCta;
   reporter.record(1, 'T1.24', 'Curriculum Vitae modal preserves education, projects, skills, and PDF mailto CTA', modalOk);

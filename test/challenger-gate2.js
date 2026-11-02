@@ -314,7 +314,7 @@ const contentChecks = [
   { id: 'CONT:HOME:CTA_PROJ', desc: 'Hero CTA button "Lihat Proyek" pointing to #portfolio', check: () => textContains(htmlContent, 'Lihat Proyek') && /href=["']#portfolio["']/i.test(htmlContent) },
   { id: 'CONT:HOME:CTA_RES', desc: 'Hero CTA button "Ringkasan Resume" triggering modal', check: () => textContains(htmlContent, 'Ringkasan Resume') && /id=["']btnOpenResume["']/i.test(htmlContent) },
   { id: 'CONT:HOME:METRIC_DOM', desc: 'Hero metric "DOMISILI & KAMPUS: Semarang / Unika Soegijapranata"', check: () => textContains(htmlContent, 'DOMISILI & KAMPUS') && textContains(htmlContent, 'Semarang / Unika Soegijapranata') },
-  { id: 'CONT:HOME:METRIC_FOK', desc: 'Hero metric "BIDANG FOKUS: DSS, Web Systems, Databases, AI/ML"', check: () => textContains(htmlContent, 'BIDANG FOKUS') && textContains(htmlContent, 'DSS, Web Systems, Databases, AI/ML') },
+  { id: 'CONT:HOME:METRIC_FOK', desc: 'Hero metric "BIDANG FOKUS" cleanly removed from hero', check: () => !/class="hero-stats"[\s\S]*?BIDANG FOKUS/i.test(htmlContent) },
 
   // SECTION 2: ABOUT ME
   { id: 'CONT:ABOUT:HEAD', desc: 'About section header "01 // ABOUT ME"', check: () => textContains(htmlContent, '01 // ABOUT ME') },
