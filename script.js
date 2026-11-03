@@ -902,10 +902,55 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
 
+    // Touch gesture tracking for mobile scroll vs swipe vs tap
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let isTouchDragging = false;
+
+    card.addEventListener('touchstart', (e) => {
+      if (e.touches && e.touches.length > 0) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        isTouchDragging = false;
+      }
+    }, { passive: true });
+
+    card.addEventListener('touchmove', (e) => {
+      if (e.touches && e.touches.length > 0) {
+        const diffX = Math.abs(e.touches[0].clientX - touchStartX);
+        const diffY = Math.abs(e.touches[0].clientY - touchStartY);
+        if (diffX > 8 || diffY > 8) {
+          isTouchDragging = true;
+        }
+      }
+    }, { passive: true });
+
+    card.addEventListener('touchend', (e) => {
+      if (e.changedTouches && e.changedTouches.length > 0) {
+        const deltaX = e.changedTouches[0].clientX - touchStartX;
+        const deltaY = e.changedTouches[0].clientY - touchStartY;
+        // Horizontal swipe gesture detection (min 45px swipe with low vertical deflection)
+        if (Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY) * 1.4) {
+          if (deltaX < -45 && !card.classList.contains('is-flipped')) {
+            flipCardTo(card, true);
+          } else if (deltaX > 45 && card.classList.contains('is-flipped')) {
+            flipCardTo(card, false);
+          }
+        }
+      }
+      setTimeout(() => { isTouchDragging = false; }, 60);
+    }, { passive: true });
+
     // Handle card click navigation
     card.addEventListener('click', (e) => {
       // Do not navigate if user clicked an explicit link, button, or nested interactive control
       if (e.target.closest('a, button')) return;
+
+      // Do not navigate if user was scrolling or dragging on touch devices
+      if (isTouchDragging) {
+        isTouchDragging = false;
+        return;
+      }
 
       // Do not navigate if card is currently flipped to back face
       if (card.classList.contains('is-flipped')) return;
@@ -964,7 +1009,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const flipTriggers = document.querySelectorAll('.btn-flip-trigger');
   const flipBackButtons = document.querySelectorAll('.btn-flip-back');
 
-  const flipCardTo = (card, flipToBack) => {
+  function flipCardTo(card, flipToBack) {
     if (!card) return;
     if (flipToBack) {
       card.classList.add('is-flipped');

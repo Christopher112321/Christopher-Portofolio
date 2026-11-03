@@ -1626,11 +1626,13 @@ main {
   grid-template-rows: 1fr;
   transform-style: preserve-3d;
   -webkit-transform-style: preserve-3d;
+  -webkit-transition: -webkit-transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
   transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
 }
 
 .case-study-card.is-flipped .flip-card-inner {
+  -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
 }
 
@@ -1672,12 +1674,14 @@ main {
 }
 
 .flip-card-front {
+  -webkit-transform: rotateY(0deg);
   transform: rotateY(0deg);
   z-index: 2;
   pointer-events: auto;
 }
 
 .flip-card-back {
+  -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
   z-index: 1;
   pointer-events: none;
@@ -3309,7 +3313,6 @@ main {
     transform: none !important;
   }
 
-  .case-study-card:hover,
   .skill-card:hover,
   .focus-card:hover,
   .contact-stack-card:hover {

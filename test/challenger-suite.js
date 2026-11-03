@@ -59,13 +59,13 @@ function httpGet(urlPath) {
   });
 }
 
-async function waitForServer(maxAttempts = 30) {
+async function waitForServer(maxAttempts = 60) {
   for (let i = 0; i < maxAttempts; i++) {
     try {
       await httpGet('/');
       return true;
     } catch {
-      await new Promise(r => setTimeout(r, 200));
+      await new Promise(r => setTimeout(r, 250));
     }
   }
   return false;
@@ -190,9 +190,9 @@ async function runEmpiricalChallenger() {
   previewProcess.stderr?.on('data', data => serverOutput += data.toString());
 
   try {
-    const isReady = await waitForServer(40);
+    const isReady = await waitForServer(60);
     if (!isReady) {
-      throw new Error(`Preview server failed to respond on ${BASE_URL} within 8s. Output:\n${serverOutput}`);
+      throw new Error(`Preview server failed to respond on ${BASE_URL} within 15s. Output:\n${serverOutput}`);
     }
     console.log(`  ${colors.green}Preview server active on ${BASE_URL}${colors.reset}`);
 

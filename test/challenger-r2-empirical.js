@@ -569,13 +569,30 @@ async function runEmpiricalVerification() {
       html.includes(item.url)
     );
 
-    // 2. Perform live HTTP probe
-    try {
-      const response = await fetch(item.url, {
-        method: 'GET',
-        headers: { 'User-Agent': 'EmpiricalChallenger/2.0' },
-        signal: AbortSignal.timeout(15000)
-      });
+    // 2. Perform live HTTP probe with retry for cold start / latency tolerance
+    let response = null;
+    let lastErr = null;
+    const maxAttempts = 3;
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      try {
+        response = await fetch(item.url, {
+          method: 'GET',
+          headers: { 'User-Agent': 'EmpiricalChallenger/2.0' },
+          signal: AbortSignal.timeout(20000)
+        });
+        if (response && response.status === 200) {
+          lastErr = null;
+          break;
+        }
+      } catch (err) {
+        lastErr = err;
+        if (attempt < maxAttempts) {
+          await new Promise(r => setTimeout(r, 1200));
+        }
+      }
+    }
+
+    if (response) {
       h.assert(
         'Suite 4: Project Links & Live Connectivity',
         `URL:HTTP_LIVE_${item.id}`,
@@ -583,13 +600,13 @@ async function runEmpiricalVerification() {
         response.status === 200,
         `HTTP Status was ${response.status}`
       );
-    } catch (err) {
+    } else {
       h.assert(
         'Suite 4: Project Links & Live Connectivity',
         `URL:HTTP_LIVE_${item.id}`,
         `${item.name} live HTTP connection succeeded`,
         false,
-        err.message
+        lastErr ? lastErr.message : 'Unknown network failure'
       );
     }
   }
