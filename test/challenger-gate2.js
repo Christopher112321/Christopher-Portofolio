@@ -310,17 +310,17 @@ const contentChecks = [
   { id: 'CONT:HOME:NAME', desc: 'Hero name "Christopher Theo Purnomo"', check: () => textContains(htmlContent, 'Christopher Theo Purnomo') },
   { id: 'CONT:HOME:AFFIL', desc: 'Hero affiliation "Unika Soegijapranata — Semarang"', check: () => textContains(htmlContent, 'Unika Soegijapranata — Semarang') },
   { id: 'CONT:HOME:ROLE', desc: 'Hero role "Informatics Student & Software Builder"', check: () => textContains(htmlContent, 'Informatics Student & Software Builder') },
-  { id: 'CONT:HOME:BIO', desc: 'Hero narrative bio paragraph', check: () => textContains(htmlContent, 'Berfokus pada pengembangan sistem web end-to-end, pemodelan Decision Support System (DSS)') },
+  { id: 'CONT:HOME:BIO', desc: 'Hero narrative bio cleanly removed per user request', check: () => !/class=["']hero-summary["']/i.test(htmlContent) },
   { id: 'CONT:HOME:CTA_PROJ', desc: 'Hero CTA button "Lihat Proyek" pointing to #portfolio', check: () => textContains(htmlContent, 'Lihat Proyek') && /href=["']#portfolio["']/i.test(htmlContent) },
   { id: 'CONT:HOME:CTA_RES', desc: 'Hero CTA button "Ringkasan Resume" triggering modal', check: () => textContains(htmlContent, 'Ringkasan Resume') && /id=["']btnOpenResume["']/i.test(htmlContent) },
-  { id: 'CONT:HOME:METRIC_DOM', desc: 'Hero metric "DOMISILI & KAMPUS: Semarang / Unika Soegijapranata"', check: () => textContains(htmlContent, 'DOMISILI & KAMPUS') && textContains(htmlContent, 'Semarang / Unika Soegijapranata') },
+  { id: 'CONT:HOME:METRIC_DOM', desc: 'Hero metric "DOMISILI & KAMPUS: Jepara & Unika Soegijapranata"', check: () => textContains(htmlContent, 'DOMISILI & KAMPUS') && textContains(htmlContent, 'Jepara') && textContains(htmlContent, 'Unika Soegijapranata') },
   { id: 'CONT:HOME:METRIC_FOK', desc: 'Hero metric "BIDANG FOKUS" cleanly removed from hero', check: () => !/class="hero-stats"[\s\S]*?BIDANG FOKUS/i.test(htmlContent) },
 
   // SECTION 2: ABOUT ME
   { id: 'CONT:ABOUT:HEAD', desc: 'About section header "01 // ABOUT ME"', check: () => textContains(htmlContent, '01 // ABOUT ME') },
   { id: 'CONT:ABOUT:TAGLINE', desc: 'About tagline "Rekayasa Berbasis Logika, Keputusan Berbasis Data."', check: () => textContains(htmlContent, 'Rekayasa Berbasis Logika, Keputusan Berbasis Data.') },
-  { id: 'CONT:ABOUT:P1', desc: 'About narrative paragraph 1 verbatim text', check: () => textContains(htmlContent, 'Saya adalah mahasiswa Teknik Informatika di Universitas Katolik Soegijapranata (Unika Soegijapranata) Semarang') },
-  { id: 'CONT:ABOUT:P2', desc: 'About narrative paragraph 2 verbatim text', check: () => textContains(htmlContent, 'Bagi saya, perangkat lunak yang bernilai bukan tentang tumpukan buzzword atau antarmuka yang dibuat-buat') },
+  { id: 'CONT:ABOUT:P1', desc: 'About narrative paragraph updated text', check: () => textContains(htmlContent, 'Saya mahasiswa Teknik Informatika semester 5 di Universitas Katolik Soegijapranata Semarang dengan IPK 3,94') },
+  { id: 'CONT:ABOUT:P2', desc: 'About narrative mentions React, Node.js, Express, Laravel', check: () => textContains(htmlContent, 'React, Node.js, Express, dan Laravel') },
 
   // SECTION 3: FOCUS AREAS
   { id: 'CONT:FOCUS:DSS', desc: 'Focus Area 01 "Decision Support Systems"', check: () => textContains(htmlContent, '01') && textContains(htmlContent, 'Decision Support Systems') && textContains(htmlContent, 'Merancang engine analitis multi-kriteria') },

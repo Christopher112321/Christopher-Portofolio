@@ -197,15 +197,14 @@ function runTier1() {
   const hasRole = containsText(html, 'Informatics Student') && containsText(html, 'Software Builder');
   reporter.record(1, 'T1.8', 'Hero role subheading preserves "Informatics Student & Software Builder"', hasRole);
 
-  const heroBioString = 'Berfokus pada pengembangan sistem web end-to-end, pemodelan Decision Support System (DSS)';
-  reporter.record(1, 'T1.9', 'Hero narrative bio paragraph preserved', containsText(html, heroBioString));
+  reporter.record(1, 'T1.9', 'Hero narrative bio cleanly removed per user request', !containsText(html, 'hero-summary'));
 
   const hasHeroCta1 = containsText(html, 'Lihat Proyek') && /href=["']#portfolio["']/i.test(html);
   const hasHeroCta2 = containsText(html, 'Ringkasan Resume') && /id=["']btnOpenResume["']/i.test(html);
   reporter.record(1, 'T1.10', 'Hero CTA buttons ("Lihat Proyek" & "Ringkasan Resume") preserved', hasHeroCta1 && hasHeroCta2);
 
-  const hasMetric1 = containsText(html, 'DOMISILI & KAMPUS') && containsText(html, 'Semarang / Unika Soegijapranata');
-  reporter.record(1, 'T1.11', 'Hero quick metrics strip preserved (Campus)', hasMetric1);
+  const hasMetric1 = containsText(html, 'DOMISILI & KAMPUS') && containsText(html, 'Jepara') && containsText(html, 'Unika Soegijapranata');
+  reporter.record(1, 'T1.11', 'Hero quick metrics strip preserved (Campus & Domisili)', hasMetric1);
 
   // 1.4 Navigation Systems
   const hasNavLinks = /href=["']#home["']/i.test(html) &&
@@ -222,9 +221,8 @@ function runTier1() {
   const hasAboutHeader = containsText(html, '01 // ABOUT ME') && containsText(html, 'Rekayasa Berbasis Logika, Keputusan Berbasis Data.');
   reporter.record(1, 'T1.14', 'About section header and tagline preserved', hasAboutHeader);
 
-  const aboutPara1 = 'Saya adalah mahasiswa Teknik Informatika di Universitas Katolik Soegijapranata (Unika Soegijapranata) Semarang';
-  const aboutPara2 = 'Bagi saya, perangkat lunak yang bernilai bukan tentang tumpukan buzzword atau antarmuka yang dibuat-buat';
-  reporter.record(1, 'T1.15', 'About section narrative paragraphs 1 and 2 preserved verbatim', containsText(html, aboutPara1) && containsText(html, aboutPara2));
+  const aboutPara = 'Saya mahasiswa Teknik Informatika semester 5 di Universitas Katolik Soegijapranata Semarang dengan IPK 3,94';
+  reporter.record(1, 'T1.15', 'About section narrative paragraph updated per user request', containsText(html, aboutPara));
 
   // Focus Area Cards
   const hasFocus1 = containsText(html, 'Decision Support Systems') && containsText(html, 'Merancang engine analitis multi-kriteria');
