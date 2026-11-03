@@ -351,13 +351,17 @@ const contentChecks = [
   { id: 'CONT:MS:CONTEXT', desc: 'MySembako problem context preserved', check: () => textContains(htmlContent, 'Pengelolaan pasokan sembako pada toko fisik konvensional rentan terhadap pencatatan ganda') },
   { id: 'CONT:MS:CONTRIB', desc: 'MySembako engineering contributions preserved', check: () => textContains(htmlContent, 'merancang skema database relasional untuk entitas barang, satuan multi-kemasan, log pergerakan stok') },
   { id: 'CONT:MS:CHALLENGE', desc: 'MySembako challenges & technical solutions preserved', check: () => textContains(htmlContent, 'Menjaga integritas data saat transaksi penjualan berlangsung serentak (concurrency control)') },
-  { id: 'CONT:MS:LIVE_URL', desc: 'MySembako live deployment URL (https://mysembako.vercel.app)', check: () => /href=["']https:\/\/mysembako\.vercel\.app\/?["']/i.test(htmlContent) },
+  { id: 'CONT:MS:LIVE_URL', desc: 'MySembako live deployment URL (https://my-sembako.vercel.app/)', check: () => /href=["']https:\/\/my-sembako\.vercel\.app\/?["']/i.test(htmlContent) },
   { id: 'CONT:MS:GITHUB_URL', desc: 'MySembako GitHub repo URL (https://github.com/Christopher112321/mysembako)', check: () => /href=["']https:\/\/github\.com\/Christopher112321\/mysembako\/?["']/i.test(htmlContent) },
 
 // SECTION 6b: ENERGY SCHEDULER CASE STUDY
   { id: 'CONT:ES:ID', desc: 'Energy Scheduler container maintains ID #project-energy-scheduler', check: () => /id=["']project-energy-scheduler["']/i.test(htmlContent) },
   { id: 'CONT:ES:TITLE', desc: 'Energy Scheduler title preserved verbatim', check: () => textContains(htmlContent, 'Energy Scheduler') },
   { id: 'CONT:ES:TAGLINE', desc: 'Energy Scheduler subtitle/tagline preserved', check: () => textContains(htmlContent, 'Sistem Penjadwalan Mingguan Otomatis Berbasis Genetic Algorithm') },
+  { id: 'CONT:ES:CONTEXT', desc: 'Energy Scheduler problem context preserved', check: () => textContains(htmlContent, 'Mahasiswa dan profesional sering mengalami kelelahan kognitif dan burnout') },
+  { id: 'CONT:ES:CONTRIB', desc: 'Energy Scheduler engineering contributions preserved', check: () => textContains(htmlContent, 'pemodelan kromosom 168-slot mingguan') },
+  { id: 'CONT:ES:METHOD', desc: 'Energy Scheduler GA methodology preserved', check: () => textContains(htmlContent, 'Genetic Algorithm (GA)') },
+  { id: 'CONT:ES:CHALLENGE', desc: 'Energy Scheduler challenges & technical solutions preserved', check: () => textContains(htmlContent, 'konvergensi algoritma genetik dalam waktu singkat') },
   { id: 'CONT:ES:LIVE_URL', desc: 'Energy Scheduler live deployment URL (https://energy-scheduler-ashy.vercel.app)', check: () => /href=["']https:\/\/energy-scheduler-ashy\.vercel\.app\/?["']/i.test(htmlContent) },
   { id: 'CONT:ES:GITHUB_URL', desc: 'Energy Scheduler GitHub repo URL (https://github.com/Christopher112321/energy-scheduler)', check: () => /href=["']https:\/\/github\.com\/Christopher112321\/energy-scheduler\/?["']/i.test(htmlContent) },
 

@@ -325,8 +325,9 @@ function createMockEvent(type, key = '') {
 }
 
 const internCard = buildProjectCard('project-internmatch', 'https://internmatch-dss.vercel.app', 'https://github.com/Christopher112321/internmatch-dss');
-const sembakoCard = buildProjectCard('project-mysembako', 'https://mysembako.vercel.app', 'https://github.com/Christopher112321/mysembako');
-const controller = wireFlipCardControllers([internCard, sembakoCard]);
+const sembakoCard = buildProjectCard('project-mysembako', 'https://my-sembako.vercel.app/', 'https://github.com/Christopher112321/mysembako');
+const energyCard = buildProjectCard('project-energy-scheduler', 'https://energy-scheduler-ashy.vercel.app', 'https://github.com/Christopher112321/energy-scheduler');
+const controller = wireFlipCardControllers([internCard, sembakoCard, energyCard]);
 
 // Test 1.1: 100 rapid flip cycles alternating triggers
 let cycleStable = true;
@@ -370,6 +371,24 @@ for (let i = 0; i < 50; i++) {
 }
 
 assert(keyCycleStable, 'ADV:1.2', 'Rapid 50-cycle keyboard (Enter & Space) flip triggers on #project-mysembako succeed cleanly');
+
+// Test 1.2b: Rapid keyboard flip triggers (Enter and Space) on #project-energy-scheduler
+let energyKeyCycleStable = true;
+for (let i = 0; i < 50; i++) {
+  const k = keys[i % 2];
+  energyCard.btnFlipTrigger.dispatchEvent(createMockEvent('keydown', k));
+  if (!energyCard.card.classList.has('is-flipped')) {
+    energyKeyCycleStable = false;
+    break;
+  }
+  energyCard.btnFlipBack.dispatchEvent(createMockEvent('keydown', k));
+  if (energyCard.card.classList.has('is-flipped')) {
+    energyKeyCycleStable = false;
+    break;
+  }
+}
+
+assert(energyKeyCycleStable, 'ADV:1.2b', 'Rapid 50-cycle keyboard (Enter & Space) flip triggers on #project-energy-scheduler succeed cleanly');
 
 // Test 1.3: Burst toggling (spamming trigger without flipping back)
 for (let i = 0; i < 30; i++) {

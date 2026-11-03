@@ -299,7 +299,7 @@ function runTier1() {
   // 1.10 Project Deployment & Repository Links
   const hasInternMatchVercel = /href=["']https:\/\/internmatch-dss\.vercel\.app\/?["']/i.test(html);
   const hasInternMatchGithub = /href=["']https:\/\/github\.com\/Christopher112321\/internmatch-dss\/?["']/i.test(html);
-  const hasMySembakoVercel = /href=["']https:\/\/mysembako\.vercel\.app\/?["']/i.test(html);
+  const hasMySembakoVercel = /href=["']https:\/\/my-sembako\.vercel\.app\/?["']/i.test(html);
   const hasMySembakoGithub = /href=["']https:\/\/github\.com\/Christopher112321\/mysembako\/?["']/i.test(html);
   const hasEnergySchedulerVercel = /href=["']https:\/\/energy-scheduler-ashy\.vercel\.app\/?["']/i.test(html);
   const hasEnergySchedulerGithub = /href=["']https:\/\/github\.com\/Christopher112321\/energy-scheduler\/?["']/i.test(html);
@@ -308,7 +308,7 @@ function runTier1() {
     projectLinksOk ? null : `Vercel: IM=${hasInternMatchVercel}, MS=${hasMySembakoVercel}, ES=${hasEnergySchedulerVercel}; GitHub: IM=${hasInternMatchGithub}, MS=${hasMySembakoGithub}, ES=${hasEnergySchedulerGithub}`);
 
   // 1.11 External Link Security Attributes
-  const projectLinkRegex = /<a\s+[^>]*href=["']https:\/\/(?:internmatch-dss\.vercel\.app|mysembako\.vercel\.app|energy-scheduler-ashy\.vercel\.app|github\.com\/Christopher112321\/[^"']+)["'][^>]*>/gi;
+  const projectLinkRegex = /<a\s+[^>]*href=["']https:\/\/(?:internmatch-dss\.vercel\.app|my-sembako\.vercel\.app|energy-scheduler-ashy\.vercel\.app|github\.com\/Christopher112321\/[^"']+)["'][^>]*>/gi;
   const projectLinkMatches = [...html.matchAll(projectLinkRegex)];
   const allSecureExternal = projectLinkMatches.length >= 6 && projectLinkMatches.every(m => {
     const tag = m[0];
@@ -528,7 +528,7 @@ function runTier3() {
 
   const imInteractive = /data-href=["']https:\/\/internmatch-dss\.vercel\.app\/?["']/i.test(imCardTag) &&
                         /tabindex=["']0["']/i.test(imCardTag);
-  const msInteractive = /data-href=["']https:\/\/mysembako\.vercel\.app\/?["']/i.test(msCardTag) &&
+  const msInteractive = /data-href=["']https:\/\/my-sembako\.vercel\.app\/?["']/i.test(msCardTag) &&
                         /tabindex=["']0["']/i.test(msCardTag);
   const esInteractive = /data-href=["']https:\/\/energy-scheduler-ashy\.vercel\.app\/?["']/i.test(esCardTag) &&
                         /tabindex=["']0["']/i.test(esCardTag);
@@ -540,7 +540,7 @@ function runTier3() {
                             js.includes('project-mysembako') &&
                             js.includes('project-energy-scheduler') &&
                             js.includes('https://internmatch-dss.vercel.app') &&
-                            js.includes('https://mysembako.vercel.app') &&
+                            js.includes('https://my-sembako.vercel.app') &&
                             js.includes('https://energy-scheduler-ashy.vercel.app') &&
                             js.includes('window.open(');
   const hasEventIsolation = js.includes("e.target.closest('a, button')") &&

@@ -140,7 +140,7 @@ assert(
 // 2.2 Direct live Vercel app button on front face
 const imFrontLive = html.includes('href="https://internmatch-dss.vercel.app"') &&
                     html.includes('class="btn-live-project"');
-const msFrontLive = html.includes('href="https://mysembako.vercel.app"') &&
+const msFrontLive = (html.includes('href="https://my-sembako.vercel.app/"') || html.includes('href="https://my-sembako.vercel.app"')) &&
                     html.includes('class="btn-live-project"');
 const esFrontLive = html.includes('href="https://energy-scheduler-ashy.vercel.app"') &&
                     html.includes('class="btn-live-project"');

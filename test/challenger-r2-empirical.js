@@ -552,7 +552,7 @@ async function runEmpiricalVerification() {
   console.log(`\n--- SUITE 4: Project Integrity & Live URL Connectivity ---`);
 
   const LIVE_URLS = [
-    { id: 'MYSEMBAKO_LIVE', url: 'https://mysembako.vercel.app', name: 'MySembako Live Vercel' },
+    { id: 'MYSEMBAKO_LIVE', url: 'https://my-sembako.vercel.app/', name: 'MySembako Live Vercel' },
     { id: 'INTERNMATCH_LIVE', url: 'https://internmatch-dss.vercel.app', name: 'InternMatch DSS Live Vercel' },
     { id: 'ENERGY_SCHEDULER_LIVE', url: 'https://energy-scheduler-ashy.vercel.app', name: 'Energy Scheduler Live Vercel' },
     { id: 'MYSEMBAKO_GITHUB', url: 'https://github.com/Christopher112321/mysembako', name: 'MySembako GitHub Repo' },

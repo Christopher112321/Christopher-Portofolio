@@ -287,7 +287,7 @@ assert(hasRestThreshold && springHaltsLoop, 'ADV:3.9', 'About spotlight spring p
 // 3.7 Project Card Navigation & Live Links
 const hasImVercel = indexHtmlContent.includes('https://internmatch-dss.vercel.app');
 const hasImGithub = indexHtmlContent.includes('https://github.com/Christopher112321/internmatch-dss');
-const hasMsVercel = indexHtmlContent.includes('https://mysembako.vercel.app');
+const hasMsVercel = indexHtmlContent.includes('https://my-sembako.vercel.app');
 const hasMsGithub = indexHtmlContent.includes('https://github.com/Christopher112321/mysembako');
 const hasEsVercel = indexHtmlContent.includes('https://energy-scheduler-ashy.vercel.app');
 const hasEsGithub = indexHtmlContent.includes('https://github.com/Christopher112321/energy-scheduler');
@@ -306,7 +306,7 @@ assert(hasCardEnterActivation, 'ADV:3.12', 'Project cards support keyboard navig
 
 // 3.10 Accessible Project Card Attributes
 const hasCardA11y = /id=["']project-internmatch["'][^>]*data-href=["']https:\/\/internmatch-dss\.vercel\.app["'][^>]*tabindex=["']0["']/i.test(indexHtmlContent) &&
-                    /id=["']project-mysembako["'][^>]*data-href=["']https:\/\/mysembako\.vercel\.app["'][^>]*tabindex=["']0["']/i.test(indexHtmlContent) &&
+                    /id=["']project-mysembako["'][^>]*data-href=["']https:\/\/my-sembako\.vercel\.app\/?["'][^>]*tabindex=["']0["']/i.test(indexHtmlContent) &&
                     /id=["']project-energy-scheduler["'][^>]*data-href=["']https:\/\/energy-scheduler-ashy\.vercel\.app["'][^>]*tabindex=["']0["']/i.test(indexHtmlContent);
 assert(hasCardA11y, 'ADV:3.13', 'Project cards configure data-href and tabindex="0" accessibility attributes');
 

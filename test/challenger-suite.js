@@ -385,12 +385,12 @@ async function runEmpiricalChallenger() {
   const esTag = esCardMatch ? esCardMatch[0] : '';
 
   const hasCardDataHref = imTag.includes('https://internmatch-dss.vercel.app') &&
-                          msTag.includes('https://mysembako.vercel.app') &&
+                          msTag.includes('https://my-sembako.vercel.app') &&
                           esTag.includes('https://energy-scheduler-ashy.vercel.app');
   const hasCardTabindex = imTag.includes('tabindex="0"') && msTag.includes('tabindex="0"') && esTag.includes('tabindex="0"');
 
   const hasDistVercelLinks = distHtmlContent.includes('https://internmatch-dss.vercel.app') &&
-                             distHtmlContent.includes('https://mysembako.vercel.app') &&
+                             distHtmlContent.includes('https://my-sembako.vercel.app') &&
                              distHtmlContent.includes('https://energy-scheduler-ashy.vercel.app');
   const hasDistGithubLinks = distHtmlContent.includes('https://github.com/Christopher112321/internmatch-dss') &&
                              distHtmlContent.includes('https://github.com/Christopher112321/mysembako') &&
@@ -426,7 +426,7 @@ async function runEmpiricalChallenger() {
     if (fs.existsSync(jsPath)) {
       const prodJs = fs.readFileSync(jsPath, 'utf8');
       const hasProdCards = prodJs.includes('project-internmatch') && prodJs.includes('project-mysembako') && prodJs.includes('project-energy-scheduler');
-      const hasProdUrls = prodJs.includes('https://internmatch-dss.vercel.app') && prodJs.includes('https://mysembako.vercel.app') && prodJs.includes('https://energy-scheduler-ashy.vercel.app');
+      const hasProdUrls = prodJs.includes('https://internmatch-dss.vercel.app') && prodJs.includes('https://my-sembako.vercel.app') && prodJs.includes('https://energy-scheduler-ashy.vercel.app');
       const hasProdIsolation = prodJs.includes('stopPropagation');
       const hasSelectionGuard = prodJs.includes('getSelection');
       const hasAuxClick = prodJs.includes('auxclick');
