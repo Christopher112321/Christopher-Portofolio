@@ -360,7 +360,7 @@ async function runEmpiricalChallenger() {
     { label: 'Project 2 Features', query: 'FIFO' },
     { label: 'Contact Email', query: 'chris.theo.purnomo@gmail.com' },
     { label: 'GitHub Handle', query: 'github.com/christophertheop' },
-    { label: 'LinkedIn Profile', query: 'linkedin.com/in/christopher-theo-purnomo' },
+    { label: 'LinkedIn Profile', query: 'linkedin.com/in/christopher-theo-66763a387' },
     { label: 'Instagram Handle', query: '@chris_theo.p' }
   ];
 

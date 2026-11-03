@@ -369,7 +369,7 @@ const contentChecks = [
   { id: 'CONT:CONTACT:HEAD', desc: 'Contact section header "03 // DIRECT CHANNELS"', check: () => textContains(htmlContent, '03 // DIRECT CHANNELS') && textContains(htmlContent, 'Mari Terhubung dan Berdiskusi') },
   { id: 'CONT:CONTACT:EMAIL', desc: 'Contact channel 1: Email (chris.theo.purnomo@gmail.com) with copy button', check: () => textContains(htmlContent, 'chris.theo.purnomo@gmail.com') && /id=["']btnCopyEmail["']/i.test(htmlContent) },
   { id: 'CONT:CONTACT:GITHUB', desc: 'Contact channel 2: GitHub (github.com/christophertheop)', check: () => textContains(htmlContent, 'github.com/christophertheop') },
-  { id: 'CONT:CONTACT:LINKEDIN', desc: 'Contact channel 3: LinkedIn (linkedin.com/in/christopher-theo-purnomo)', check: () => textContains(htmlContent, 'linkedin.com/in/christopher-theo-purnomo') },
+  { id: 'CONT:CONTACT:LINKEDIN', desc: 'Contact channel 3: LinkedIn', check: () => textContains(htmlContent, 'linkedin.com/in/christopher-theo-66763a387') || textContains(htmlContent, 'linkedin.com/in/christopher-theo-purnomo') },
   { id: 'CONT:CONTACT:IG', desc: 'Contact channel 4: Instagram (@chris_theo.p)', check: () => textContains(htmlContent, '@chris_theo.p') && /href=["']https:\/\/instagram\.com\/chris_theo\.p\/?["']/i.test(htmlContent) },
 
   // SECTION 8: CV MODAL

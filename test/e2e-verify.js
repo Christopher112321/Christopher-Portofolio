@@ -276,7 +276,7 @@ function runTier1() {
   const hasContactHeader = (containsText(html, '03 // DIRECT CHANNELS') && containsText(html, 'Mari Terhubung dan Berdiskusi')) || (containsText(html, 'GET IN TOUCH') && containsText(html, "LET'S WORK TOGETHER"));
   const hasEmail = (containsText(html, 'royallee523@gmail.com') || containsText(html, 'chris.theo.purnomo@gmail.com')) && /id=["']btnCopyEmail["']/i.test(html);
   const hasGithub = containsText(html, 'github.com/Christopher112321') || containsText(html, 'github.com/christophertheop');
-  const hasLinkedin = containsText(html, 'linkedin.com/in/christopher-theo-purnomo');
+  const hasLinkedin = containsText(html, 'linkedin.com/in/christopher-theo-66763a387') || containsText(html, 'linkedin.com/in/christopher-theo-purnomo');
   const hasInstagram = containsText(html, 'instagram.com/chris_theo.p') || containsText(html, '@chris_theo.p');
   const hasContactResume = /id=["']btnContactResume["']/i.test(html) || containsText(html, 'DOWNLOAD RESUME');
   const contactOk = hasContactHeader && hasEmail && hasGithub && hasLinkedin && hasInstagram;

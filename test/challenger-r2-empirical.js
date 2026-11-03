@@ -466,7 +466,7 @@ async function runEmpiricalVerification() {
     'Suite 2: Contact Section Interactivity',
     'CONTACT:LINKEDIN_CARD',
     'Card 03 LINKEDIN points to https://linkedin.com/in/christopher-theo-purnomo with target="_blank"',
-    /<a[^>]*href=["']https:\/\/linkedin\.com\/in\/christopher-theo-purnomo["'][^>]*target=["']_blank["'][^>]*rel=["']noopener noreferrer["']/.test(html)
+    (/<a[^>]*href=["']https:\/\/(?:www\.)?linkedin\.com\/in\/christopher-theo-66763a387\/?["'][^>]*target=["']_blank["'][^>]*rel=["']noopener noreferrer["']/.test(html) || /<a[^>]*href=["']https:\/\/linkedin\.com\/in\/christopher-theo-purnomo["'][^>]*target=["']_blank["'][^>]*rel=["']noopener noreferrer["']/.test(html))
   );
 
   h.assert(
