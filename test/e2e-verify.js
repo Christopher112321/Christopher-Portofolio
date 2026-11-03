@@ -173,8 +173,8 @@ function runTier1() {
   reporter.record(1, 'T1.3', 'Meta author preserves "Christopher Theo Purnomo"', hasAuthorMeta);
 
   const hasOgTitle = /<meta\s+property="og:title"\s+content="[^"]*Christopher\s+Theo\s+Purnomo[^"]*"/i.test(html);
-  const hasOgDesc = /<meta\s+property="og:description"\s+content="[^"]*InternMatch\s+DSS[^"]*MySembako[^"]*"/i.test(html);
-  reporter.record(1, 'T1.4', 'OpenGraph metadata preserves title and projects (InternMatch, MySembako)', hasOgTitle && hasOgDesc,
+  const hasOgDesc = /<meta\s+property="og:description"\s+content="[^"]*InternMatch\s+DSS[^"]*MySembako[^"]*Energy\s+Scheduler[^"]*"/i.test(html);
+  reporter.record(1, 'T1.4', 'OpenGraph metadata preserves title and projects (InternMatch, MySembako, Energy Scheduler)', hasOgTitle && hasOgDesc,
     hasOgTitle && hasOgDesc ? null : `OG Title: ${hasOgTitle}, OG Desc: ${hasOgDesc}`);
 
   // 1.2 Core Layout Sections
@@ -263,6 +263,15 @@ function runTier1() {
   const mySembakoOk = hasMySembakoTitle && hasMySembakoTagline && hasMySembakoProblem && hasMySembakoStack && hasMySembakoResults;
   reporter.record(1, 'T1.21', 'Case Study 2 (MySembako) content, database schema, and operational features preserved', mySembakoOk);
 
+  // Project 03: Energy Scheduler
+  const hasEnergySchedulerTitle = containsText(html, 'Energy Scheduler');
+  const hasEnergySchedulerTagline = containsText(html, 'Genetic Algorithm') && containsText(html, 'Energi Harian');
+  const hasEnergySchedulerProblem = containsText(html, 'burnout') || containsText(html, 'kelelahan kognitif');
+  const hasEnergySchedulerStack = containsText(html, 'Genetic Algorithm') && containsText(html, 'React');
+  const hasEnergySchedulerResults = containsText(html, 'skor fitness') || containsText(html, 'jadwal mingguan');
+  const energySchedulerOk = hasEnergySchedulerTitle && hasEnergySchedulerTagline && hasEnergySchedulerProblem && hasEnergySchedulerStack && hasEnergySchedulerResults;
+  reporter.record(1, 'T1.21b', 'Case Study 3 (Energy Scheduler) content, GA algorithm, and operational features preserved', energySchedulerOk);
+
   // 1.7 Contact Section
   const hasContactHeader = (containsText(html, '03 // DIRECT CHANNELS') && containsText(html, 'Mari Terhubung dan Berdiskusi')) || (containsText(html, 'GET IN TOUCH') && containsText(html, "LET'S WORK TOGETHER"));
   const hasEmail = (containsText(html, 'royallee523@gmail.com') || containsText(html, 'chris.theo.purnomo@gmail.com')) && /id=["']btnCopyEmail["']/i.test(html);
@@ -281,7 +290,7 @@ function runTier1() {
   // 1.9 CV Modal Content
   const hasModalTitle = containsText(html, 'CURRICULUM VITAE OVERVIEW');
   const hasModalEdu = containsText(html, 'Pendidikan') && containsText(html, 'Universitas Katolik Soegijapranata');
-  const hasModalProjects = containsText(html, 'InternMatch DSS') && containsText(html, 'MySembako');
+  const hasModalProjects = containsText(html, 'InternMatch DSS') && containsText(html, 'MySembako') && containsText(html, 'Energy Scheduler');
   const hasModalSkills = containsText(html, 'Hard Skills') && containsText(html, 'JavaScript');
   const hasModalCta = containsText(html, 'Minta Berkas CV Lengkap (.PDF)') && /href=["']mailto:chris\.theo\.purnomo@gmail\.com[^"']*["']/i.test(html);
   const modalOk = hasModalTitle && hasModalEdu && hasModalProjects && hasModalSkills && hasModalCta;
@@ -292,14 +301,16 @@ function runTier1() {
   const hasInternMatchGithub = /href=["']https:\/\/github\.com\/Christopher112321\/internmatch-dss\/?["']/i.test(html);
   const hasMySembakoVercel = /href=["']https:\/\/mysembako\.vercel\.app\/?["']/i.test(html);
   const hasMySembakoGithub = /href=["']https:\/\/github\.com\/Christopher112321\/mysembako\/?["']/i.test(html);
-  const projectLinksOk = hasInternMatchVercel && hasInternMatchGithub && hasMySembakoVercel && hasMySembakoGithub;
+  const hasEnergySchedulerVercel = /href=["']https:\/\/energy-scheduler-ashy\.vercel\.app\/?["']/i.test(html);
+  const hasEnergySchedulerGithub = /href=["']https:\/\/github\.com\/Christopher112321\/energy-scheduler\/?["']/i.test(html);
+  const projectLinksOk = hasInternMatchVercel && hasInternMatchGithub && hasMySembakoVercel && hasMySembakoGithub && hasEnergySchedulerVercel && hasEnergySchedulerGithub;
   reporter.record(1, 'T1.25', 'Case studies include explicit live Vercel deployments and GitHub repository links', projectLinksOk,
-    projectLinksOk ? null : `Vercel: IM=${hasInternMatchVercel}, MS=${hasMySembakoVercel}; GitHub: IM=${hasInternMatchGithub}, MS=${hasMySembakoGithub}`);
+    projectLinksOk ? null : `Vercel: IM=${hasInternMatchVercel}, MS=${hasMySembakoVercel}, ES=${hasEnergySchedulerVercel}; GitHub: IM=${hasInternMatchGithub}, MS=${hasMySembakoGithub}, ES=${hasEnergySchedulerGithub}`);
 
   // 1.11 External Link Security Attributes
-  const projectLinkRegex = /<a\s+[^>]*href=["']https:\/\/(?:internmatch-dss\.vercel\.app|mysembako\.vercel\.app|github\.com\/Christopher112321\/[^"']+)["'][^>]*>/gi;
+  const projectLinkRegex = /<a\s+[^>]*href=["']https:\/\/(?:internmatch-dss\.vercel\.app|mysembako\.vercel\.app|energy-scheduler-ashy\.vercel\.app|github\.com\/Christopher112321\/[^"']+)["'][^>]*>/gi;
   const projectLinkMatches = [...html.matchAll(projectLinkRegex)];
-  const allSecureExternal = projectLinkMatches.length >= 4 && projectLinkMatches.every(m => {
+  const allSecureExternal = projectLinkMatches.length >= 6 && projectLinkMatches.every(m => {
     const tag = m[0];
     return /target=["']_blank["']/i.test(tag) && /rel=["'][^"']*noopener[^"']*noreferrer[^"']*["']/i.test(tag);
   });
@@ -510,21 +521,27 @@ function runTier3() {
   // 3.12 Project Card Interactive Attributes
   const internMatchCard = html.match(/<article[^>]*id=["']project-internmatch["'][^>]*>/i);
   const mySembakoCard = html.match(/<article[^>]*id=["']project-mysembako["'][^>]*>/i);
+  const energySchedulerCard = html.match(/<article[^>]*id=["']project-energy-scheduler["'][^>]*>/i);
   const imCardTag = internMatchCard ? internMatchCard[0] : '';
   const msCardTag = mySembakoCard ? mySembakoCard[0] : '';
+  const esCardTag = energySchedulerCard ? energySchedulerCard[0] : '';
 
   const imInteractive = /data-href=["']https:\/\/internmatch-dss\.vercel\.app\/?["']/i.test(imCardTag) &&
                         /tabindex=["']0["']/i.test(imCardTag);
   const msInteractive = /data-href=["']https:\/\/mysembako\.vercel\.app\/?["']/i.test(msCardTag) &&
                         /tabindex=["']0["']/i.test(msCardTag);
-  reporter.record(3, 'T3.12', 'Project cards configure data-href and tabindex="0" for keyboard/click accessibility', imInteractive && msInteractive,
-    imInteractive && msInteractive ? null : `IM card: ${imCardTag}, MS card: ${msCardTag}`);
+  const esInteractive = /data-href=["']https:\/\/energy-scheduler-ashy\.vercel\.app\/?["']/i.test(esCardTag) &&
+                        /tabindex=["']0["']/i.test(esCardTag);
+  reporter.record(3, 'T3.12', 'Project cards configure data-href and tabindex="0" for keyboard/click accessibility', imInteractive && msInteractive && esInteractive,
+    imInteractive && msInteractive && esInteractive ? null : `IM card: ${imCardTag}, MS card: ${msCardTag}, ES card: ${esCardTag}`);
 
   // 3.13 Project Card Navigation & Event Isolation Logic in JS
   const hasCardNavigation = js.includes('project-internmatch') &&
                             js.includes('project-mysembako') &&
+                            js.includes('project-energy-scheduler') &&
                             js.includes('https://internmatch-dss.vercel.app') &&
                             js.includes('https://mysembako.vercel.app') &&
+                            js.includes('https://energy-scheduler-ashy.vercel.app') &&
                             js.includes('window.open(');
   const hasEventIsolation = js.includes("e.target.closest('a, button')") &&
                             js.includes('e.stopPropagation()');

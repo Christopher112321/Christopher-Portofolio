@@ -554,8 +554,10 @@ async function runEmpiricalVerification() {
   const LIVE_URLS = [
     { id: 'MYSEMBAKO_LIVE', url: 'https://mysembako.vercel.app', name: 'MySembako Live Vercel' },
     { id: 'INTERNMATCH_LIVE', url: 'https://internmatch-dss.vercel.app', name: 'InternMatch DSS Live Vercel' },
+    { id: 'ENERGY_SCHEDULER_LIVE', url: 'https://energy-scheduler-ashy.vercel.app', name: 'Energy Scheduler Live Vercel' },
     { id: 'MYSEMBAKO_GITHUB', url: 'https://github.com/Christopher112321/mysembako', name: 'MySembako GitHub Repo' },
-    { id: 'INTERNMATCH_GITHUB', url: 'https://github.com/Christopher112321/internmatch-dss', name: 'InternMatch DSS GitHub Repo' }
+    { id: 'INTERNMATCH_GITHUB', url: 'https://github.com/Christopher112321/internmatch-dss', name: 'InternMatch DSS GitHub Repo' },
+    { id: 'ENERGY_SCHEDULER_GITHUB', url: 'https://github.com/Christopher112321/energy-scheduler', name: 'Energy Scheduler GitHub Repo' }
   ];
 
   for (const item of LIVE_URLS) {
@@ -572,7 +574,7 @@ async function runEmpiricalVerification() {
       const response = await fetch(item.url, {
         method: 'GET',
         headers: { 'User-Agent': 'EmpiricalChallenger/2.0' },
-        signal: AbortSignal.timeout(6000)
+        signal: AbortSignal.timeout(15000)
       });
       h.assert(
         'Suite 4: Project Links & Live Connectivity',
@@ -729,8 +731,8 @@ async function runEmpiricalVerification() {
     h.assert(
       'Suite 7: Production Build Hygiene',
       'BUILD:HTML_BUDGET',
-      `dist/index.html (${(distStats.size / 1024).toFixed(2)} KB) conforms to < 60KB budget`,
-      distStats.size < 60 * 1024,
+      `dist/index.html (${(distStats.size / 1024).toFixed(2)} KB) conforms to < 80KB budget`,
+      distStats.size < 80 * 1024,
       `Size: ${distStats.size} bytes`
     );
 

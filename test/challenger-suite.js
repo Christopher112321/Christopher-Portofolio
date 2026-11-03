@@ -155,8 +155,8 @@ async function runEmpiricalChallenger() {
 
   const htmlBuffer = fs.readFileSync(distHtmlPath);
   const htmlGzip = zlib.gzipSync(htmlBuffer);
-  const htmlBudgetOk = htmlBuffer.length < 60 * 1024; // < 60KB uncompressed budget
-  record('Budget', `Production HTML (${(htmlBuffer.length / 1024).toFixed(2)} KB, gzip ${(htmlGzip.length / 1024).toFixed(2)} KB) under 60KB budget`, htmlBudgetOk);
+  const htmlBudgetOk = htmlBuffer.length < 80 * 1024; // < 80KB uncompressed budget (3 projects)
+  record('Budget', `Production HTML (${(htmlBuffer.length / 1024).toFixed(2)} KB, gzip ${(htmlGzip.length / 1024).toFixed(2)} KB) under 80KB budget`, htmlBudgetOk);
 
   // Check JS syntax
   let jsSyntaxValid = false;
@@ -379,17 +379,22 @@ async function runEmpiricalChallenger() {
   // Test 4.4: Project Cards Interactive & Live Links Verification in dist/index.html
   const imCardMatch = distHtmlContent.match(/<article[^>]*id=["']project-internmatch["'][^>]*>/i);
   const msCardMatch = distHtmlContent.match(/<article[^>]*id=["']project-mysembako["'][^>]*>/i);
+  const esCardMatch = distHtmlContent.match(/<article[^>]*id=["']project-energy-scheduler["'][^>]*>/i);
   const imTag = imCardMatch ? imCardMatch[0] : '';
   const msTag = msCardMatch ? msCardMatch[0] : '';
+  const esTag = esCardMatch ? esCardMatch[0] : '';
 
   const hasCardDataHref = imTag.includes('https://internmatch-dss.vercel.app') &&
-                          msTag.includes('https://mysembako.vercel.app');
-  const hasCardTabindex = imTag.includes('tabindex="0"') && msTag.includes('tabindex="0"');
+                          msTag.includes('https://mysembako.vercel.app') &&
+                          esTag.includes('https://energy-scheduler-ashy.vercel.app');
+  const hasCardTabindex = imTag.includes('tabindex="0"') && msTag.includes('tabindex="0"') && esTag.includes('tabindex="0"');
 
   const hasDistVercelLinks = distHtmlContent.includes('https://internmatch-dss.vercel.app') &&
-                             distHtmlContent.includes('https://mysembako.vercel.app');
+                             distHtmlContent.includes('https://mysembako.vercel.app') &&
+                             distHtmlContent.includes('https://energy-scheduler-ashy.vercel.app');
   const hasDistGithubLinks = distHtmlContent.includes('https://github.com/Christopher112321/internmatch-dss') &&
-                             distHtmlContent.includes('https://github.com/Christopher112321/mysembako');
+                             distHtmlContent.includes('https://github.com/Christopher112321/mysembako') &&
+                             distHtmlContent.includes('https://github.com/Christopher112321/energy-scheduler');
 
   const cardIntegrityOk = hasCardDataHref && hasCardTabindex && hasDistVercelLinks && hasDistGithubLinks;
   record('Forensic', 'Interactive project card attributes (data-href, tabindex) and live Vercel/GitHub links verified in dist/index.html', cardIntegrityOk,
@@ -420,8 +425,8 @@ async function runEmpiricalChallenger() {
     const jsPath = path.join(ROOT_DIR, 'dist', jsAssetRel.replace(/^\//, ''));
     if (fs.existsSync(jsPath)) {
       const prodJs = fs.readFileSync(jsPath, 'utf8');
-      const hasProdCards = prodJs.includes('project-internmatch') && prodJs.includes('project-mysembako');
-      const hasProdUrls = prodJs.includes('https://internmatch-dss.vercel.app') && prodJs.includes('https://mysembako.vercel.app');
+      const hasProdCards = prodJs.includes('project-internmatch') && prodJs.includes('project-mysembako') && prodJs.includes('project-energy-scheduler');
+      const hasProdUrls = prodJs.includes('https://internmatch-dss.vercel.app') && prodJs.includes('https://mysembako.vercel.app') && prodJs.includes('https://energy-scheduler-ashy.vercel.app');
       const hasProdIsolation = prodJs.includes('stopPropagation');
       const hasSelectionGuard = prodJs.includes('getSelection');
       const hasAuxClick = prodJs.includes('auxclick');

@@ -10,7 +10,7 @@
 
   <!-- OpenGraph Meta Tags -->
   <meta property="og:title" content="Christopher Theo Purnomo — Portfolio & Engineering Projects">
-  <meta property="og:description" content="Portofolio personal dan studi kasus teknis proyek: InternMatch DSS dan MySembako.">
+  <meta property="og:description" content="Portofolio personal dan studi kasus teknis proyek: InternMatch DSS, MySembako, dan Energy Scheduler.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="/assets/christopher-base.jpg">
 
@@ -568,7 +568,7 @@
 
 
     <!-- =======================================================================
-         PORTFOLIO SECTION (Studi Kasus Teknis: InternMatch DSS & MySembako)
+         PORTFOLIO SECTION (Studi Kasus Teknis: InternMatch DSS, MySembako, & Energy Scheduler)
          ======================================================================= -->
     <section id="portfolio" class="section portfolio-section snap-section">
       <div class="container">
@@ -1047,6 +1047,254 @@
             </div>
           </article>
 
+          <!-- PROYEK 3: ENERGY SCHEDULER (3D LIQUID GLASS FLIP CARD) -->
+          <article class="case-study-card flip-card-wrapper" id="project-energy-scheduler" data-anim="fade-up" data-anim-delay="4" data-href="https://energy-scheduler-ashy.vercel.app" tabindex="0" role="link" aria-label="Energy Scheduler — Klik untuk membuka demo live">
+            <div class="flip-card-inner">
+
+              <!-- FRONT FACE: Liquid Glass Visual Preview & Direct Live Action -->
+              <div class="flip-card-front glass-card-face">
+                <div class="glass-surface-layer" aria-hidden="true">
+                  <div class="glass-tint-layer"></div>
+                  <div class="glass-specular-edge"></div>
+                  <div class="glass-shimmer-band"></div>
+                </div>
+
+                <header class="case-header front-header">
+                  <div class="case-meta">
+                    <span class="case-id">PROJECT_03</span>
+                    <span class="case-status">ALGORITHMIC OPTIMIZATION &amp; WEB SYSTEM</span>
+                  </div>
+                  <h3 class="case-title">Energy Scheduler</h3>
+                  <p class="case-tagline">
+                    Sistem Penjadwalan Mingguan Otomatis Berbasis Genetic Algorithm &amp; Manajemen Energi Harian
+                  </p>
+                </header>
+
+                <!-- Visual Media Container (Energy Scheduler GA Engine Preview) -->
+                <div class="card-preview-media" aria-label="Visualisasi Arsitektur Engine Penjadwal Berbasis Energi &amp; GA">
+                  <div class="media-window-chrome">
+                    <div class="media-dots" aria-hidden="true">
+                      <span class="dot"></span>
+                      <span class="dot"></span>
+                      <span class="dot"></span>
+                    </div>
+                    <div class="media-title-bar">Energy Scheduler // GA Multi-Constraint Engine</div>
+                    <div class="media-status-badge">
+                      <span class="pulse-indicator" aria-hidden="true"></span>
+                      <span>OPTIMIZED</span>
+                    </div>
+                  </div>
+                  <div class="media-inner-visual">
+                    <div class="scheduler-preview-grid">
+                      <div class="inv-summary-cards">
+                        <div class="inv-mini-card">
+                          <span class="inv-label">CHROMOSOME SLOTS</span>
+                          <span class="inv-val">168 Jam (7D × 24H)</span>
+                        </div>
+                        <div class="inv-mini-card">
+                          <span class="inv-label">GA CONVERGENCE</span>
+                          <span class="inv-val">&lt; 3.2s (150 Gen)</span>
+                        </div>
+                        <div class="inv-mini-card">
+                          <span class="inv-label">ENERGY PROFILE</span>
+                          <span class="inv-val">Burnout Safe</span>
+                        </div>
+                      </div>
+                      <div class="scheduler-schedule-mock">
+                        <div class="scheduler-row-header">
+                          <span>HARI &amp; KEGIATAN TERJADWAL</span>
+                          <span>ALOKASI ENERGI</span>
+                          <span>STATUS ALOKASI</span>
+                        </div>
+                        <div class="scheduler-row">
+                          <div class="scheduler-activity">
+                            <span class="col-item">Senin // Kuliah + Lab + Self Study</span>
+                            <span class="scheduler-sub">Fixed: 08:00–14:00 | GA Flexible: 16:00–18:00</span>
+                          </div>
+                          <div class="bar-container" aria-hidden="true"><div class="score-bar" style="width: 76%;"></div></div>
+                          <span class="col-status status-good">76% BALANCED</span>
+                        </div>
+                        <div class="scheduler-row">
+                          <div class="scheduler-activity">
+                            <span class="col-item">Selasa // Rekayasa Web + Istirahat</span>
+                            <span class="scheduler-sub">Fixed: 09:30–12:00 | GA Flexible: 14:00–16:00</span>
+                          </div>
+                          <div class="bar-container" aria-hidden="true"><div class="score-bar" style="width: 62%;"></div></div>
+                          <span class="col-status status-good">62% OPTIMAL</span>
+                        </div>
+                        <div class="scheduler-row">
+                          <div class="scheduler-activity">
+                            <span class="col-item">Rabu // Project Sprint + Olahraga</span>
+                            <span class="scheduler-sub">Fixed: 13:00–15:30 | GA Flexible: 16:30–18:30</span>
+                          </div>
+                          <div class="bar-container" aria-hidden="true"><div class="score-bar" style="width: 84%;"></div></div>
+                          <span class="col-status status-warn">84% PEAK SAFE</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="matrix-footer-stats">
+                      <div class="stat-pill"><span class="stat-key">ALGORITHM:</span> <span class="stat-val">GENETIC ALGORITHM (GA)</span></div>
+                      <div class="stat-pill"><span class="stat-key">CONSTRAINTS:</span> <span class="stat-val">HARD + SOFT CAPACITY</span></div>
+                      <div class="stat-pill"><span class="stat-key">EXPORT:</span> <span class="stat-val">PDF + EXCEL</span></div>
+                      <div class="stat-pill"><span class="stat-key">DEPLOY:</span> <span class="stat-val">VERCEL LIVE</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Front Tech Stack Summary Tags -->
+                <div class="front-tech-summary">
+                  <div class="tag-cloud">
+                    <span class="tech-tag">React 18 / Vite</span>
+                    <span class="tech-tag">Node.js &amp; Express</span>
+                    <span class="tech-tag">Genetic Algorithm (GA)</span>
+                    <span class="tech-tag">Constraint Optimization</span>
+                    <span class="tech-tag">jsPDF &amp; XLSX Export</span>
+                  </div>
+                </div>
+
+                <!-- Front Action Controls (Direct Live App + Dedicated Flip Trigger) -->
+                <div class="front-actions-strip">
+                  <a href="https://energy-scheduler-ashy.vercel.app" target="_blank" rel="noopener noreferrer" class="btn-live-project" aria-label="Buka Live Demo Energy Scheduler di tab baru">
+                    <svg class="project-link-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                    <span>Kunjungi Live Demo</span>
+                  </a>
+
+                  <button type="button" class="btn-flip-trigger" aria-label="Lihat Detail Studi Kasus Energy Scheduler (Balik Kartu)" data-target="project-energy-scheduler">
+                    <span>Detail Studi Kasus</span>
+                    <svg class="flip-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M19.5 10.5A7.6 7.6 0 0 0 6.1 6.6L4.5 8.2"></path>
+                      <path d="M4.5 3.9v4.3h4.3"></path>
+                      <path d="M4.5 13.5a7.6 7.6 0 0 0 13.4 3.9l1.6-1.6"></path>
+                      <path d="M19.5 20.1v-4.3h-4.3"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- BACK FACE: Full Case Study Details -->
+              <div class="flip-card-back glass-card-face">
+                <div class="glass-surface-layer" aria-hidden="true">
+                  <div class="glass-tint-layer"></div>
+                  <div class="glass-specular-edge"></div>
+                  <div class="glass-shimmer-band"></div>
+                </div>
+
+                <header class="case-header back-header">
+                  <div class="back-header-meta">
+                    <div class="case-meta">
+                      <span class="case-id">PROJECT_03 // CASE STUDY</span>
+                      <span class="case-status">ALGORITHMIC OPTIMIZATION &amp; WEB SYSTEM</span>
+                    </div>
+                    <button type="button" class="btn-flip-back" aria-label="Kembali ke Tampak Depan" data-target="project-energy-scheduler">
+                      <svg class="flip-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                      </svg>
+                      <span>Kembali / Tutup</span>
+                    </button>
+                  </div>
+                  <h3 class="case-title">Energy Scheduler</h3>
+                  <p class="case-tagline">
+                    Sistem Penjadwalan Mingguan Otomatis Berbasis Genetic Algorithm &amp; Manajemen Energi Harian
+                  </p>
+                </header>
+
+                <div class="case-body-grid">
+                  <div class="case-column">
+                    <div class="detail-block">
+                      <h4 class="block-label">KONTEKS PERMASALAHAN</h4>
+                      <p class="block-content">
+                        Mahasiswa dan profesional sering mengalami kelelahan kognitif dan burnout akibat distribusi beban jadwal yang tidak merata. Penjadwalan manual sulit menyeimbangkan komitmen waktu tetap (perkuliahan, rapat kerja) dengan aktivitas fleksibel (belajar mandiri, olahraga, istirahat) sembari menghormati batas kapasitas energi harian (daily energy budget).
+                      </p>
+                    </div>
+
+                    <div class="detail-block">
+                      <h4 class="block-label">PERAN &amp; KONTRIBUSI SAYA</h4>
+                      <p class="block-content">
+                        Sebagai Full-Stack &amp; Algorithm Engineer yang merancang arsitektur end-to-end sistem: pemodelan kromosom 168-slot mingguan, formulasi multi-objektif fungsi fitness (keseimbangan energi harian vs slot tetap terkunci), modularisasi backend Node.js/Express, serta antarmuka visual responsif berbasis React dan Vite.
+                      </p>
+                    </div>
+
+                    <div class="detail-block">
+                      <h4 class="block-label">METODOLOGI GA &amp; ALOKASI ENERGI</h4>
+                      <p class="block-content">
+                        Mengaplikasikan <strong>Genetic Algorithm (GA)</strong> dengan kromosom 168 jam (7 hari × 24 jam). Menerapkan Tournament Selection, crossover selektif pada slot bebas (free slots), mutasi cerdas non-bentrok, serta evaluasi penalti untuk pelanggaran hard constraints (slot tabrakan) dan soft constraints (kapasitas energi harian, chunking, sleep window).
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="case-column">
+                    <div class="detail-block">
+                      <h4 class="block-label">STACK TEKNOLOGI</h4>
+                      <div class="tag-cloud">
+                        <span class="tech-tag">React 18 / Vite</span>
+                        <span class="tech-tag">Node.js &amp; Express</span>
+                        <span class="tech-tag">Genetic Algorithm (GA)</span>
+                        <span class="tech-tag">Constraint Optimization</span>
+                        <span class="tech-tag">jsPDF &amp; XLSX Export</span>
+                        <span class="tech-tag">RESTful API</span>
+                      </div>
+                    </div>
+
+                    <div class="detail-block">
+                      <h4 class="block-label">TANTANGAN REKAYASA &amp; SOLUSI</h4>
+                      <p class="block-content">
+                        Mencegah jebakan local optima dan memastikan konvergensi algoritma genetik dalam waktu singkat (&lt; 5 detik) di ruang kemungkinan 168 slot waktu. Solusi dirancang dengan mengunci slot jadwal tetap (hard constraints) dari mutasi acak, adaptasi parameter probabilitas variasi, dan mekanisme early convergence stopping.
+                      </p>
+                    </div>
+
+                    <div class="detail-block">
+                      <h4 class="block-label">HASIL &amp; INSIGHT UTAMA</h4>
+                      <p class="block-content">
+                        Sistem berhasil menghasilkan rekomendasi jadwal mingguan yang optimal dalam hitungan detik dengan skor fitness tinggi, mencegah kelebihan beban energi harian secara terukur, serta memfasilitasi ekspor jadwal langsung ke dokumen PDF dan lembar kerja Excel untuk penggunaan praktis.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <footer class="case-footer">
+                  <div class="case-links">
+                    <span class="link-label">Tautan Proyek:</span>
+                    <a href="https://energy-scheduler-ashy.vercel.app" target="_blank" rel="noopener noreferrer" class="project-link project-link-live" aria-label="Lihat Demo Live Energy Scheduler">
+                      <svg class="project-link-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                      <span>Live Demo</span>
+                    </a>
+                    <a href="https://github.com/Christopher112321/energy-scheduler" target="_blank" rel="noopener noreferrer" class="project-link project-link-github" aria-label="Lihat Repository GitHub Energy Scheduler">
+                      <svg class="project-link-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                      </svg>
+                      <span>GitHub Repo</span>
+                    </a>
+                  </div>
+                  <div class="case-footer-actions">
+                    <button type="button" class="btn-flip-back secondary" aria-label="Kembali ke Depan" data-target="project-energy-scheduler">
+                      <svg class="flip-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M19.5 10.5A7.6 7.6 0 0 0 6.1 6.6L4.5 8.2"></path>
+                        <path d="M4.5 3.9v4.3h4.3"></path>
+                        <path d="M4.5 13.5a7.6 7.6 0 0 0 13.4 3.9l1.6-1.6"></path>
+                        <path d="M19.5 20.1v-4.3h-4.3"></path>
+                      </svg>
+                      <span>Balik ke Depan</span>
+                    </button>
+                  </div>
+                  <div class="case-footer-note">
+                    <span>Fokus Sistem: Genetic Algorithm, Alokasi Energi &amp; Optimasi Multi-Kendala</span>
+                  </div>
+                </footer>
+              </div>
+
+            </div>
+          </article>
+
+
         </div>
       </div>
     </section>
@@ -1270,6 +1518,9 @@
             </li>
             <li>
               <strong>MySembako:</strong> Sistem manajemen inventaris dan transaksi sembako real-time dengan skema relasional ACID-compliant dan kontrol mutasi stok FIFO.
+            </li>
+            <li>
+              <strong>Energy Scheduler:</strong> Sistem penjadwalan mingguan otomatis berbasis Genetic Algorithm (GA) dan alokasi energi harian untuk optimasi jadwal bebas bentrok serta pencegahan burnout.
             </li>
           </ul>
         </div>

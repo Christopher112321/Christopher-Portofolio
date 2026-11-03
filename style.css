@@ -1979,6 +1979,63 @@ main {
   border: 1px dashed rgba(255, 255, 255, 0.2);
 }
 
+/* Energy Scheduler GA Engine Preview */
+.scheduler-preview-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.scheduler-schedule-mock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+
+.scheduler-row-header {
+  display: grid;
+  grid-template-columns: 2fr 1.3fr 1.1fr;
+  align-items: center;
+  color: var(--text-muted);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.scheduler-row {
+  display: grid;
+  grid-template-columns: 2fr 1.3fr 1.1fr;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.scheduler-activity {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  overflow: hidden;
+}
+
+.scheduler-activity .col-item {
+  color: var(--text-primary);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.scheduler-sub {
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
 /* Front Tech Summary */
 .front-tech-summary {
   margin-bottom: 1.5rem;
@@ -3003,6 +3060,11 @@ main {
   .inv-table-header,
   .inv-table-row {
     grid-template-columns: 1.5fr 1fr 1fr;
+  }
+  .scheduler-row-header,
+  .scheduler-row {
+    grid-template-columns: 1.5fr 1fr;
+    gap: 0.5rem;
   }
 
   .col-status {

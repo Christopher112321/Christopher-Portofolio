@@ -885,7 +885,8 @@ document.addEventListener('DOMContentLoaded', () => {
    * --------------------------------------------------------------------------- */
   const projectCardsConfig = [
     { id: 'project-internmatch', defaultUrl: 'https://internmatch-dss.vercel.app' },
-    { id: 'project-mysembako', defaultUrl: 'https://mysembako.vercel.app' }
+    { id: 'project-mysembako', defaultUrl: 'https://mysembako.vercel.app' },
+    { id: 'project-energy-scheduler', defaultUrl: 'https://energy-scheduler-ashy.vercel.app' }
   ];
 
   projectCardsConfig.forEach(({ id, defaultUrl }) => {
