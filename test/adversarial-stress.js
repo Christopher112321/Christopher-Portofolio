@@ -289,7 +289,9 @@ const hasImVercel = indexHtmlContent.includes('https://internmatch-dss.vercel.ap
 const hasImGithub = indexHtmlContent.includes('https://github.com/Christopher112321/internmatch-dss');
 const hasMsVercel = indexHtmlContent.includes('https://mysembako.vercel.app');
 const hasMsGithub = indexHtmlContent.includes('https://github.com/Christopher112321/mysembako');
-assert(hasImVercel && hasImGithub && hasMsVercel && hasMsGithub, 'ADV:3.10', 'Both project cards declare live Vercel deployments and GitHub repository URLs');
+const hasEsVercel = indexHtmlContent.includes('https://energy-scheduler-ashy.vercel.app');
+const hasEsGithub = indexHtmlContent.includes('https://github.com/Christopher112321/energy-scheduler');
+assert(hasImVercel && hasImGithub && hasMsVercel && hasMsGithub && hasEsVercel && hasEsGithub, 'ADV:3.10', 'All 3 project cards declare live Vercel deployments and GitHub repository URLs');
 
 // 3.8 Project Card Nested Link Event Isolation
 const hasNestedLinkStopPropagation = srcJsContent.includes('nestedLinks') &&
@@ -304,7 +306,8 @@ assert(hasCardEnterActivation, 'ADV:3.12', 'Project cards support keyboard navig
 
 // 3.10 Accessible Project Card Attributes
 const hasCardA11y = /id=["']project-internmatch["'][^>]*data-href=["']https:\/\/internmatch-dss\.vercel\.app["'][^>]*tabindex=["']0["']/i.test(indexHtmlContent) &&
-                    /id=["']project-mysembako["'][^>]*data-href=["']https:\/\/mysembako\.vercel\.app["'][^>]*tabindex=["']0["']/i.test(indexHtmlContent);
+                    /id=["']project-mysembako["'][^>]*data-href=["']https:\/\/mysembako\.vercel\.app["'][^>]*tabindex=["']0["']/i.test(indexHtmlContent) &&
+                    /id=["']project-energy-scheduler["'][^>]*data-href=["']https:\/\/energy-scheduler-ashy\.vercel\.app["'][^>]*tabindex=["']0["']/i.test(indexHtmlContent);
 assert(hasCardA11y, 'ADV:3.13', 'Project cards configure data-href and tabindex="0" accessibility attributes');
 
 // 3.11 Text Selection Drag Navigation Protection

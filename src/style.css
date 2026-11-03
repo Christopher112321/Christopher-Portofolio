@@ -1562,7 +1562,10 @@ main {
   padding: 0;
   position: relative;
   transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
   perspective: 1200px;
+  -webkit-perspective: 1200px;
+  touch-action: pan-y;
   box-shadow: none;
   cursor: pointer;
   transition: 
@@ -1611,6 +1614,7 @@ main {
    ============================================================================= */
 .flip-card-wrapper {
   perspective: 1200px;
+  -webkit-perspective: 1200px;
   width: 100%;
 }
 
@@ -1621,6 +1625,7 @@ main {
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
   transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
   transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
 }
@@ -1636,6 +1641,8 @@ main {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  touch-action: pan-y;
   border-radius: var(--radius-sm);
   background: rgba(14, 14, 17, 0.82);
   backdrop-filter: blur(20px) saturate(1.35) brightness(1.02);
@@ -3067,6 +3074,11 @@ main {
     gap: 0.5rem;
   }
 
+  .inv-table-header span:last-child,
+  .scheduler-row-header span:last-child {
+    display: none;
+  }
+
   .col-status {
     display: none;
   }
@@ -3334,5 +3346,43 @@ main {
 
   .pulse-indicator {
     animation: none !important;
+  }
+}
+
+
+/* --- Print Media Support --- */
+@media print {
+  #introScreen,
+  #bgCanvas,
+  #cursorDot,
+  #cursorRing,
+  .pill-navbar,
+  .side-nav-rail,
+  .btn-flip-trigger,
+  .btn-flip-back,
+  .modal-overlay {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  .case-study-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    perspective: none !important;
+    transform: none !important;
+  }
+
+  .flip-card-inner {
+    transform: none !important;
+  }
+
+  .flip-card-front {
+    position: relative !important;
+    backface-visibility: visible !important;
+    -webkit-backface-visibility: visible !important;
   }
 }

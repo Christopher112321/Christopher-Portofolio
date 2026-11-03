@@ -354,6 +354,13 @@ const contentChecks = [
   { id: 'CONT:MS:LIVE_URL', desc: 'MySembako live deployment URL (https://mysembako.vercel.app)', check: () => /href=["']https:\/\/mysembako\.vercel\.app\/?["']/i.test(htmlContent) },
   { id: 'CONT:MS:GITHUB_URL', desc: 'MySembako GitHub repo URL (https://github.com/Christopher112321/mysembako)', check: () => /href=["']https:\/\/github\.com\/Christopher112321\/mysembako\/?["']/i.test(htmlContent) },
 
+// SECTION 6b: ENERGY SCHEDULER CASE STUDY
+  { id: 'CONT:ES:ID', desc: 'Energy Scheduler container maintains ID #project-energy-scheduler', check: () => /id=["']project-energy-scheduler["']/i.test(htmlContent) },
+  { id: 'CONT:ES:TITLE', desc: 'Energy Scheduler title preserved verbatim', check: () => textContains(htmlContent, 'Energy Scheduler') },
+  { id: 'CONT:ES:TAGLINE', desc: 'Energy Scheduler subtitle/tagline preserved', check: () => textContains(htmlContent, 'Sistem Penjadwalan Mingguan Otomatis Berbasis Genetic Algorithm') },
+  { id: 'CONT:ES:LIVE_URL', desc: 'Energy Scheduler live deployment URL (https://energy-scheduler-ashy.vercel.app)', check: () => /href=["']https:\/\/energy-scheduler-ashy\.vercel\.app\/?["']/i.test(htmlContent) },
+  { id: 'CONT:ES:GITHUB_URL', desc: 'Energy Scheduler GitHub repo URL (https://github.com/Christopher112321/energy-scheduler)', check: () => /href=["']https:\/\/github\.com\/Christopher112321\/energy-scheduler\/?["']/i.test(htmlContent) },
+
   // SECTION 7: CONTACT CHANNELS
   { id: 'CONT:CONTACT:HEAD', desc: 'Contact section header "03 // DIRECT CHANNELS"', check: () => textContains(htmlContent, '03 // DIRECT CHANNELS') && textContains(htmlContent, 'Mari Terhubung dan Berdiskusi') },
   { id: 'CONT:CONTACT:EMAIL', desc: 'Contact channel 1: Email (chris.theo.purnomo@gmail.com) with copy button', check: () => textContains(htmlContent, 'chris.theo.purnomo@gmail.com') && /id=["']btnCopyEmail["']/i.test(htmlContent) },
@@ -365,7 +372,7 @@ const contentChecks = [
   { id: 'CONT:MODAL:ID', desc: 'CV modal maintains ID #resumeModal and accessibility attributes', check: () => /id=["']resumeModal["'][^>]*role=["']dialog["']/i.test(htmlContent) && /aria-modal=["']true["']/i.test(htmlContent) },
   { id: 'CONT:MODAL:TITLE', desc: 'CV modal title "CURRICULUM VITAE OVERVIEW"', check: () => textContains(htmlContent, 'CURRICULUM VITAE OVERVIEW') },
   { id: 'CONT:MODAL:EDU', desc: 'CV modal education: Universitas Katolik Soegijapranata, Teknik Informatika', check: () => textContains(htmlContent, 'Universitas Katolik Soegijapranata') && textContains(htmlContent, 'Teknik Informatika') },
-  { id: 'CONT:MODAL:PROJ', desc: 'CV modal projects: InternMatch DSS and MySembako featured', check: () => textContains(htmlContent, 'InternMatch DSS') && textContains(htmlContent, 'MySembako') },
+  { id: 'CONT:MODAL:PROJ', desc: 'CV modal projects: InternMatch DSS, MySembako, and Energy Scheduler featured', check: () => textContains(htmlContent, 'InternMatch DSS') && textContains(htmlContent, 'MySembako') && textContains(htmlContent, 'Energy Scheduler') },
   { id: 'CONT:MODAL:CTA', desc: 'CV modal PDF request CTA via mailto', check: () => textContains(htmlContent, 'Minta Berkas CV Lengkap (.PDF)') && /href=["']mailto:chris\.theo\.purnomo@gmail\.com[^"']*["']/i.test(htmlContent) },
 ];
 

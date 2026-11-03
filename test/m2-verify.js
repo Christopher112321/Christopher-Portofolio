@@ -98,22 +98,28 @@ assert(
   'M2:1.2',
   'Card 2 maintains ID #project-mysembako for backward compatibility'
 );
+assert(
+  /<article[^>]*id=["']project-energy-scheduler["']/i.test(html),
+  'M2:1.2b',
+  'Card 3 maintains ID #project-energy-scheduler'
+);
 
 // 1.2 Both cards have .flip-card-wrapper class
 const imCardTag = html.match(/<article[^>]*id=["']project-internmatch["'][^>]*>/i)?.[0] || '';
 const msCardTag = html.match(/<article[^>]*id=["']project-mysembako["'][^>]*>/i)?.[0] || '';
-const hasWrapperClasses = imCardTag.includes('flip-card-wrapper') && msCardTag.includes('flip-card-wrapper');
+const esCardTag = html.match(/<article[^>]*id=["']project-energy-scheduler["'][^>]*>/i)?.[0] || '';
+const hasWrapperClasses = imCardTag.includes('flip-card-wrapper') && msCardTag.includes('flip-card-wrapper') && esCardTag.includes('flip-card-wrapper');
 assert(hasWrapperClasses, 'M2:1.3', 'Both project cards contain .flip-card-wrapper class');
 
 // 1.3 Inner 3D stage .flip-card-inner exists in both cards
 const innerMatches = (html.match(/class=["'][^"']*flip-card-inner[^"']*["']/g) || []).length;
-assert(innerMatches >= 2, 'M2:1.4', `Both project cards contain .flip-card-inner container (found: ${innerMatches})`);
+assert(innerMatches >= 3, 'M2:1.4', `All project cards contain .flip-card-inner container (found: ${innerMatches})`);
 
 // 1.4 Both cards declare dual faces (.flip-card-front and .flip-card-back)
 const frontFaces = (html.match(/class=["'][^"']*flip-card-front[^"']*["']/g) || []).length;
 const backFaces = (html.match(/class=["'][^"']*flip-card-back[^"']*["']/g) || []).length;
 assert(
-  frontFaces >= 2 && backFaces >= 2,
+  frontFaces >= 3 && backFaces >= 3,
   'M2:1.5',
   `Dual face structure present (front faces: ${frontFaces}, back faces: ${backFaces})`
 );
@@ -126,7 +132,7 @@ console.log(`\n${colors.bold}${colors.cyan}--- SUITE 2: Front Face Controls & Vi
 // 2.1 Visual media preview containers present
 const previewMediaMatches = (html.match(/class=["'][^"']*card-preview-media[^"']*["']/g) || []).length;
 assert(
-  previewMediaMatches >= 2,
+  previewMediaMatches >= 3,
   'M2:2.1',
   `Visual media containers (.card-preview-media) present on both front faces (found: ${previewMediaMatches})`
 );
@@ -136,16 +142,18 @@ const imFrontLive = html.includes('href="https://internmatch-dss.vercel.app"') &
                     html.includes('class="btn-live-project"');
 const msFrontLive = html.includes('href="https://mysembako.vercel.app"') &&
                     html.includes('class="btn-live-project"');
+const esFrontLive = html.includes('href="https://energy-scheduler-ashy.vercel.app"') &&
+                    html.includes('class="btn-live-project"');
 assert(
-  imFrontLive && msFrontLive,
+  imFrontLive && msFrontLive && esFrontLive,
   'M2:2.2',
-  'Direct action buttons (.btn-live-project) for InternMatch DSS and MySembako present on front face'
+  'Direct action buttons (.btn-live-project) for all 3 projects present on front face'
 );
 
 // 2.3 Direct live buttons specify target="_blank" and rel="noopener noreferrer"
 const liveButtons = [...html.matchAll(/<a[^>]*class=["'][^"']*btn-live-project[^"']*["'][^>]*>/gi)].map(m => m[0]);
-const liveLinksTargetBlank = liveButtons.length >= 2 && liveButtons.every(tag => tag.includes('target="_blank"'));
-const liveLinksRelNoopener = liveButtons.length >= 2 && liveButtons.every(tag => tag.includes('rel="noopener noreferrer"'));
+const liveLinksTargetBlank = liveButtons.length >= 3 && liveButtons.every(tag => tag.includes('target="_blank"'));
+const liveLinksRelNoopener = liveButtons.length >= 3 && liveButtons.every(tag => tag.includes('rel="noopener noreferrer"'));
 assert(
   liveLinksTargetBlank && liveLinksRelNoopener,
   'M2:2.3',
@@ -155,7 +163,7 @@ assert(
 // 2.4 Dedicated flip trigger buttons (.btn-flip-trigger) on front face
 const flipTriggers = (html.match(/class=["'][^"']*btn-flip-trigger[^"']*["']/g) || []).length;
 assert(
-  flipTriggers >= 2,
+  flipTriggers >= 3,
   'M2:2.4',
   `Dedicated flip triggers (.btn-flip-trigger) present on both front faces (found: ${flipTriggers})`
 );
@@ -163,8 +171,9 @@ assert(
 // 2.5 Flip triggers have accessible labels and data-target attributes
 const imTriggerA11y = /class=["'][^"']*btn-flip-trigger[^"']*["'][^>]*data-target=["']project-internmatch["']/i.test(html);
 const msTriggerA11y = /class=["'][^"']*btn-flip-trigger[^"']*["'][^>]*data-target=["']project-mysembako["']/i.test(html);
+const esTriggerA11y = /class=["'][^"']*btn-flip-trigger[^"']*["'][^>]*data-target=["']project-energy-scheduler["']/i.test(html);
 assert(
-  imTriggerA11y && msTriggerA11y,
+  imTriggerA11y && msTriggerA11y && esTriggerA11y,
   'M2:2.5',
   'Flip triggers configure accessible data-target referencing respective project cards'
 );
@@ -208,19 +217,36 @@ assert(
   'MySembako: 100% case study text, database architecture, and operational features preserved verbatim'
 );
 
+// 3.2b Energy Scheduler 100% case study text preserved verbatim
+const esTextChunks = [
+  'Sistem Penjadwalan Mingguan Otomatis Berbasis Genetic Algorithm',
+  'distribusi beban jadwal yang tidak merata',
+  'pemodelan kromosom 168-slot mingguan',
+  'Genetic Algorithm (GA)',
+  'konvergensi algoritma genetik dalam waktu singkat',
+  'rekomendasi jadwal mingguan yang optimal dalam hitungan detik'
+];
+const esAllPreserved = esTextChunks.every(chunk => html.includes(chunk));
+assert(
+  esAllPreserved,
+  'M2:3.2b',
+  'Energy Scheduler: 100% case study text, GA optimization, and features preserved verbatim'
+);
+
 // 3.3 Prominent GitHub repository links on back face
 const hasImGithub = html.includes('https://github.com/Christopher112321/internmatch-dss');
 const hasMsGithub = html.includes('https://github.com/Christopher112321/mysembako');
+const hasEsGithub = html.includes('https://github.com/Christopher112321/energy-scheduler');
 assert(
-  hasImGithub && hasMsGithub,
+  hasImGithub && hasMsGithub && hasEsGithub,
   'M2:3.3',
-  'Prominent GitHub repository links present on both back faces'
+  'Prominent GitHub repository links present on all back faces'
 );
 
 // 3.4 Direct live Vercel app links on back face
 const backFaceLiveLinks = (html.match(/class=["'][^"']*project-link-live[^"']*["']/g) || []).length;
 assert(
-  backFaceLiveLinks >= 2,
+  backFaceLiveLinks >= 3,
   'M2:3.4',
   `Direct live demo links present on back faces for convenience (found: ${backFaceLiveLinks})`
 );
@@ -228,7 +254,7 @@ assert(
 // 3.5 Dedicated flip-back buttons (.btn-flip-back) on back face
 const flipBackButtons = (html.match(/class=["'][^"']*btn-flip-back[^"']*["']/g) || []).length;
 assert(
-  flipBackButtons >= 2,
+  flipBackButtons >= 3,
   'M2:3.5',
   `Dedicated flip-back buttons (.btn-flip-back) present on back faces (found: ${flipBackButtons})`
 );

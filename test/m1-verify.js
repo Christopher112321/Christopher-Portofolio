@@ -84,6 +84,7 @@ assert(html.includes('Christopher Theo Purnomo'), 'Author name preserved in HTML
 assert(html.includes('Unika Soegijapranata'), 'University affiliation preserved');
 assert(html.includes('InternMatch DSS'), 'InternMatch DSS project preserved');
 assert(html.includes('MySembako'), 'MySembako project preserved');
+assert(html.includes('Energy Scheduler'), 'Energy Scheduler project preserved');
 
 console.log('\n----------------------------------------------------------------------');
 console.log(`Results: ${passed} passed, ${failed} failed`);
